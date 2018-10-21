@@ -31,6 +31,7 @@ Route::group(['prefix' => 'auth'], function() {
 
 Route::get('user', 'Api\UserController@index')->middleware('jwt.auth');
 
+// Content-Type : application/x-www-form-urlencode
 Route::group(['middleware', 'jwt.auth'], function() {
     Route::get('favorites', 'Api\FavoriteController@index');
     Route::get('favorites/{id}', 'Api\FavoriteController@show');
