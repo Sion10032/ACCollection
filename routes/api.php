@@ -30,3 +30,11 @@ Route::group(['prefix' => 'auth'], function() {
 });
 
 Route::get('user', 'Api\UserController@index')->middleware('jwt.auth');
+
+Route::group(['middleware', 'jwt.auth'], function() {
+    Route::get('favorites', 'Api\FavoriteController@index');
+    Route::get('favorites/{id}', 'Api\FavoriteController@show');
+    Route::post('favorites', 'Api\FavoriteController@store');
+    Route::put('favorites/{id}', 'Api\FavoriteController@update');
+    Route::delete('favorites/{id}', 'Api\FavoriteController@delete');
+});

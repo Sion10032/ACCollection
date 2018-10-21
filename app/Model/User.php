@@ -15,11 +15,18 @@ class User extends Authenticatable implements JWTSubject
 
     protected $hidden = ['password','remember_token'];
 
-    public function getJWTIdentifier(){
+    public function favorite()
+    {
+        return $this->hasMany('App\Model\Favorite', 'userId', 'id');
+    }
+
+    public function getJWTIdentifier()
+    {
         return $this->getKey();
     }
 
-    public function getJWTCustomClaims(){
+    public function getJWTCustomClaims()
+    {
         return [];
     }
 }
