@@ -26,16 +26,24 @@ Route::prefix('SMH')->group(function () {
 Route::group(['prefix' => 'auth'], function() {
     Route::post('register', 'Api\RegisterController@register');
     Route::post('login', 'Api\Auth\LoginController@login');
-    Route::post('logout', 'Api\Auth\LoginController@logout')->middleware('jwt.auth');
+    Route::get('logout', 'Api\Auth\LoginController@logout')->middleware('jwt.auth');
 });
 
 Route::get('user', 'Api\UserController@index')->middleware('jwt.auth');
 
 // Content-Type : application/x-www-form-urlencode
-Route::group(['middleware', 'jwt.auth'], function() {
-    Route::get('favorites', 'Api\FavoriteController@index');
-    Route::get('favorites/{id}', 'Api\FavoriteController@show');
-    Route::post('favorites', 'Api\FavoriteController@store');
-    Route::put('favorites/{id}', 'Api\FavoriteController@update');
-    Route::delete('favorites/{id}', 'Api\FavoriteController@delete');
+Route::group(['prefix' => 'favorites','middleware', 'jwt.auth'], function() {
+    Route::get('', 'Api\FavoriteController@index');
+    Route::get('/{id}', 'Api\FavoriteController@show');
+    Route::post('', 'Api\FavoriteController@store');
+    Route::put('/{id}', 'Api\FavoriteController@update');
+    Route::delete('/{id}', 'Api\FavoriteController@delete');
+});
+
+Route::group(['prefix' => 'resources'], function() {
+    Route::get('', 'Api\ResourceController@index');
+    Route::get('/{id}', 'Api\ResourceController@show');
+    Route::post('', 'Api\ResourceController@store');
+    Route::put('/{id}', 'Api\ResourceController@update');
+    Route::delete('/{id}', 'Api\ResourceController@delete');
 });

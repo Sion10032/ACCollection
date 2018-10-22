@@ -16,7 +16,7 @@ class CreateResourcesTable extends Migration
         Schema::create('resources', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('url');
+            $table->string('bid');
             $table->integer('lastChapter');
         });
     }

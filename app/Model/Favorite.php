@@ -8,7 +8,7 @@ class Favorite extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['lastChapter', 'userId','resId'];
+    protected $fillable = ['lastChapter', 'userId', 'resId'];
 
     public function user()
     {
