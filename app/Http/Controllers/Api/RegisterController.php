@@ -18,7 +18,7 @@ class RegisterController extends Controller {
         if ($validator->fails()) {
             return response([
                 "message" => "Can't Create User", 
-                "status_code" => 404,
+                "status_code" => 400,
             ]);
         }
 
@@ -36,14 +36,14 @@ class RegisterController extends Controller {
         } else {
             return response([
                 "message" => "Create User Failed", 
-                "status_code" => 404,
+                "status_code" => 409,
             ]);
         }
     }
 
     protected function validator(array $data) {
         return Validator::make($data, [
-            'name' => 'required|string|unique:users',
+            'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6',
         ]);

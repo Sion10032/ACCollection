@@ -14,10 +14,12 @@
 ```
 作为header。（PUT请求一定要加上'Content-Type'）
 
+---
+
 ## auth
 
-- POST /api/auth/register \
-    Request:
+### POST /api/auth/register
+- Request:
     ```
     {
         'name' : 'name',
@@ -25,24 +27,25 @@
         'password' : 'password'
     }
     ```
-    Response:
+- Response:
     ```
-    // 注册成功返回201，失败返回404
+    // 注册成功返回201，失败返回400/409
+    // 理论上是不会返回409的
     {
         'message' : 'message',
-        'status_code' : 201/404,
+        'status_code' : 201/400/409,
     }
     ```
 
-- POST /api/auth/login \
-    Request:
+### POST /api/auth/login
+- Request:
     ```
     {
         'email' : 'email@email.email',
         'password' : 'password'
     }
     ```
-    Response:
+- Response:
     ```
     // 登录成功返回200并且返回token，否则返回401且不返回token
     {
@@ -52,8 +55,8 @@
     }
     ```
 
-- GET /api/auth/logout (要求验证)\
-    Response:
+### GET /api/auth/logout (要求验证)
+- Response:
     ```
     {
         'status_code' : 200,
@@ -61,8 +64,26 @@
     }
     ```
 
-- GET /api/user (要求验证)\
-    Response:
+### GET /api/users (要求验证)
+- Response:
+    ```
+    [
+        {
+            'status_code' : 200,
+            'user_data' : {
+                'id': id,
+                'name': 'name',
+                'email': "email@email.email",
+                'created_at': "2018-10-21 14:20:04",
+                'updated_at': "2018-10-21 14:20:04"
+            }
+        },
+        ...
+    ]
+    ```
+
+### GET /api/users/{id} (要求验证)
+- Response:
     ```
     {
         'status_code' : 200,
@@ -74,13 +95,19 @@
             'updated_at': "2018-10-21 14:20:04"
         }
     }
+    或者
+    {
+        'status_code': 404,
+        'message': 'User Not Found'
+    }
     ```
 
+---
 
 ## Favorite (要求验证)
 
-- GET /favorites \
-    Response:
+### GET /api/users/{uid}/favorites
+- Response:
     ```
     [
         {
@@ -93,8 +120,16 @@
     ]
     ```
 
-- GET /favorites/{id} \
-    Response:
+以下四个路由验证未通过则返回
+```
+{
+    'message': '403 Forbidden',
+    'status_code': 403
+}
+```
+
+### GET /api/users/{uid}/favorites/{id}
+- Response:
     ```
     {
         'id': 2,
@@ -104,8 +139,8 @@
     }
     ```
 
-- POST /favorites \
-    Request:
+### POST /api/users/{uid}/favorites
+- Request:
     ```
     {
         'url': 'url',
@@ -113,7 +148,7 @@
         'lastChapter': lastChapter(int)
     }
     ```
-    Response:
+- Response:
     ```
     // 成功返回201，失败返回404
     {
@@ -122,8 +157,8 @@
     }
     ```
 
-- PUT /favorites/{id} \
-    Resquest:
+### PUT /api/users/{uid}/favorites/{id}
+- Resquest:
     ```
     // 一般传id和lastChapter就行了
     {
@@ -134,8 +169,8 @@
     }
     ```
 
-- DELETE /favorites/{id} \
-    Response:
+### DELETE /api/users/{uid}/favorites/{id}
+- Response:
     ```
     {
         'message' : 'message',
@@ -143,11 +178,12 @@
     }
     ```
 
+---
 
 ## Resource
 
-- GET /resources \
-    Response:
+### GET /api/resources
+- Response:
     ```
     [
         {
@@ -160,8 +196,8 @@
     ]
     ```
 
-- GET /resources/{id} \
-    Response:
+### GET /api/resources/{id}
+- Response:
     ```
     {
         'id': 2,
@@ -171,8 +207,10 @@
     }
     ```
 
-- POST /resources \
-    Request:
+理论上下面3个api客户端不应该调用
+
+### POST /api/resources
+- Request:
     ```
     {
         'name': 'test',
@@ -180,7 +218,7 @@
         'lastChapter': 8
     }
     ```
-    Response:
+- Response:
     ```
     // 成功返回201，失败返回404
     {
@@ -189,8 +227,8 @@
     }
     ```
 
-- PUT /resources/{id} \
-    Resquest:
+### PUT /api/resources/{id}
+- Resquest:
     ```
     {
         'id': 2,
@@ -200,21 +238,22 @@
     }
     ```
 
-- DELETE /resources/{id} \
-    Response:
+### DELETE /api/resources/{id}
+- Response:
     ```
     {
         'message' : 'message',
         'status_code' : 200
     }
- 
+
+---
 
 ## SMH
 
 封面图片url: 'https://cf.hamreus.com/cpic/b/' + bid + '.jpg'
 
-- GET /api/SMH/search/{name} \
-    Response:
+### GET /api/SMH/search/{name}
+- Response:
     ```
     [
         {
@@ -225,8 +264,8 @@
     ]
     ```
 
-- GET /api/SMH/book/{bid} \
-    Response:
+### GET /api/SMH/book/{bid}
+- Response:
     ```
     {
         'bid': 'bid',
@@ -248,8 +287,8 @@
     }
     ```
 
-- GET /api/SMH/book/{bid}/chapter/{cid} \
-    Respoense:
+### GET /api/SMH/book/{bid}/chapter/{cid} \
+- Respoense:
     ```
     {
         'path': 'path',

@@ -13,10 +13,23 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $user = User::find(Auth::user()->id);
-        return response([
+        return User::all();
+    }
+
+    public function show(Request $request, $uid)
+    {
+        $user = User::find($uid);
+        if (!isset($user)) {
+            return response([
+                'status_code' => 404,
+                'message' => 'User Not Found'
+            ], 404);
+        }
+        else {
+            return response([
                 'status_code' => 200,
                 'user_data' => $user
             ]);
+        }
     }
 }

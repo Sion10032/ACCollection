@@ -12,18 +12,30 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
-    public function index()
+    public function index($uid)
     {
-        return Favorite::where('userId', Auth::user()->id)->get();
+        return Favorite::where('userId', $uid)->get();
     }
 
-    public function show($id)
+    public function show($uid, $id)
     {
+        if (!$this->validateUser($uid))
+            return response([
+                'message' => '403 Forbidden',
+                'status_code' => 403
+            ], 403);
+
         return Favorite::find($id);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $uid)
     {
+        if (!$this->validateUser($uid))
+            return response([
+                'message' => '403 Forbidden',
+                'status_code' => 403
+            ], 403);
+
         $bid = $request->all()['bid'];
         $res = Resource::firstOrCreate(
             ['bid' => $bid],
@@ -41,34 +53,54 @@ class FavoriteController extends Controller
 
         if ($fav->save()) {
             return response([
-                "message" => "Success",
+                "message" => 'Success',
                 "status_code" => 201,
             ], 201);
         }
         else {
             return response([
-                "message" => "Failed", 
-                "status_code" => 404,
+                'message' => 'Failed', 
+                'status_code' => 404,
             ], 404);
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $uid, $id)
     {
+        if (!$this->validateUser($uid))
+            return response([
+                'message' => '403 Forbidden',
+                'status_code' => 403
+            ], 403);
+
         $fav = Favorite::find($id);
         $fav->update($request->all());
 
         return $fav;
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $request, $uid, $id)
     {
+        if (!$this->validateUser($uid))
+            return response([
+                'message' => '403 Forbidden',
+                'status_code' => 403
+            ], 403);
+
         $favorite = Favorite::findOrFail($id);
         $favorite->delete();
 
         return response([
-            "message" => "Delete Success", 
-            "status_code" => 200,
+            'message' => 'Delete Success', 
+            'status_code' => 200,
         ], 200);
+    }
+
+    protected function validateUser($uid)
+    {
+        if ($uid == strval(Auth::user()->id))
+            return true;
+        else
+            return false;
     }
 }
