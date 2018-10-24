@@ -264,7 +264,7 @@
     ]
     ```
 
-### GET /api/SMH/book/{bid}
+### GET /api/SMH/books/{bid}
 - Response:
     ```
     {
@@ -287,7 +287,7 @@
     }
     ```
 
-### GET /api/SMH/book/{bid}/chapter/{cid} \
+### GET /api/SMH/books/{bid}/chapters/{cid}
 - Respoense:
     ```
     {
@@ -301,4 +301,28 @@
     path + file + parm就是图片地址，需要在header中加上
     ```
     'Referer': 'https://www.manhuagui.com/comic/' + bid + '/' + cid + '.html'
+    ```
+
+### GET /api/SMH/latest
+- Response:
+    ```
+    [
+        {
+            'name': 'name',
+            'bid': 'bid'
+        },
+        ...
+    ]
+    ```
+
+### GET /api/SMH/hots
+- Response:
+    ```
+    [
+        {
+            'name': 'name',
+            'bid': 'bid'
+        },
+        ...
+    ]
     ```
