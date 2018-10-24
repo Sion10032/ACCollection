@@ -28,7 +28,7 @@ Route::group([], function() {
 });
 
 // Content-Type : application/x-www-form-urlencode
-Route::group(['middleware', 'jwt.auth'], function() {
+Route::group(['middleware' => 'jwt.auth'], function() {
     Route::get('users/{uid}/favorites', 'Api\FavoriteController@index');
     Route::get('users/{uid}/favorites/{id}', 'Api\FavoriteController@show');
     Route::post('users/{uid}/favorites', 'Api\FavoriteController@store');
@@ -44,7 +44,7 @@ Route::group([], function() {
     Route::delete('resources/{id}', 'Api\ResourceController@delete');
 });
 
-Route::prefix('SMH')->group(function () {
+Route::group(['prefix' => 'SMH', 'middleware' => 'cros'], function () {
     Route::get('search/{name}', 'Api\SMHPluginController@search');
     Route::get('book/{bid}', 'Api\SMHPluginController@book');
     Route::get('book/{bid}/chapter/{cid}', 'Api\SMHPluginController@chapter');
