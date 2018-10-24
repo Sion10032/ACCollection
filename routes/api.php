@@ -46,6 +46,8 @@ Route::group([], function() {
 
 Route::group(['prefix' => 'SMH', 'middleware' => 'cros'], function () {
     Route::get('search/{name}', 'Api\SMHPluginController@search');
-    Route::get('book/{bid}', 'Api\SMHPluginController@book');
-    Route::get('book/{bid}/chapter/{cid}', 'Api\SMHPluginController@chapter');
+    Route::get('books/{bid}', 'Api\SMHPluginController@book');
+    Route::get('books/{bid}/chapters/{cid}', 'Api\SMHPluginController@chapter');
+    Route::get('latest', 'Api\SMHPluginController@latest');
+    Route::get('hots', 'Api\SMHPluginController@hots');
 });

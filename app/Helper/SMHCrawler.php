@@ -14,7 +14,8 @@ class SMHCrawer
     // 看漫画网址
     private static $site = 'https://www.manhuagui.com';
 
-    public static function search($name) {
+    public static function search($name)
+    {
         $url = self::$site . '/s/' . urlencode($name) . '_p1.html';
         $html = self::getHtml($url);
 
@@ -44,7 +45,8 @@ class SMHCrawer
         return json_encode($books, JSON_UNESCAPED_UNICODE);
     }
 
-    public static function book($bid){
+    public static function book($bid)
+    {
         $url = self::$site . '/comic/' . $bid . '/';
         $html = self::getHtml($url);
 
@@ -79,7 +81,8 @@ class SMHCrawer
         return json_encode($dir, JSON_UNESCAPED_UNICODE);
     }
 
-    public static function chapter($bid, $cid){
+    public static function chapter($bid, $cid)
+    {
         $url = self::$site . '/comic/' . $bid . '/' . $cid . '.html';
         $html = self::getHtml($url);
         $data_json = QueryList::html($html)->rules(array('js' => array('body>script:not(:empty)', 'text')))->query()->getData();
@@ -109,7 +112,44 @@ class SMHCrawer
         return str_replace("\\/", "/", json_encode($pics, JSON_UNESCAPED_UNICODE));
     }
 
-    private static function getHtml($url){
+    public static function latest()
+    {
+        $url = self::$site . '/update/';
+        $html = self::getHtml($url);
+
+        $books = QueryList::html($html)->rules(array(
+            "name" => array('a.cover', 'title'),
+            "bid" => array('a.cover', 'href')
+        ))->query()->getData()->all();
+
+        foreach ($books as &$book) {
+            $book['bid'] = str_replace('comic', '', $book['bid']);
+            $book['bid'] = str_replace('/', '', $book['bid']);
+        }
+
+        return json_encode($books, JSON_UNESCAPED_UNICODE);
+    }
+
+    public static function hots()
+    {
+        $url = self::$site . '/rank/month.html';
+        $html = self::getHtml($url);
+
+        $books = QueryList::html($html)->rules(array(
+            "name" => array('tr>td.rank-title>h5>a', 'text'),
+            "bid" => array('tr>td.rank-title>h5>a', 'href')
+        ))->query()->getData()->all();
+
+        foreach ($books as &$book) {
+            $book['bid'] = str_replace('comic', '', $book['bid']);
+            $book['bid'] = str_replace('/', '', $book['bid']);
+        }
+
+        return json_encode($books, JSON_UNESCAPED_UNICODE);
+    }
+
+    private static function getHtml($url)
+    {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HEADER, 1);

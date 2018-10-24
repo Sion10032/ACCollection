@@ -9,15 +9,28 @@ use App\Helper\SMHCrawer;
 
 class SMHPluginController extends Controller
 {
-    public function search($name) {
+    public function search($name)
+    {
         return SMHCrawer::search($name);
     }
 
-    public function book($bid){
+    public function book($bid)
+    {
         return SMHCrawer::book($bid);
     }
 
-    public function chapter($bid, $cid){
+    public function chapter($bid, $cid)
+    {
         return SMHCrawer::chapter($bid, $cid);
+    }
+
+    public function latest()
+    {
+        return SMHCrawer::latest();
+    }
+
+    public function hots()
+    {
+        return SMHCrawer::hots();
     }
 }
