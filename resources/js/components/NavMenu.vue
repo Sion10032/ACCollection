@@ -40,7 +40,7 @@ export default {
     position:relative;
     height: 3rem;
     display: flex;
-    align-items:Center;
+    align-items: Center;
     background-color: rgba(112, 128, 144, 0.8);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
@@ -50,7 +50,7 @@ export default {
     padding: 0rem;
     position: absolute;
     display: inline-flex;
-    align-items:Center;
+    align-items: Center;
     list-style: none;
 }
 

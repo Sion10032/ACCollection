@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div id="app">
         <nav-menu></nav-menu>
         <main>
-            <router-view></router-view>
+            <router-view name="wrapper"></router-view>
         </main>
     </div>
 </template>
@@ -18,5 +18,15 @@ export default {
 </script>
 
 <style scoped>
+
+#app{
+    width: 100%;
+    height: 100%;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+}
 
 </style>
