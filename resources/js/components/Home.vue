@@ -4,6 +4,7 @@
             v-for="book in books"
             v-bind:key="book.bid"
             v-bind:book="book"
+            v-on:goBookDetailPage="goBookDetailPage"
         >
         </book-item>
     </div>
@@ -31,6 +32,9 @@ export default {
             this.$axios.get(url).then(function(result) {
                 _this.books = result.data
             })
+        },
+        goBookDetailPage: function(bookID) {
+            this.$router.push({name: 'smhbooks', params: { bid: bookID }})
         }
     }
 }
