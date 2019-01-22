@@ -41,13 +41,14 @@ export default {
     height: 3rem;
     display: flex;
     align-items: Center;
-    background-color: rgba(112, 128, 144, 0.8);
+    background-color: rgba(84, 92, 100, 0.8);;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .nav-menu {
     margin: 0rem;
     padding: 0rem;
+    height: 100%;
     position: absolute;
     display: inline-flex;
     align-items: Center;
@@ -65,9 +66,16 @@ export default {
 }
 
 .nav-item {
-    float: left;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    height: 100%;
+    padding: 0 0.5rem 0 0.5rem;
+}
+
+.nav-item:hover {
+    background-color: rgba(72, 72, 72, 0.6);
 }
 
 .nav-item-text {

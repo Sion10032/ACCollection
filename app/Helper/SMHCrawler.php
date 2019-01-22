@@ -53,23 +53,24 @@ class SMHCrawer
         $url = self::$site . '/comic/' . $bid . '/';
         $html = QueryList::get($url);
 
+        $book = [];
+        $book['bid'] = $bid;
+        $book['name'] = $html->rules(array(array("div>h1", "text")))->queryData()[0][0];
+        $book['intro'] = $html->rules(array(array("div#intro-cut", "text")))->queryData()[0][0];
+        $book['dir'] = [];
+
         // 获取目录
         $menu = $html->rules(array(
             "category" => array("h4>span", "text"),
-            "menulist" => array("div#chapter-list-0>ul", "html")
+            "menulist" => array("#chapter-list-0>ul, #chapter-list-1", "html")
         ))->queryData();
-        
-        $dir = [];
-        $dir['bid'] = $bid;
-        $dir['name'] = $html->rules(array(array("div>h1", "text")))->queryData()[0][0];
-        $dir['dir'] = [];
 
         foreach($menu as $menuItem){
             $menulist = QueryList::html($menuItem['menulist'])
                 ->rules(array(
-                    'name' => array('li>a', 'title'),
-                    'cid' => array("li>a", 'href'),
-                    'page' => array('li>a>span>i', 'text')
+                    'name' => array('ul>li>a', 'title'),
+                    'cid' => array("ul>li>a", 'href'),
+                    'page' => array('ul>li>a>span>i', 'text')
                 ))->queryData();
             
             for($i = 0; $i < count($menulist); $i++){
@@ -78,10 +79,10 @@ class SMHCrawer
                 $menulist[$i]['page'] = str_replace('p', '', $menulist[$i]['page']);
             }
 
-            array_push($dir['dir'], array('cateName' => $menuItem['category'], 'menuList' => $menulist));
+            array_push($book['dir'], array('cateName' => $menuItem['category'], 'menuList' => $menulist));
         }
 
-        return json_encode($dir, JSON_UNESCAPED_UNICODE);
+        return json_encode($book, JSON_UNESCAPED_UNICODE);
     }
 
     public static function chapter($bid, $cid)

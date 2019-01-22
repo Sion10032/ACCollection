@@ -1,5 +1,10 @@
 <template>
-    <h1> {{ bookDetial }} </h1>
+    <div class="book-wrapper">
+        <div class="book-info">
+        </div>
+        <div class="book-menu">
+        </div>
+    </div>
 </template>
 
 <script>
