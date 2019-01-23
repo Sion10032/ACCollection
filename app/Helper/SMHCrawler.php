@@ -61,12 +61,12 @@ class SMHCrawer
 
         // 获取目录
         $menu = $html->rules(array(
-            "category" => array("h4>span", "text"),
-            "menulist" => array("#chapter-list-0>ul, #chapter-list-1", "html")
+            "cateName" => array("h4>span", "text"),
+            "cateMenu" => array("#chapter-list-0, #chapter-list-1", "html")
         ))->queryData();
 
         foreach($menu as $menuItem){
-            $menulist = QueryList::html($menuItem['menulist'])
+            $menulist = QueryList::html($menuItem['cateMenu'])
                 ->rules(array(
                     'name' => array('ul>li>a', 'title'),
                     'cid' => array("ul>li>a", 'href'),
@@ -79,7 +79,7 @@ class SMHCrawer
                 $menulist[$i]['page'] = str_replace('p', '', $menulist[$i]['page']);
             }
 
-            array_push($book['dir'], array('cateName' => $menuItem['category'], 'menuList' => $menulist));
+            array_push($book['dir'], array('cateName' => $menuItem['cateName'], 'cateMenu' => $menulist));
         }
 
         return json_encode($book, JSON_UNESCAPED_UNICODE);

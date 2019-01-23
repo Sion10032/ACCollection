@@ -50,9 +50,9 @@ export default {
     bottom: 0px;
     justify-content: center;
     text-align: center;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     padding: 0rem 0.5rem 0rem 0.5rem;
     width: 9rem;
     height: 1rem;

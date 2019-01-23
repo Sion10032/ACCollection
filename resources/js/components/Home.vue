@@ -43,7 +43,6 @@ export default {
 <style scoped>
 
 .book-res {
-    padding: 1rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
     grid-gap: 1rem;
