@@ -15,6 +15,7 @@
                 v-for="cateItem in bookDetial.dir"
                 v-bind:key="cateItem.cateName"
                 v-bind:menu="cateItem"
+                v-bind:bid="bookDetial.bid"
             />
         </div>
     </div>

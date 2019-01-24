@@ -2,14 +2,19 @@
     <div class="menu">
         <div
             class="cate-name"
-            v-bind:class="{ 'bottom-radius-item' : !isShow }"
-            v-on:click="isShow = !isShow"
+            v-bind:class="{ 'bottom-radius-item' : !isExpend }"
+            v-on:click="isExpend = !isExpend"
         >
             <p class="cate-name-text">{{menu.cateName}}</p>
         </div>
         <transition name="slider">
-            <div class="cate-menu" v-show="isShow">
-                <div class="chapter-item" v-for="chapter in menu.cateMenu" v-bind:key="chapter.cid">
+            <div class="cate-menu" v-show="isExpend">
+                <div 
+                    class="chapter-item" 
+                    v-for="chapter in menu.cateMenu" 
+                    v-bind:key="chapter.cid"
+                    v-on:click="goChapter(chapter.cid)"
+                >
                     <p class="chapter-name" v-bind:title="chapter.name"> {{chapter.name}} </p>
                     <p class="chapter-page"> {{chapter.page + 'p'}} </p>
                 </div>
@@ -21,14 +26,19 @@
 <script>
 export default {
     props: {
+        bid: String,
         menu: {}
     },
     data: function() {
         return {
-            isShow: true
+            isExpend: true
         };
     },
-    methods: {}
+    methods: {
+        goChapter: function(cid) {
+            console.log(this.$props.bid, cid)
+        }
+    }
 };
 </script>
 
