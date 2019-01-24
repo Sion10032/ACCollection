@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function() {
+    return view('home');
+});
+
+Route::get('/SMH/books/{bid}/chapters/{cid}', function($bid, $cid) {
+    return view('cmreader');
 });
