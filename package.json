@@ -19,6 +19,7 @@
     "lodash": "^4.17.5",
     "node-sass": "^4.11.0",
     "popper.js": "^1.12",
+    "qs": "^6.6.0",
     "vue": "^2.5.7",
     "vue-axios": "^2.1.4",
     "vue-gemini-scrollbar": "^2.0.0",

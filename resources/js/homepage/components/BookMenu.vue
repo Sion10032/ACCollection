@@ -105,7 +105,7 @@ p {
     transition: all 0.3s;
 }
 
-.slider-enter,.slider-leave-to {
+.slider-enter, .slider-leave-to {
     transform-origin: center 0 0;
     transform: scaleY(0);
     opacity: 0;

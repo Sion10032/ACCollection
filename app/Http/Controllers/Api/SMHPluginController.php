@@ -33,4 +33,10 @@ class SMHPluginController extends Controller
     {
         return SMHCrawer::hots();
     }
+    
+    public function getPic(Request $request)
+    {
+        $req = $request->all();
+        return SMHCrawer::getPic($req['bid'], $req['cid'], $req['url']);
+    }
 }

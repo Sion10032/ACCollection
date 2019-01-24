@@ -50,4 +50,5 @@ Route::group(['prefix' => 'SMH', 'middleware' => 'cros'], function () {
     Route::get('books/{bid}/chapters/{cid}', 'Api\SMHPluginController@chapter');
     Route::get('latest', 'Api\SMHPluginController@latest');
     Route::get('hots', 'Api\SMHPluginController@hots');
+    Route::post('getpic', 'Api\SMHPluginController@getPic');
 });

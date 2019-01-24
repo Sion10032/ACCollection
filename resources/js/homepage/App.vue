@@ -17,6 +17,11 @@ export default {
         NavMenu
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const html = document.querySelector('html')
+    html.style.fontSize = window.innerHeight / 40 + 'px'
+})
 </script>
 
 <style scoped>

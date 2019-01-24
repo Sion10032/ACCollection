@@ -89,6 +89,10 @@ class SMHCrawer
     {
         $url = self::$site . '/comic/' . $bid . '/' . $cid . '.html';
         $html = QueryList::get($url);
+        $info = $html->rules(array(
+            'title' => array('.w980.title>div>h1>a', 'text'),
+            'chapter' => array('.w980.title>div>h2', 'text')
+        ))->queryData()[0];
         $data_json = $html->rules(array('js' => array('body>script:not(:empty)', 'text')))->queryData()[0];
 
         $js = str_replace('window["\x65\x76\x61\x6c"](', 'var res = ', $data_json['js']);
@@ -107,11 +111,15 @@ class SMHCrawer
         $json = json_decode($decyptionJsonData, true);
 
         $pics = [];
-        $pics['path'] = 'https://i.hamreus.com' . $json['path'];
+        $pics['bid'] = $bid;
+        $pics['cid'] = $cid;
+        $pics['title'] = $info['title'];
+        $pics['chapter'] = $info['chapter'];
+        $path = 'https://i.hamreus.com' . $json['path'];
+        $parm = "?cid=" . $json['cid'] . '&md5=' . $json['sl']['md5'];
         $pics['file'] = [];
-        $pics['parm'] = "?cid=" . $json['cid'] . '&md5=' . $json['sl']['md5'];
         foreach($json['files'] as $file)
-            array_push($pics['file'], $file);
+            array_push($pics['file'], $path . $file . $parm);
 
         return str_replace("\\/", "/", json_encode($pics, JSON_UNESCAPED_UNICODE));
     }
@@ -150,6 +158,20 @@ class SMHCrawer
         }
 
         return json_encode($books, JSON_UNESCAPED_UNICODE);
+    }
+
+    public static function getPic($bid, $cid, $url) {
+        $option = array(
+            'http' => array(
+                'header' => 'Referer: ' . 'https://www.manhuagui.com/comic/' . $bid . '/' . $cid . '.html'
+            )
+        );
+            
+        $img = file_get_contents($url, false,stream_context_create($option));
+
+        $base64Image = 'data:image/jpg/png/gif;base64,' . chunk_split(base64_encode($img));
+        
+        return $base64Image;
     }
 
     private static function getHtml($url)
