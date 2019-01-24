@@ -35,8 +35,8 @@ export default {
         };
     },
     methods: {
-        goChapter: function(cid) {
-            console.log(this.$props.bid, cid)
+        goChapter: function(cid) {           
+            window.location.href = '/SMH/books/' + this.bid + '/chapters/' + cid
         }
     }
 };

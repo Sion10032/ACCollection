@@ -40,6 +40,7 @@ export default {
 .book-img {
     width: 9rem;
     height: 11rem;
+    object-fit: cover;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
 }
