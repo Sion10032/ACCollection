@@ -33,7 +33,7 @@ export default {
     flex-direction: column;
     width: 9rem;
     height: 12rem;
-    border-radius: 0.5rem;
+    border-radius: 0.2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -41,8 +41,8 @@ export default {
     width: 9rem;
     height: 11rem;
     object-fit: cover;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
 }
 
 .book-title {

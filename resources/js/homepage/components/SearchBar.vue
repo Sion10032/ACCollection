@@ -40,6 +40,7 @@ export default {
     max-width: 12rem;
     padding-left: 0.5rem;
     border: 0rem;
+    outline: none;
     border-radius: 0.75rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }

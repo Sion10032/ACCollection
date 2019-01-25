@@ -66,12 +66,16 @@ class SMHCrawer
         ))->queryData();
 
         foreach($menu as $menuItem){
-            $menulist = QueryList::html($menuItem['cateMenu'])
-                ->rules(array(
-                    'name' => array('ul>li>a', 'title'),
-                    'cid' => array("ul>li>a", 'href'),
-                    'page' => array('ul>li>a>span>i', 'text')
-                ))->queryData();
+            $menulist = [];
+            $ul = array_reverse(QueryList::html($menuItem['cateMenu'])->rules([['ul', 'html']])->queryData());
+            foreach($ul as $ulItem){
+                $tmp = QueryList::html($ulItem[0])->rules([
+                    'name' => ['li>a', 'title'],
+                    'cid' => ['li>a', 'href'],
+                    'page' => ['li>a>span>i', 'text']
+                ])->queryData();
+                $menulist = array_merge($menulist, $tmp);
+            }
             
             for($i = 0; $i < count($menulist); $i++){
                 preg_match('~(?<=/comic/).*?(?=.html)~', $menulist[$i]['cid'], $matches);

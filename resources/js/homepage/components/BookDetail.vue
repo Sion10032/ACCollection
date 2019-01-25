@@ -2,8 +2,8 @@
     <div class="book-wrapper">
         <div class="book-info">
             <img 
-                class="book-cover" 
-                v-bind:src="'https://cf.hamreus.com/cpic/b/' + bookDetial.bid + '.jpg'" 
+                class="book-cover"
+                v-bind:src="'https://cf.hamreus.com/cpic/b/' + this.bid + '.jpg'" 
             />
             <div class="book-info-text">
                 <h2 class="book-title"> {{bookDetial.name}} </h2>
@@ -82,6 +82,7 @@ export default {
 .book-cover {
     width: 8rem;
     height: 12rem;
+    object-fit: cover;
     flex-shrink: 0;
     border-radius: 0.2rem;
 }

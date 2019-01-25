@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-on:click="navItemOnClick">
         <img 
             class="nav-item-icon" 
             v-bind:src="this.icon"
@@ -21,7 +21,7 @@ export default {
     },
     methods: {
         navItemOnClick: function() {
-            this.$emit('setSelectedItem', this.name)
+           console.log(this.text, 'is clicked.')
         }
     }
 }
