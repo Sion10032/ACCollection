@@ -1,14 +1,17 @@
 <template>
     <div class="navbar">
         <ul class="nav-menu nav-menu-left">
-            <li class="nav-item">
-                <a class="nav-item-text">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-item-text">Favorite</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-item-text">Recent</a>
+            <li 
+                is="nav-item"
+                v-for="(navItem, index) in this.navItems"
+                v-bind:key="index"
+                v-bind:name="navItem.name"
+                v-bind:icon="navItem.icon"
+                v-bind:text="navItem.name"
+                v-bind:selectedItem="selectedItem"
+                v-bind:isNavItemTextShow="isNavItemTextShow"
+                v-on:setSelectedItem="setSelectedItem"
+            >
             </li>
         </ul>
         <ul class="nav-menu nav-menu-right">
@@ -23,11 +26,35 @@
 </template>
 
 <script>
+import NavItem from './NavItem.vue'
+
 export default {
+    components: {
+        NavItem
+    },
     data() {
         return {
+            isNavItemTextShow: false,
+            selectedItem: 'Home',
+            navItems: [
+                {
+                    name: 'Home',
+                    icon: '/image/navbar/home.png'
+                },
+                {
+                    name: 'Favorite',
+                    icon: '/image/navbar/favorite.png'
+                },
+                {
+                    name: 'Recent',
+                    icon: '/image/navbar/recent.png'
+                }
+            ],
             searchText: ''
         }
+    },
+    mounted: function() {
+        this.isNavItemTextShow = window.innerHeight < window.innerWidth
     },
     methods: {
         search: function() {
@@ -38,6 +65,9 @@ export default {
                 }
             })
             this.searchText = ''
+        },
+        setSelectedItem: function(selectedItem) {
+            this.selectedItem = selectedItem
         }
     }
 };
@@ -71,24 +101,6 @@ export default {
 .nav-menu-right {
     margin-right: 0.5rem;
     right: 0rem;
-}
-
-.nav-item {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    height: 100%;
-    padding: 0 0.5rem 0 0.5rem;
-}
-
-.nav-item:hover {
-    background-color: rgba(72, 72, 72, 0.6);
-}
-
-.nav-item-text {
-    font-size: 1rem;
-    color: white;
 }
 
 .search-bar {

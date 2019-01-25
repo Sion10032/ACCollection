@@ -56,8 +56,9 @@ export default {
             this.isLoading = true
             if (!this.imgs[this.curPage - 1])
                 this.getPic(this.curPage - 1, true)
-            else
-                this.setImgSrc(this.curPage - 1)
+            else {
+                setTimeout(this.setImgSrc, 100, this.curPage - 1)
+            }
             if (!this.imgs[this.curPage])
                 this.getPic(this.curPage, false)
         },
@@ -81,7 +82,7 @@ export default {
             pic.src = this.imgs[index]
         },
         prevPage: function() {
-            this.curPage = Math.max(0, this.curPage - 1)
+            this.curPage = Math.max(1, this.curPage - 1)
             this.loadPic()
         },
         nextPage: function() {
@@ -177,7 +178,7 @@ export default {
 .slide-up-leave-active, 
 .slide-down-leave-active,
 .pic-appear-leave-active {
-    transition: all 0.3s;
+    transition: all 0.5s;
 }
 
 .slide-up-enter, .slide-up-leave-to {
@@ -191,7 +192,6 @@ export default {
 }
 
 .pic-appear-enter, .pic-appear-leave-to {
-    transform: translateY(0);
     opacity: 0;
 }
 
