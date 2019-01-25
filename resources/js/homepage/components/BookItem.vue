@@ -13,7 +13,7 @@ export default {
     props: {
         book: {
             name: String,
-            bid: Number
+            bid: String
         }
     },
     methods: {
