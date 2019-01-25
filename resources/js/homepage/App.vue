@@ -3,7 +3,9 @@
         <nav-menu></nav-menu>
         <GeminiScrollbar class="my-scroll-bar">
             <main>
-                <router-view name="wrapper"></router-view>
+                <transition name="router-trans">
+                    <router-view name="wrapper"></router-view>
+                </transition>
             </main>
         </GeminiScrollbar>
     </div>
@@ -42,6 +44,19 @@ main {
 
 .my-scroll-bar {
     height: 90%;
+}
+
+.router-trans-enter-active {
+    transition: all 0.5s;
+}
+
+.router-trans-leave-active {
+    transition: all 0.5s;
+}
+
+.router-trans-enter, .router-trans-leave-to {
+    /* transform: scaleY(0); */
+    opacity: 0;
 }
 
 </style>

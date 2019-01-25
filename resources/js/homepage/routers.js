@@ -22,6 +22,16 @@ export default new VueRouter({
             props: {
                 wrapper: true
             }
+        },
+        {
+            path: '/SMH/search/:searchText',
+            name: 'search',
+            components: {
+                wrapper: Vue.component('SearchResult', require('./components/SearchResult.vue'))
+            },
+            props: {
+                wrapper: true
+            }
         }
     ]
 })

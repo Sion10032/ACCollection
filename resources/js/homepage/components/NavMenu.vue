@@ -13,7 +13,7 @@
         </ul>
         <ul class="nav-menu nav-menu-right">
             <li class="nav-item">
-                <input class="search-bar" />
+                <input class="search-bar" v-model="searchText" v-on:keyup.enter="search"/>
             </li>
             <li class="nav-item">
                 <img class="avatar" />
@@ -26,11 +26,19 @@
 export default {
     data() {
         return {
-            
-        };
+            searchText: ''
+        }
     },
     methods: {
-        
+        search: function() {
+            this.$router.push({
+                name: 'search', 
+                params: { 
+                    searchText: this.searchText 
+                }
+            })
+            this.searchText = ''
+        }
     }
 };
 </script>
@@ -85,6 +93,8 @@ export default {
 
 .search-bar {
     height: 1.5rem;
+    width: 30vw;
+    max-width: 12rem;
     padding-left: 0.5rem;
     border: 0rem;
     border-radius: 0.75rem;
