@@ -2,23 +2,36 @@
     <div class="navbar">
         <ul class="nav-menu nav-menu-left">
             <li 
-                is="nav-item"
+                is="nav-item-slot"
                 v-for="(navItem, index) in this.navItems"
                 v-bind:key="index"
                 v-bind:name="navItem.name"
-                v-bind:icon="navItem.icon"
-                v-bind:text="navItem.name"
                 v-bind:selectedItem="selectedItem"
-                v-bind:isNavItemTextShow="isNavItemTextShow"
                 v-on:setSelectedItem="setSelectedItem"
             >
+                <nav-item 
+                    v-bind:icon="navItem.icon"
+                    v-bind:text="navItem.name"
+                    v-bind:isNavItemTextShow="isNavItemTextShow"
+                >
+                </nav-item>
             </li>
         </ul>
         <ul class="nav-menu nav-menu-right">
-            <li class="nav-item">
-                <input class="search-bar" v-model="searchText" v-on:keyup.enter="search"/>
+            <li 
+                is="nav-item-slot"
+                v-bind:name="'SearchBar'"
+                v-bind:selectedItem="selectedItem"
+                v-on:setSelectedItem="preventSearchBarSelected"
+            >
+                <search-bar></search-bar>
             </li>
-            <li class="nav-item">
+            <li 
+                is="nav-item-slot"
+                v-bind:name="'Avatar'"
+                v-bind:selectedItem="selectedItem"
+                v-on:setSelectedItem="setSelectedItem"
+            >
                 <img class="avatar" />
             </li>
         </ul>
@@ -26,11 +39,15 @@
 </template>
 
 <script>
+import NavItemSlot from './NavItemSlot.vue'
 import NavItem from './NavItem.vue'
+import SearchBar from './SearchBar.vue'
 
 export default {
     components: {
-        NavItem
+        NavItem,
+        NavItemSlot,
+        SearchBar
     },
     data() {
         return {
@@ -49,31 +66,25 @@ export default {
                     name: 'Recent',
                     icon: '/image/navbar/recent.png'
                 }
-            ],
-            searchText: ''
+            ]
         }
     },
     mounted: function() {
         this.isNavItemTextShow = window.innerHeight < window.innerWidth
     },
     methods: {
-        search: function() {
-            this.$router.push({
-                name: 'search', 
-                params: { 
-                    searchText: this.searchText 
-                }
-            })
-            this.searchText = ''
-        },
         setSelectedItem: function(selectedItem) {
             this.selectedItem = selectedItem
+        },
+        preventSearchBarSelected: function(selectedItem) {
+            console.log('This is search bar.', selectedItem)
         }
     }
 };
 </script>
 
 <style scoped>
+
 .navbar {
     position:relative;
     height: 3rem;
@@ -103,15 +114,6 @@ export default {
     right: 0rem;
 }
 
-.search-bar {
-    height: 1.5rem;
-    width: 30vw;
-    max-width: 12rem;
-    padding-left: 0.5rem;
-    border: 0rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-}
 
 .avatar {
     width: 2rem;
