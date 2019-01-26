@@ -1,10 +1,11 @@
 <template>
-    <div id="acc">
+    <div id="acc" v-if="$auth.ready()">
         <nav-menu></nav-menu>
         <GeminiScrollbar class="my-scroll-bar">
             <main>
                 <transition name="router-trans">
-                    <router-view name="wrapper"></router-view>
+                    <router-view name="wrapper">
+                    </router-view>
                 </transition>
             </main>
         </GeminiScrollbar>
@@ -31,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
 #acc {
     width: 100%;
     height: 100%;
-    /* background-image: url(/image/background-shinku-00.jpg);
-    background-size: cover; */
+    background-image: url(/image/background-shinku-00.jpg);
+    background-size: cover;
 }
 
 main {
@@ -43,6 +44,7 @@ main {
 }
 
 .my-scroll-bar {
+    border: 0rem;
     height: 90%;
 }
 

@@ -32,7 +32,7 @@
                 v-bind:selectedItem="selectedItem"
                 v-on:setSelectedItem="setSelectedItem"
             >
-                <img class="avatar" />
+                <nav-avatar></nav-avatar>
             </li>
         </ul>
     </div>
@@ -42,12 +42,14 @@
 import NavItemSlot from './NavItemSlot.vue'
 import NavItem from './NavItem.vue'
 import SearchBar from './SearchBar.vue'
+import NavAvatar from './NavAvatar.vue'
 
 export default {
     components: {
         NavItem,
         NavItemSlot,
-        SearchBar
+        SearchBar,
+        NavAvatar
     },
     data() {
         return {
@@ -112,15 +114,6 @@ export default {
 .nav-menu-right {
     margin-right: 0.5rem;
     right: 0rem;
-}
-
-
-.avatar {
-    width: 2rem;
-    height: 2rem;
-    background-color: white;
-    border-radius: 100%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 </style>

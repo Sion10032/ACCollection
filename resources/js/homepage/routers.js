@@ -32,6 +32,23 @@ export default new VueRouter({
             props: {
                 wrapper: true
             }
+        },
+        {
+            path: '/user/:userId',
+            name: 'user',
+            components: {
+                wrapper: Vue.component('UserProfile', require('./components/Profile.vue'))
+            },
+            props: {
+                wrapper: true
+            }
+        },
+        {
+            path: '/auth',
+            name: 'auth',
+            components: {
+                wrapper: Vue.component('Auth', require('./components/Auth.vue'))
+            }
         }
     ]
 })
