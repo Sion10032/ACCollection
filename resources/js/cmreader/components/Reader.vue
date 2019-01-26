@@ -6,7 +6,7 @@
                 <p class="title text" v-bind:title="chapterData.title"> {{ chapterData.title }} </p>
             </div>
         </transition>
-        <div class="img-wrapper">
+        <div class="img-wrapper" v-if="this.isGetData">
             <div class="mask">
                 <div class="left" v-on:click="prevPage()"></div>
                 <div class="center" v-on:click="isToolbarShow = !isToolbarShow"></div>
@@ -15,14 +15,17 @@
             <img 
                 class="load-img"
                 src="/image/loading.gif"
-                v-show="isLoading"
+                v-show="this.imgs[this.curPage].Loading"
             />
-            <transition name="pic-appear">
-                <img 
+            <transition-group name="pic-appear">
+                <img
                     class="cm-img"
-                    v-show="!isLoading"
+                    v-for="img in this.imgs"
+                    v-bind:key="img.page"
+                    v-show="!img.Loading && (img.page == curPage)"
+                    v-bind:src="img.data"
                 />
-            </transition>
+            </transition-group>
         </div>
         <transition name="slide-up">
             <div class="toolbar footer" v-show="isToolbarShow"></div>
@@ -33,70 +36,89 @@
 <script>
 export default {
     props: {
-        chapterData: {}
+        chapterData: Object
     },
     data: function() {
         return {
-            isLoading: true,
             isToolbarShow: true,
+            isGetData: false,
+            isPreLoad: true,
             cmImg: {},
-            curPage: 0,
+            curPage: -1,
             imgs: []
         }
     },
     watch: {
         chapterData: function() {
-            this.imgs = Array(this.chapterData.file.length)
-            this.curPage = 1;
+            this.imgs = []
+            for (let i = 0; i < this.chapterData.file.length; ++i)
+                this.imgs.push({page: i,Loading: false, data: ''})
+            this.curPage = 0
+            this.isGetData = true
+        },
+        curPage: function() {
+            console.log('Page Change:', this.curPage)
             this.loadPic()
         }
     },
     methods: {
         loadPic: function() {
-            this.isLoading = true
-            if (!this.imgs[this.curPage - 1])
-                this.getPic(this.curPage - 1, true)
-            else {
-                setTimeout(this.setImgSrc, 100, this.curPage - 1)
+            if (
+                !this.imgs[this.curPage].data && 
+                !this.imgs[this.curPage].Loading
+            )
+                this.getPic(this.curPage)
+            if (this.isPreLoad) {
+                if (this.curPage == this.chapterData.file.length - 1)
+                    return
+                else {
+                    if (
+                        this.imgs[this.curPage + 1].data == '' && 
+                        this.imgs[this.curPage + 1].Loading == false
+                    )
+                        this.getPic(this.curPage + 1)
+                }
             }
-            if (!this.imgs[this.curPage])
-                this.getPic(this.curPage, false)
         },
-        getPic: function(index, isSetImg) {
+        getPic: function(index) {
+            console.log('Get Img', index, 'from network.')
             let _this = this
-            this.$axios.post('/api/SMH/getpic',
+            _this.imgs[index].Loading = true
+            _this.$axios.post('/api/SMH/getpic',
                 {
-                    'bid': this.chapterData.bid,
-                    'cid': this.chapterData.cid,
-                    'url': this.chapterData.file[index]
+                    'bid': _this.chapterData.bid,
+                    'cid': _this.chapterData.cid,
+                    'url': _this.chapterData.file[index]
                 }
             ).then(function(res) {
-                _this.imgs[index] = res.data
-                if (isSetImg)
-                    _this.setImgSrc(index)
+                _this.imgs[index].data = res.data
+                _this.imgs[index].Loading = false
+                console.log('Get Img', index, 'from network success.')
+            }).catch(function(error) {
+                _this.imgs[index].Loading = false
             });
         },
-        setImgSrc: function(index) {
-            this.isLoading = false
-            let pic = document.getElementsByClassName('cm-img')[0]
-            pic.src = this.imgs[index]
-        },
         prevPage: function() {
-            this.curPage = Math.max(1, this.curPage - 1)
-            this.loadPic()
+            console.log('prev')
+            this.curPage = Math.max(0, this.curPage - 1)
         },
         nextPage: function() {
-            this.curPage = Math.min(this.chapterData.file.length, this.curPage + 1)
-            this.loadPic()
+            console.log('next')
+            this.curPage = Math.min(this.chapterData.file.length - 1, this.curPage + 1)
         }
     }
 }
+
 </script>
 
 <style scoped>
 
 * {
     margin: 0;
+}
+
+span {
+    display: contents;
 }
 
 .reader {
@@ -119,6 +141,7 @@ export default {
 .img-wrapper {
     width: 100%;
     height: 100%;
+    z-index: 15;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -132,8 +155,9 @@ export default {
 }
 
 .cm-img {
-    width: auto;
+    position: absolute;
     height: 100%;
+    object-fit: contain;
 }
 
 .toolbar {
@@ -146,6 +170,7 @@ export default {
 
 .header {
     top: 0;
+    padding: 0 1rem 0 1rem;
     display: flex;
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
