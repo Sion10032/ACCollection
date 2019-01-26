@@ -22,6 +22,7 @@
     "qs": "^6.6.0",
     "vue": "^2.5.7",
     "vue-axios": "^2.1.4",
+    "vue-cookie": "^1.1.4",
     "vue-gemini-scrollbar": "^2.0.0",
     "vue-router": "^3.0.2",
     "vuex": "^3.1.0"
