@@ -18,8 +18,8 @@ class RegisterController extends Controller {
         if ($validator->fails()) {
             return response([
                 "message" => "Can't Create User", 
-                "status_code" => 400,
-            ]);
+                "status_code" => 400
+            ], 400);
         }
 
         $user = $this->create($request->all());
@@ -32,12 +32,12 @@ class RegisterController extends Controller {
                 "token" => $token,
                 "message" => "Success",
                 "status_code" => 201,
-            ]);
+            ], 201);
         } else {
             return response([
                 "message" => "Create User Failed", 
                 "status_code" => 409,
-            ]);
+            ], 409);
         }
     }
 
