@@ -41,7 +41,7 @@ export default {
     },
     methods: {
         getBookDetail: function() {
-            var url = '/api/SMH/books/' + this.bid
+            var url = '/SMH/books/' + this.bid
             var _this = this
             this.$axios.get(url).then(function(result) {
                 _this.bookDetial = result.data

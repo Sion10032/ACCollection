@@ -19,6 +19,7 @@ Vue.use(require('@websanova/vue-auth'), {
     router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js')
 })
 
+axios.defaults.baseURL = '/api/'
 Vue.prototype.$axios = axios
 
 new Vue({

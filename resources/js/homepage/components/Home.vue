@@ -26,7 +26,7 @@ export default {
     methods: {
         getHotsBooks: function() {
             var _this = this
-            this.$axios.get('/api/SMH/hots').then(function(result) {
+            this.$axios.get('/SMH/hots').then(function(result) {
                 _this.bookGroup.books = result.data
             })
         }

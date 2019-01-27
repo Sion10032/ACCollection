@@ -34,7 +34,7 @@ export default {
     methods: {
         getSearchResult: function() {
             this.bookGroup.books = []
-            let url = '/api/SMH/search/' + this.searchText
+            let url = '/SMH/search/' + this.searchText
             this.$axios.get(url).then(
                 res => {
                     this.bookGroup.books = res.data

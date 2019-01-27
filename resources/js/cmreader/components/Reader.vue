@@ -84,7 +84,7 @@ export default {
             console.log('Get Img', index, 'from network.')
             let _this = this
             _this.imgs[index].Loading = true
-            _this.$axios.post('/api/SMH/getpic',
+            _this.$axios.post('/SMH/getpic',
                 {
                     'bid': _this.chapterData.bid,
                     'cid': _this.chapterData.cid,
