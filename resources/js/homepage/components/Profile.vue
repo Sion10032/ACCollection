@@ -15,7 +15,7 @@ export default {
     },
     methods: {
         goAuthPage: function() {
-            this.$router.push({name: 'auth'})
+            this.$router.push({name: 'login'})
         }
     }
 }
