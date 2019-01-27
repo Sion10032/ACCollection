@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
 #acc {
     width: 100%;
     height: 100%;
-    background-image: url(/image/background-shinku-00.jpg);
-    background-size: cover;
+    background-image: url(/image/background-yuki.jpg);
+    background-repeat: repeat;
 }
 
 main {
