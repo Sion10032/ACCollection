@@ -186,7 +186,7 @@
 ### PUT /api/users/{uid}/favorites/{id}
 - Resquest:
     ```
-    // 一般传id和lastChapter就行了
+    // 一般只传lastChapter
     {
         'id': 2,
         'lastChapter': 1,
