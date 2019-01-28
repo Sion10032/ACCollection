@@ -9,8 +9,8 @@ import 'normalize.css'
 Vue.use(VueAxios, axios)
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
+axios.defaults.baseURL = '/api/'
 Vue.prototype.$axios = axios
-Vue.prototype.$qs = qs;
 
 new Vue({
     el: '#app',
