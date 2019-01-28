@@ -10,8 +10,7 @@
                 v-on:setSelectedItem="setSelectedItem"
             >
                 <nav-item 
-                    v-bind:icon="navItem.icon"
-                    v-bind:text="navItem.name"
+                    v-bind:infos="navItem"
                     v-bind:isNavItemTextShow="isNavItemTextShow"
                 >
                 </nav-item>
@@ -58,15 +57,18 @@ export default {
             navItems: [
                 {
                     name: 'Home',
-                    icon: '/image/navbar/home.png'
+                    icon: '/image/navbar/home.png',
+                    router: 'home'
                 },
                 {
                     name: 'Favorite',
-                    icon: '/image/navbar/favorite.png'
+                    icon: '/image/navbar/favorite.png',
+                    router: ''
                 },
                 {
                     name: 'Recent',
-                    icon: '/image/navbar/recent.png'
+                    icon: '/image/navbar/recent.png',
+                    router: ''
                 }
             ]
         }

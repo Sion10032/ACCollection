@@ -11,11 +11,14 @@ export default {
     },
     created: function() {
         if (this.userId == '0')
-            this.goAuthPage()
+            this.redircet()
     },
     methods: {
-        goAuthPage: function() {
-            this.$router.push({name: 'login'})
+        redircet: function() {
+            if (!this.$auth.check())
+                this.$router.push({name: 'login'})
+            else
+                this.$router.push({name: 'user', params: { userId: this.$auth.user().id.toString() }})
         }
     }
 }

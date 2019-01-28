@@ -50,7 +50,7 @@ export default {
                     password : this.pwd
                 },
                 rememberMe: this.remb,
-                fetchUser: false,
+                fetchUser: true,
                 redirect: {name: 'home'},
                 success: function() {
                     console.log('login success.')

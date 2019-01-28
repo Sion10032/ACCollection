@@ -2,12 +2,12 @@
     <div v-on:click="navItemOnClick">
         <img 
             class="nav-item-icon" 
-            v-bind:src="this.icon"
+            v-bind:src="this.infos.icon"
         />
-        <a 
+        <p
             class="nav-item-text" 
             v-show="isNavItemTextShow"
-            v-text="this.text"
+            v-text="this.infos.name"
         />
     </div>
 </template>
@@ -15,13 +15,18 @@
 <script>
 export default {
     props: {
-        icon: String,
-        text: String,
+        infos: {
+            icon: String,
+            name: String,
+            router: String
+        },
         isNavItemTextShow: Boolean
     },
     methods: {
         navItemOnClick: function() {
-           console.log(this.text, 'is clicked.')
+            console.log(this.infos.name, 'is clicked.')
+            if (this.infos.router != '')
+                this.$router.push({name: this.infos.router})
         }
     }
 }
