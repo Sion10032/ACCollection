@@ -6,9 +6,9 @@
                     class="book-cover"
                     v-bind:src="'https://cf.hamreus.com/cpic/b/' + this.bid + '.jpg'" 
                 />
-                <div class="fav-button" v-on="changeFavorite">
+                <div class="fav-button" v-on:click="changeFavorite">
                     <img class="fav-button-img" src="/image/navbar/favorite.png" />
-                    <p class="fav-button-text">添加收藏</p>
+                    <p class="fav-button-text"> {{ this.favoriteInfo.isFavorite ? '取消收藏' : '添加收藏' }} </p>
                 </div>
             </div>
             <div class="book-info-text">
@@ -39,11 +39,17 @@ export default {
     },
     data: function() {
         return {
-            bookDetial: {}
+            bookDetial: {},
+            favoriteInfo: {
+                isFavorite: false,
+                fid: String
+            }
         }
     },
     mounted: function() {
         this.getBookDetail();
+        this.checkFavorite();        
+        this.setMenuPos()
     },
     methods: {
         getBookDetail: function() {
@@ -51,11 +57,61 @@ export default {
             var _this = this
             this.$axios.get(url).then(function(result) {
                 _this.bookDetial = result.data
-                _this.setMenuPos()
+            })
+        },
+        checkFavorite: function() {
+            let _this = this
+            if (!_this.$auth.check())
+                return
+            let url = '/users/' + _this.$auth.user().id + '/favorites'
+            this.$axios({
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + _this.$auth.token()
+                }
+            }).then(function(result) {
+                for(let i = 0, len = result.data.length; i < len; ++i) {
+                    if (result.data[i].bid == _this.bid) {
+                        _this.favoriteInfo.isFavorite = true
+                        _this.favoriteInfo.fid = result.data[i].id
+                    }
+                }
             })
         },
         changeFavorite: function() {
-
+            let _this = this
+            if (!_this.$auth.check())
+                _this.$router.push({name: 'login'})
+            let url = '/users/' + _this.$auth.user().id + '/favorites'
+            if (_this.favoriteInfo.isFavorite) {
+                _this.$axios({
+                    method: "DELETE",
+                    url: url + '/' + _this.favoriteInfo.fid,
+                    headers: {
+                        'Authorization': 'bearer ' + _this.$auth.token()
+                    }
+                }).then(function(res) {
+                    console.log(res.data);
+                    _this.favoriteInfo.isFavorite = false
+                });
+            }
+            else {
+                _this.$axios({
+                    method: "POST",
+                    url: url,
+                    headers: {
+                        'Authorization': 'bearer ' + _this.$auth.token()
+                    },
+                    data: {
+                        name: _this.bookDetial.name,
+                        bid: _this.bookDetial.bid,
+                        lastChapter: 0
+                    }
+                }).then(function(res) {
+                    console.log(res.data);
+                    _this.checkFavorite()
+                });
+            }
         },
         setMenuPos: function() {
             var bookInfo = document.getElementsByClassName('book-info')[0]

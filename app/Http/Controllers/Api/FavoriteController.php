@@ -18,9 +18,12 @@ class FavoriteController extends Controller
         $re = [];
         foreach ($favs as $fav) {
             $res = Resource::find($fav['resId']);
-            $re['bid'] = $res['bid'];
-            $re['name'] = $res['name'];
-            $re['lastChapter'] = $fav['lastChapter'];
+            array_push($re, [
+                'id' => $fav['id'],
+                'bid' => $res['bid'],
+                'name' => $res['name'],
+                'lastChapter' => $fav['lastChapter'],
+            ]);
         }
 
         return $re;
