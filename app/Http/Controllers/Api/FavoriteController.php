@@ -14,7 +14,16 @@ class FavoriteController extends Controller
 {
     public function index($uid)
     {
-        return Favorite::where('userId', $uid)->get();
+        $favs = Favorite::where('userId', $uid)->get();
+        $re = [];
+        foreach ($favs as $fav) {
+            $res = Resource::find($fav['resId']);
+            $re['bid'] = $res['bid'];
+            $re['name'] = $res['name'];
+            $re['lastChapter'] = $fav['lastChapter'];
+        }
+
+        return $re;
     }
 
     public function show($uid, $id)

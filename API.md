@@ -55,6 +55,30 @@
     }
     ```
 
+### GET /api/auth/user (要求验证)
+- Response:
+    ```
+    {
+        'status_code' : 200,
+        'data' : {
+            'id': id,
+            'name': 'name',
+            'email': "email@email.email",
+            'created_at': "2018-10-21 14:20:04",
+            'updated_at': "2018-10-21 14:20:04"
+        }
+    }
+    ```
+
+### GET /api/auth/refresh (要求验证)
+- Response:
+    ```
+    {
+        'status': 'success'
+    }
+    ```
+
+
 ### GET /api/auth/logout (要求验证)
 - Response:
     ```
@@ -64,13 +88,17 @@
     }
     ```
 
+---
+
+## User
+
 ### GET /api/users (要求验证)
 - Response:
     ```
     [
         {
             'status_code' : 200,
-            'user_data' : {
+            'data' : {
                 'id': id,
                 'name': 'name',
                 'email': "email@email.email",
@@ -87,7 +115,7 @@
     ```
     {
         'status_code' : 200,
-        'user_data' : {
+        'data' : {
             'id': id,
             'name': 'name',
             'email': "email@email.email",
@@ -112,9 +140,8 @@
     [
         {
             'id': 2,
-            'lastChapter': 1,
-            'userId': 1,
-            'resId': 2
+            'name': 'test',
+            'lastChapter': 1
         },
         ...
     ]
@@ -132,10 +159,9 @@
 - Response:
     ```
     {
-        'id': 2,
-        'lastChapter': 1,
-        'userId': 1,
-        'resId': 2
+        'name': 'test',
+        'bid': '12312',
+        'lastChapter': 1
     }
     ```
 
@@ -143,9 +169,9 @@
 - Request:
     ```
     {
-        'url': 'url',
-        'name': 'name',
-        'lastChapter': lastChapter(int)
+        'name': 'test',
+        'bid': '12312',
+        'lastChapter': 1
     }
     ```
 - Response:
