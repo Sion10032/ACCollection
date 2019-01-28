@@ -2,7 +2,8 @@
 
 ## 简介
 
-ACCollection是一个基于laravel的项目，该项目主要目的在于解析各个网站的Anime、Comic资源，并为用户提供搜索，收藏更新提醒等功能。
+ACCollection是一个基于laravel的项目，该项目主要目的在于解析各个网站的Anime、Comic资源，并为用户提供搜索，收藏更新提醒等功能。\
+PS: 该分支为单站点版本，针对 看漫画 的资源，可以看作一个第三方客户端。
 
 ## 功能
 
@@ -10,16 +11,17 @@ ACCollection是一个基于laravel的项目，该项目主要目的在于解析�
 
 - [x] 用户注册，登录
 - [x] 收藏功能
-- [ ] 站点资源爬取
+- [x] 站点资源爬取
     - [x] [看漫画](https://www.manhuagui.com/)
-    - [ ] [Dilidili](http://www.dilidili.wang/)
-    - [ ] ...
 - [ ] 邮件提醒功能
-- [ ] 多站点支持
 
 ### 前端
 
-- [ ] All
+- [] 主页
+- [x] 注册、登录页面
+- [x] 搜索页面
+- [x] 书籍详情页面
+- [] 漫画阅读器
 
 ## 使用方法
 
@@ -39,7 +41,14 @@ ACCollection是一个基于laravel的项目，该项目主要目的在于解析�
     vi .env
     ```
 
-4. 生成数据库表单
+4. 生产 App key 与 jwt密钥
+    '''
+    php artisan key:generate
+    php artisan jwt:secret
+    '''
+
+
+5. 生成数据库表单
     ```
     php artisan migrate
     ```
