@@ -93,6 +93,7 @@ export default {
     position:relative;
     height: 3rem;
     display: flex;
+    justify-content: space-between;
     align-items: Center;
     background-color: rgba(84, 92, 100, 0.8);;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
@@ -102,7 +103,6 @@ export default {
     margin: 0rem;
     padding: 0rem;
     height: 100%;
-    position: absolute;
     display: inline-flex;
     align-items: Center;
     list-style: none;
@@ -110,12 +110,10 @@ export default {
 
 .nav-menu-left {
     margin-left: 0.5rem;
-    left: 0rem;
 }
 
 .nav-menu-right {
     margin-right: 0.5rem;
-    right: 0rem;
 }
 
 </style>

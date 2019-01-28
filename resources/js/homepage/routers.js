@@ -47,14 +47,14 @@ export default new VueRouter({
             path: '/auth/login',
             name: 'login',
             components: {
-                wrapper: Vue.component('LoginPage', require('./components/LoginPage.vue'))
+                wrapper: Vue.component('LoginPage', require('./components/AuthLoginPage.vue'))
             }
         },
         {
             path: '/auth/register',
             name: 'register',
             components: {
-                wrapper: Vue.component('RegisterPage', require('./components/RegisterPage.vue'))
+                wrapper: Vue.component('RegisterPage', require('./components/AuthRegisterPage.vue'))
             }
         }
     ]

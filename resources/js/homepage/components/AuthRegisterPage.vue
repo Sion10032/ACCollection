@@ -1,5 +1,5 @@
 <template>
-    <auth-wrapper>
+    <auth-wrapper v-bind:pageName="'register'">
         <form>
             <p class="text">Name:</p>
             <radius-input v-model="name"/>
@@ -39,6 +39,10 @@ export default {
             pwd: '',
             confirmPwd: ''
         }
+    },
+    beforeCreate: function() {
+        if (this.$auth.check())
+            this.$router.push({name: 'home'})            
     },
     methods: {
         registerClick: function() {

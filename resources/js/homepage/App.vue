@@ -48,10 +48,7 @@ main {
     height: 90%;
 }
 
-.router-trans-enter-active {
-    transition: all 0.5s;
-}
-
+.router-trans-enter-active，
 .router-trans-leave-active {
     transition: all 0.5s;
 }

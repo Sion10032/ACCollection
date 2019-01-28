@@ -1,5 +1,5 @@
 <template>
-    <auth-wrapper>
+    <auth-wrapper v-bind:pageName="'login'">
         <form>
             <p class="text">E-Mail:</p>
             <radius-input v-model="email"/>
@@ -40,6 +40,10 @@ export default {
             pwd: '',
             remb: true
         }
+    },
+    beforeCreate: function() {
+        if (this.$auth.check())
+            this.$router.push({name: 'home'})            
     },
     methods: {
         loginClick: function() {
