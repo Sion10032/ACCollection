@@ -1,10 +1,16 @@
 <template>
     <div class="book-wrapper">
         <div class="book-info">
-            <img 
-                class="book-cover"
-                v-bind:src="'https://cf.hamreus.com/cpic/b/' + this.bid + '.jpg'" 
-            />
+            <div class="book-func-wrapper">
+                <img 
+                    class="book-cover"
+                    v-bind:src="'https://cf.hamreus.com/cpic/b/' + this.bid + '.jpg'" 
+                />
+                <div class="fav-button" v-on="changeFavorite">
+                    <img class="fav-button-img" src="/image/navbar/favorite.png" />
+                    <p class="fav-button-text">添加收藏</p>
+                </div>
+            </div>
             <div class="book-info-text">
                 <h2 class="book-title"> {{bookDetial.name}} </h2>
                 <p class="book-intro"> {{bookDetial.intro}} </p>
@@ -48,6 +54,9 @@ export default {
                 _this.setMenuPos()
             })
         },
+        changeFavorite: function() {
+
+        },
         setMenuPos: function() {
             var bookInfo = document.getElementsByClassName('book-info')[0]
             var bookMenu = document.getElementsByClassName('book-menu')[0]
@@ -77,13 +86,53 @@ export default {
     width: 24rem;
     height: 16rem;
     padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
 }
+
+.book-func-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 8rem;
+    height: 100%;
+    flex-shrink: 0;
+}
+
+.fav-button {
+    cursor: pointer;
+    background-color: rgb(127, 127, 127);
+    height: 2rem;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0;
+    border-radius: 1rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.fav-button:hover {
+    background-color: rgb(255, 0, 0);
+}
+
+.fav-button-img {
+    height: 2rem;
+    width: 2rem;
+    flex-shrink: 0;
+}
+
+.fav-button-text {
+    margin-left: 0.6rem;
+    color: white;
+} 
 
 .book-cover {
     width: 8rem;
     height: 12rem;
     object-fit: cover;
-    flex-shrink: 0;
     border-radius: 0.2rem;
 }
 
@@ -103,7 +152,7 @@ export default {
 }
 
 .book-menu {
-    padding: 1rem;
+    padding: 0 1rem;
     box-sizing: border-box;
     height: 100%;
     width: 100%;
