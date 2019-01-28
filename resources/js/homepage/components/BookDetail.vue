@@ -20,8 +20,9 @@
             <book-menu 
                 v-for="cateItem in bookDetial.dir"
                 v-bind:key="cateItem.cateName"
-                v-bind:menu="cateItem"
                 v-bind:bid="bookDetial.bid"
+                v-bind:favoriteInfo="favoriteInfo"
+                v-bind:menu="cateItem"
             />
         </div>
     </div>
@@ -91,8 +92,8 @@ export default {
                         'Authorization': 'bearer ' + _this.$auth.token()
                     }
                 }).then(function(res) {
-                    console.log(res.data);
                     _this.favoriteInfo.isFavorite = false
+                    _this.favoriteInfo.fid = undefined                    
                 });
             }
             else {
@@ -108,8 +109,8 @@ export default {
                         lastChapter: 0
                     }
                 }).then(function(res) {
-                    console.log(res.data);
-                    _this.checkFavorite()
+                    _this.favoriteInfo.isFavorite = true
+                    _this.favoriteInfo.fid = res.data.data.id
                 });
             }
         },

@@ -67,6 +67,7 @@ class FavoriteController extends Controller
             return response([
                 "message" => 'Success',
                 "status_code" => 201,
+                "data" => $fav,
             ], 201);
         }
         else {
@@ -88,7 +89,7 @@ class FavoriteController extends Controller
         $fav = Favorite::find($id);
         $fav->update($request->all());
 
-        return $fav;
+        return response($fav);
     }
 
     public function delete(Request $request, $uid, $id)
