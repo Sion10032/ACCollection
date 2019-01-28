@@ -11,12 +11,11 @@ use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     use AuthenticatesUsers;
 
     public function login(Request $request) {
-
         $user = User::where('email', $request->email)->orWhere('name', $request->email)->first();
 
         if ($user && Hash::check($request->get('password'), $user->password)) {
@@ -38,7 +37,7 @@ class LoginController extends Controller
             'token' => $token,
             'status_code' => 200,
             'message' => 'User Authenticated',
-        ]);
+        ])->header('Authorization', $token);
     }
 
     public function sendFailedLoginResponse() {
@@ -48,9 +47,31 @@ class LoginController extends Controller
         ], 401);
     }
 
+    public function user(Request $request) {
+        $user = User::find($this->guard()->user()->id);
+
+        if (!isset($user)) {
+            return response([
+                'status_code' => 404,
+                'message' => 'User Not Found'
+            ], 404);
+        }
+        else {
+            return response([
+                'status_code' => 200,
+                'data' => $user
+            ]);
+        }
+    }
+
+    public function refresh() {
+        return response([
+            'status' => 'success'
+        ]);
+    }
+
     public function logout() {
         $this->guard()->logout();
-        // JWTAuth::invalidate();
         return response([
             'status_code' => 200,
             'message' => 'Logged out Successfully',

@@ -14,9 +14,11 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['prefix' => 'auth'], function() {
-    Route::post('register', 'Api\RegisterController@register');
-    Route::post('login', 'Api\Auth\LoginController@login');
-    Route::get('logout', 'Api\Auth\LoginController@logout')->middleware('jwt.auth');
+    Route::post('register', 'Api\Auth\RegisterController@register');
+    Route::post('login', 'Api\Auth\AuthController@login');
+    Route::get('user', 'Api\Auth\AuthController@user')->middleware('jwt.auth');
+    Route::get('refresh', 'Api\Auth\AuthController@refresh')->middleware('jwt.refresh');
+    Route::get('logout', 'Api\Auth\AuthController@logout')->middleware('jwt.auth');
 });
 
 Route::group([], function() {
