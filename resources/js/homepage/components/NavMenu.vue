@@ -58,17 +58,22 @@ export default {
                 {
                     name: 'Home',
                     icon: '/image/navbar/home.png',
-                    router: 'home'
+                    router: 'home',
+                    params: {}
                 },
                 {
                     name: 'Favorite',
                     icon: '/image/navbar/favorite.png',
-                    router: ''
+                    router: 'favorites',
+                    params: {
+                        userId: '0'
+                    }
                 },
                 {
                     name: 'Recent',
                     icon: '/image/navbar/recent.png',
-                    router: ''
+                    router: '',
+                    params: {}
                 }
             ]
         }

@@ -12,6 +12,9 @@ export default {
     components: {
         BookGroup
     },
+    props: {
+        userId: String
+    },
     data: function() {
         return {
             bookGroup: {
@@ -20,10 +23,20 @@ export default {
             }
         }
     },
+    created: function() {
+        if (this.userId == '0')
+            this.redircet()
+    },
     mounted: function() {
         this.getFavoritesBooks();
     },
     methods: {
+        redircet: function() {
+            if (!this.$auth.check())
+                this.$router.push({name: 'login'})
+            else
+                this.$router.push({name: 'favorites', params: { userId: this.$auth.user().id.toString() }})
+        },
         getFavoritesBooks: function() {
             let _this = this
             let url = '/users/' + _this.$auth.user().id + '/favorites'

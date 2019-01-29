@@ -18,7 +18,8 @@ export default {
         infos: {
             icon: String,
             name: String,
-            router: String
+            router: String,
+            params: Object
         },
         isNavItemTextShow: Boolean
     },
@@ -26,7 +27,7 @@ export default {
         navItemOnClick: function() {
             console.log(this.infos.name, 'is clicked.')
             if (this.infos.router != '')
-                this.$router.push({name: this.infos.router})
+                this.$router.push({name: this.infos.router, params: this.infos.params})
         }
     }
 }
