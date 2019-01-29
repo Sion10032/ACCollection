@@ -44,6 +44,16 @@ export default new VueRouter({
             }
         },
         {
+            path: '/user/:userId/favorites',
+            name: 'favorites',
+            components: {
+                wrapper: Vue.component('Favorite', require('./components/Favorite.vue'))
+            },
+            props: {
+                wrapper: true
+            }
+        },
+        {
             path: '/auth/login',
             name: 'login',
             components: {
