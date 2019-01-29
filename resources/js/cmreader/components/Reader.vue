@@ -1,20 +1,26 @@
 <template>
     <div class="reader">
-        <transition name="slide-down">
-            <div class="toolbar header" v-show="isToolbarShow">
-                <p class="chapter text"> {{ chapterData.chapter }} </p>
-                <p class="title text" v-bind:title="chapterData.title"> {{ chapterData.title }} </p>
-            </div>
-        </transition>
-        <div class="img-wrapper" v-if="this.isGetData">
+        <img 
+            class="load-img"
+            src="/image/ui/loading.gif"
+            v-if="!isGetData"
+        />
+        <toolbar-top
+            v-if="isGetData"
+            v-bind:isToolbarShow="isToolbarShow"
+            v-bind:chapter="chapterData.chapter"
+            v-bind:title="chapterData.title"
+        >
+        </toolbar-top>
+        <div class="img-wrapper" v-if="isGetData">
             <div class="mask">
-                <div class="left" v-on:click="prevPage()"></div>
+                <div class="left" v-on:click="isReverse ? prevPage() : nextPage()"></div>
                 <div class="center" v-on:click="isToolbarShow = !isToolbarShow"></div>
-                <div class="right" v-on:click="nextPage()"></div>
+                <div class="right" v-on:click="isReverse ? nextPage() : prevPage()"></div>
             </div>
             <img 
                 class="load-img"
-                src="/image/loading.gif"
+                src="/image/ui/loading.gif"
                 v-show="this.imgs[this.curPage].Loading"
             />
             <transition-group name="pic-appear">
@@ -27,20 +33,34 @@
                 />
             </transition-group>
         </div>
-        <transition name="slide-up">
-            <div class="toolbar footer" v-show="isToolbarShow"></div>
-        </transition>
+        <toolbar-bottom
+            v-if="isGetData"
+            v:bind:isReverse="isReverse"
+            v-bind:isToolbarShow="isToolbarShow"
+            v-bind:totalPage="chapterData.file.length"
+            v-bind:curPage="curPage"
+            v-on:changePage="changePage"
+        >
+        </toolbar-bottom>
     </div>
 </template>
 
 <script>
+import ToolbarTop from './ToolbarTop.vue'
+import ToolbarBottom from './ToolbarBottom.vue'
+
 export default {
+    components: {
+        ToolbarTop,
+        ToolbarBottom
+    },
     props: {
         chapterData: Object
     },
     data: function() {
         return {
             isToolbarShow: true,
+            isReverse: false,
             isGetData: false,
             isPreLoad: true,
             cmImg: {},
@@ -98,6 +118,9 @@ export default {
                 _this.imgs[index].Loading = false
             });
         },
+        changePage: function(newPage) {
+            this.curPage = newPage
+        },
         prevPage: function() {
             console.log('prev')
             this.curPage = Math.max(0, this.curPage - 1)
@@ -150,6 +173,8 @@ span {
 .load-img {
     position: absolute;
     z-index: 10;
+    left: 50%;
+    top: 50%;
     width: 64px;
     height: 64px;
 }
@@ -160,63 +185,13 @@ span {
     object-fit: contain;
 }
 
-.toolbar {
-    position: absolute;
-    z-index: 30;
-    background-color: #555555;
-    width: 100%;
-    height: 4rem;
-}
-
-.header {
-    top: 0;
-    padding: 0 1rem 0 1rem;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-}
-
-.text {
-    color: #FFF;
-}
-
-.chapter {
-    font-size: 1.5rem;
-}
-
-.title {
-    font-size: 1rem;
-    width: 8rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.footer {
-    bottom: 0;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.25);
-}
-
-.slide-up-enter-active, 
-.slide-down-enter-active, 
-.pic-appear-enter-active,
-.slide-up-leave-active, 
-.slide-down-leave-active,
+.pic-appear-enter-active, 
 .pic-appear-leave-active {
     transition: all 0.5s;
 }
 
-.slide-up-enter, .slide-up-leave-to {
-    transform: translateY(100%);
-    opacity: 0;
-}
-
-.slide-down-enter, .slide-down-leave-to {
-    transform: translateY(-100%);
-    opacity: 0;
-}
-
-.pic-appear-enter, .pic-appear-leave-to {
+.pic-appear-enter, 
+.pic-appear-leave-to {
     opacity: 0;
 }
 
