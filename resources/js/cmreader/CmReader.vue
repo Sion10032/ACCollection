@@ -21,7 +21,7 @@ export default {
     },
     methods:{
         getChapterData: function() {
-            var url = '/api' + window.location.pathname
+            var url = window.location.pathname
             var _this = this
             this.$axios.get(url).then(function(result) {
                 _this.chapterData = result.data
