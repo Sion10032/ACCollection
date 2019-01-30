@@ -152,13 +152,27 @@ span {
 
 .mask {
     position: absolute;
-    display: grid;
-    grid-template-columns: 25% 50% 50%;
+    display: flex;
     top: 0;
     bottom: 0;
     z-index: 20;
     width: 100%;
     height: 100%;
+}
+
+.left {
+    height: 100%;
+    flex-grow: 3;
+}
+
+.center {
+    height: 100%;
+    flex-grow: 4;
+}
+
+.right {
+    height: 100%;
+    flex-grow: 3;
 }
 
 .img-wrapper {
@@ -181,8 +195,9 @@ span {
 
 .cm-img {
     position: absolute;
-    height: 100%;
     object-fit: contain;
+    width: 100%;
+    height: 100%;
 }
 
 .pic-appear-enter-active, 
