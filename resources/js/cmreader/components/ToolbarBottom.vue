@@ -1,15 +1,24 @@
 <template>
-    <transition name="slide-down">
-        <div class="toolbar header" v-show="isToolbarShow">
-            <div class="back-button" v-on:click="goBack">
+    <transition name="slide-up">
+        <div class="toolbar footer" v-show="isToolbarShow">
+            <div class="item-wrapper progress">
+                <input
+                    id="proline"
+                    v-bind:class="{ reverse : !isReverse }"
+                    type="range"
+                    min="1"
+                    v-bind:max="totalPage"
+                    v-bind:value="curPage + 1"
+                    v-on:input="$emit('changePage', $event.target.value - 1)"
+                />
+                <p class="text"> {{ curPage + 1 + '/' +  totalPage }} </p>
+            </div>
+            <div class="item-wrapper" v-on:click="settingsClick">
                 <img 
-                    class="back-button-img" 
-                    src="/image/ui/back.png"
+                    class="settings-button-img" 
+                    src="/image/ui/settings.png"
                 />
             </div>
-            <p class="chapter text"> {{ chapter }} </p>
-            <p class="text">--</p>
-            <p class="title text" v-bind:title="title"> {{ title }} </p>
         </div>
     </transition>
 </template>
@@ -17,19 +26,30 @@
 <script>
 export default {
     props: {
+        isReverse: Boolean,
         isToolbarShow: Boolean,
-        chapter: String,
-        title: String
+        totalPage: Number,
+        curPage: Number
+    },
+    watch: {
+        curPage: function() {
+            let pl = document.getElementById('proline')
+            pl.style['background-size'] = this.curPage / (this.totalPage - 1) * 100 + "% 100%"
+        }
     },
     methods: {
-        goBack: function() {
-            window.history.go(-1)
+        settingsClick: function() {
+            console.log('Settings is clicked.')
         }
     }
-}
+};
 </script>
 
 <style scoped>
+
+* {
+    margin: 0;
+}
 
 .toolbar {
     position: absolute;
@@ -39,56 +59,76 @@ export default {
     height: 4rem;
 }
 
-.header {
-    top: 0;
-    padding: 0;
+.footer {
     display: flex;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-}
-
-.back-button {
-    cursor: pointer;
-    height: 100%;
-    padding: 1rem 1rem 1rem 0.5rem;
-    box-sizing: border-box;
-}
-
-.back-button:hover {
-    background-color: rgba(0, 0, 0, 0.25);
-}
-
-.back-button-img {
-    width: 2rem;
-    height: 2rem;
+    justify-content: space-between;
+    bottom: 0;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .text {
     color: #FFF;
-    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    flex-shrink: 0;
 }
 
-.chapter {
-    font-size: 1.5rem;
-}
-
-.title {
-    font-size: 1rem;
-    max-width: 8rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.slide-down-enter-active,
-.slide-down-leave-active{
+.slide-up-enter-active,
+.slide-up-leave-active {
     transition: all 0.5s;
 }
 
-.slide-down-enter, 
-.slide-down-leave-to {
-    transform: translateY(-100%);
+.slide-up-enter,
+.slide-up-leave-to {
+    transform: translateY(100%);
     opacity: 0;
+}
+
+.item-wrapper {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 1rem 0 1rem;
+    box-sizing: border-box;
+}
+
+.item-wrapper:hover {
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.progress {
+    flex-grow: 1;
+    justify-content: space-around;
+}
+
+#proline {
+    flex-grow: 1;
+}
+
+.reverse {
+    transform: scaleX(-1);
+}
+
+input[type="range"] {
+    outline: none;
+    -webkit-appearance: none;
+    background: -webkit-linear-gradient(#12a4c9, #12a4c9) no-repeat, #ddd;
+    background-size: 0% 100%;
+    height: 0.3rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 1.5rem;
+    width: 1.5rem;
+    background: #fff;
+    border-radius: 50%;
+    border: solid 1px #ddd;
+}
+
+.settings-button-img {
+    width: 2rem;
+    height: 2rem;
 }
 
 </style>
