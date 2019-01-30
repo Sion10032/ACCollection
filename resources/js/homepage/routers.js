@@ -34,7 +34,7 @@ export default new VueRouter({
             }
         },
         {
-            path: '/user/:userId',
+            path: '/users/:userId',
             name: 'user',
             components: {
                 wrapper: Vue.component('UserProfile', require('./components/Profile.vue'))
@@ -44,7 +44,7 @@ export default new VueRouter({
             }
         },
         {
-            path: '/user/:userId/favorites',
+            path: '/users/:userId/favorites',
             name: 'favorites',
             components: {
                 wrapper: Vue.component('Favorite', require('./components/Favorite.vue'))

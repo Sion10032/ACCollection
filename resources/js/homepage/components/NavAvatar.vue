@@ -1,6 +1,8 @@
 <template>
     <div class="avatar-wrapper" v-on:click="avatarClick">
-        <img class="avatar" />
+        <img 
+            class="avatar"
+            v-bind:src="this.$auth.check() ? '/image/ui/avatar-karen.png' : '/image/ui/avatar-saki.png'"/>
     </div>
 </template>
 

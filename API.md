@@ -110,7 +110,7 @@
     ]
     ```
 
-### GET /api/users/{id} (要求验证)
+### GET /api/users/{id}
 - Response:
     ```
     {

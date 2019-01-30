@@ -83,7 +83,7 @@ p {
 
 .cate-menu {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
     grid-gap: 1rem;
     padding: 0.5rem;
 }

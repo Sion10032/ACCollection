@@ -35,7 +35,8 @@ export default {
 
 .book-group {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    justify-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
     grid-gap: 1rem;
 }
 

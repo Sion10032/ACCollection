@@ -16,7 +16,7 @@ class AuthController extends Controller
     use AuthenticatesUsers;
 
     public function login(Request $request) {
-        $user = User::where('email', $request->email)->orWhere('name', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
 
         if ($user && Hash::check($request->get('password'), $user->password)) {
             $token = JWTAuth::fromUser($user);
