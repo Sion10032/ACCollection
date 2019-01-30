@@ -39,15 +39,13 @@ export default {
     grid-gap: 1rem;
 }
 
-.book-group-load-enter-active {
-    transition: all 0.5s;
-}
-
+.book-group-load-enter-active,
 .book-group-load-leave-active {
     transition: all 0.5s;
 }
 
-.book-group-load-enter, .book-group-load-leave-to {
+.book-group-load-enter, 
+.book-group-load-leave-to {
     transform: translateY(100%);
     opacity: 0;
 }
