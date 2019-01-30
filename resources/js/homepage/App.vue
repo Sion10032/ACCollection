@@ -53,7 +53,8 @@ main {
     transition: all 0.5s;
 }
 
-.router-trans-enter, .router-trans-leave-to {
+.router-trans-enter,
+.router-trans-leave-to {
     /* transform: scaleY(0); */
     opacity: 0;
 }

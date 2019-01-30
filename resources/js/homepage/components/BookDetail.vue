@@ -43,7 +43,8 @@ export default {
             bookDetial: {},
             favoriteInfo: {
                 isFavorite: false,
-                fid: String
+                fid: String,
+                lastChapter: Number
             }
         }
     },
@@ -75,6 +76,7 @@ export default {
                     if (result.data[i].bid == _this.bid) {
                         _this.favoriteInfo.isFavorite = true
                         _this.favoriteInfo.fid = result.data[i].id
+                        _this.favoriteInfo.lastChapter =  result.data[i].lastChapter
                     }
                 }
             })
@@ -140,20 +142,21 @@ export default {
 .book-info {
     display: flex;
     flex-shrink: 0;
+    max-width: 100%;
     width: 24rem;
-    height: 16rem;
+    height: 17rem;
     padding: 1rem;
     margin-bottom: 1rem;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 0.5rem;
+    box-sizing: border-box;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
 }
 
 .book-func-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-shrink: 0;
     width: 8rem;
     height: 100%;
     flex-shrink: 0;
@@ -164,6 +167,7 @@ export default {
     background-color: rgb(127, 127, 127);
     height: 2rem;
     width: 100%;
+    flex-shrink: 0;
     margin-top: 0.5rem;
     padding: 0;
     border-radius: 1rem;
@@ -182,30 +186,38 @@ export default {
 }
 
 .fav-button-text {
-    margin-left: 0.6rem;
+    margin: 0 0 0 0.6rem;
     color: white;
 } 
 
 .book-cover {
     width: 8rem;
     height: 12rem;
+    flex-shrink: 0;
     object-fit: cover;
     border-radius: 0.2rem;
 }
 
 .book-info-text {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
     padding: 0rem 1rem 0rem 1rem;
 }
 
 .book-title {
-    margin: 0rem;
+    margin: 0;
+    font-size: 1rem;
 }
 
 .book-intro {
-    overflow:hidden;
-    text-overflow:ellipsis;
+    font-size: 1rem;
+    margin: 1rem 0 0 0;
+    height: 11.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .book-menu {

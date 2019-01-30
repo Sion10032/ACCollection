@@ -69,12 +69,12 @@ export default {
                         userId: '0'
                     }
                 },
-                {
-                    name: 'Recent',
-                    icon: '/image/navbar/recent.png',
-                    router: '',
-                    params: {}
-                }
+                // {
+                //     name: 'Recent',
+                //     icon: '/image/navbar/recent.png',
+                //     router: '',
+                //     params: {}
+                // }
             ]
         }
     },

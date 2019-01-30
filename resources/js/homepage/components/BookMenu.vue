@@ -1,5 +1,5 @@
 <template>
-    <div class="menu">
+    <div class="menu shadow">
         <div
             class="cate-name"
             v-bind:class="{ 'bottom-radius-item' : !isExpend }"
@@ -10,10 +10,11 @@
         <transition name="slider">
             <div class="cate-menu" v-show="isExpend">
                 <div 
-                    class="chapter-item" 
+                    class="chapter-item shadow" 
                     v-for="chapter in menu.cateMenu" 
                     v-bind:key="chapter.cid"
                     v-on:click="goChapter(chapter.cid)"
+                    v-bind:class="{ 'have-read' : favoriteInfo.lastChapter == chapter.cid }"
                 >
                     <p class="chapter-name" v-bind:title="chapter.name"> {{chapter.name}} </p>
                     <p class="chapter-page"> {{chapter.page + 'p'}} </p>
@@ -66,10 +67,14 @@ p {
     margin: 0rem;
 }
 
+.shadow {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
 .menu {
     width: 100%;
     border-radius: 0.5rem;
-    background-color: rgba(192, 192, 192, 0.6);
+    background-color: rgba(255, 255, 255, 0.6);    
     margin-bottom: 1rem;
 }
 
@@ -87,7 +92,7 @@ p {
     align-items: center;
     height: 2rem;
     padding: 0 1rem 0 1rem;
-    background-color: rgba(192, 192, 192, 0.6);
+    background-color: rgba(236, 236, 236, 0.6);
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     box-sizing: border-box;
@@ -108,6 +113,10 @@ p {
     border-radius: 0.2rem;
     background-color: rgba(255, 255, 255, 0.6);
     cursor: pointer;
+}
+
+.have-read {
+    background-color: rgba(255, 228, 196, 0.6);
 }
 
 .chapter-name {
