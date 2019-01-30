@@ -23,7 +23,7 @@ Route::group(['prefix' => 'auth'], function() {
 
 Route::group([], function() {
     Route::get('users', 'Api\UserController@index')->middleware('jwt.auth');
-    Route::get('users/{id}', 'Api\UserController@show')->middleware('jwt.auth');
+    Route::get('users/{id}', 'Api\UserController@show');
     // Route::post('users', 'Api\RegisterController@register');    // register
     // Route::put('users/{}', 'Api\Auth\LoginController@login')
     // Route::delete('users/{}', 'Api\Auth\LoginController@logout')->middleware('jwt.auth');

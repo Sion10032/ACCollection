@@ -28,7 +28,7 @@ class UserController extends Controller
         else {
             return response([
                 'status_code' => 200,
-                'user_data' => $user
+                'data' => $user
             ]);
         }
     }
