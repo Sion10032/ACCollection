@@ -39,7 +39,13 @@ ACCollection是一个基于laravel的项目，该项目主要目的在于解析�
     vi .env
     ```
 
-4. 生成数据库表单
+4. 生产 App key 与 jwt密钥
+    ```
+    php artisan key:generate
+    php artisan jwt:secret
+    ```
+
+5. 生成数据库表单
     ```
     php artisan migrate
     ```
