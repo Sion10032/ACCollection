@@ -55,8 +55,11 @@ export default {
                     window.location.href = '/SMH/books/' + _this.bid + '/chapters/' + cid
                 }).catch(function() {
                     window.location.href = '/SMH/books/' + _this.bid + '/chapters/' + cid
-                });
-            }     
+                })
+            }
+            else {
+                window.location.href = '/SMH/books/' + _this.bid + '/chapters/' + cid
+            }
         }
     }
 };
