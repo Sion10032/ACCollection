@@ -62,7 +62,7 @@ class SMHCrawer
         // 解密限制级漫画目录
         $vs = $html->rules([["#__VIEWSTATE", "value"]])->queryData();
         if (!empty($vs))
-            $html = QueryList::html(\LZCompressor\LZString::decompressFromBase64($vs));
+            $html = QueryList::html(\LZCompressor\LZString::decompressFromBase64($vs[0][0]));
 
 
         // 获取目录
