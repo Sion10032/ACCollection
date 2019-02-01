@@ -20,7 +20,7 @@ class SMHCrawer
         $html = QueryList::get($url);
 
         // 获取结果总数
-        $CountRule = array('res' => array('div.result-count>strong', 'html'));
+        $CountRule = ['res' => ['div.result-count>strong', 'html']];
         $resultCount = $html->rules($CountRule)->queryData()[1]['res'];
 
         $books = [];
@@ -30,12 +30,12 @@ class SMHCrawer
             $url = self::$site . '/s/' . urlencode($name) . '_p' . $p . '.html';
             if($p != 1) $html = QueryList::get($url);
 
-            $booksLi = $html->rules(array('html' => array('li.cf', 'html')))->query()->getData();
+            $booksLi = $html->rules(['html' => ['li.cf', 'html']])->query()->getData();
 
-            $BookInfoRule = array(
-                'name' => array('a.bcover', 'title'),
-                'bid' => array('a.bcover', 'href')
-            );
+            $BookInfoRule = [
+                'name' => ['a.bcover', 'title'],
+                'bid' => ['a.bcover', 'href']
+            ];
 
             foreach($booksLi as $book){
                 $tmp = QueryList::html($book["html"])->rules($BookInfoRule)->queryData()[0];
@@ -55,21 +55,21 @@ class SMHCrawer
 
         $book = [];
         $book['bid'] = $bid;
-        $book['name'] = $html->rules(array(array("div>h1", "text")))->queryData()[0][0];
-        $book['intro'] = $html->rules(array(array("div#intro-cut", "text")))->queryData()[0][0];
+        $book['name'] = $html->rules([["div>h1", "text"]])->queryData()[0][0];
+        $book['intro'] = $html->rules([["div#intro-cut", "text"]])->queryData()[0][0];
         $book['dir'] = [];
 
-
         // 解密限制级漫画目录
-        $vs = $html->rules(array(array("input#__VIEWSTATE", "text")))->queryData()[0][0];
-        if ($vs != '')
+        $vs = $html->rules([["#__VIEWSTATE", "value"]])->queryData();
+        if (!empty($vs))
             $html = QueryList::html(\LZCompressor\LZString::decompressFromBase64($vs));
 
+
         // 获取目录
-        $menu = $html->rules(array(
-            "cateName" => array("h4>span", "text"),
-            "cateMenu" => array("#chapter-list-0, #chapter-list-1", "html")
-        ))->queryData();
+        $menu = $html->rules([
+            "cateName" => ["h4>span", "text"],
+            "cateMenu" => ["#chapter-list-0, #chapter-list-1", "html"]
+        ])->queryData();
 
         foreach($menu as $menuItem){
             $menulist = [];
@@ -89,7 +89,7 @@ class SMHCrawer
                 $menulist[$i]['page'] = str_replace('p', '', $menulist[$i]['page']);
             }
 
-            array_push($book['dir'], array('cateName' => $menuItem['cateName'], 'cateMenu' => $menulist));
+            array_push($book['dir'], ['cateName' => $menuItem['cateName'], 'cateMenu' => $menulist]);
         }
 
         return json_encode($book, JSON_UNESCAPED_UNICODE);
@@ -99,18 +99,18 @@ class SMHCrawer
     {
         $url = self::$site . '/comic/' . $bid . '/' . $cid . '.html';
         $html = QueryList::get($url);
-        $info = $html->rules(array(
-            'title' => array('.w980.title>div>h1>a', 'text'),
-            'chapter' => array('.w980.title>div>h2', 'text')
-        ))->queryData()[0];
-        $data_json = $html->rules(array('js' => array('body>script:not(:empty)', 'text')))->queryData()[0];
+        $info = $html->rules([
+            'title' => ['.w980.title>div>h1>a', 'text'],
+            'chapter' => ['.w980.title>div>h2', 'text']
+        ])->queryData()[0];
+        $data_json = $html->rules(['js' => ['body>script:not(:empty)', 'text']])->queryData()[0]['js'];
 
-        $js = str_replace('window["\x65\x76\x61\x6c"](', 'var res = ', $data_json['js']);
+        $js = str_replace('window["\x65\x76\x61\x6c"](', 'var res = ', $data_json);
         $js = str_replace('{}))', '{}); console.log(res);', $js);
         $js = str_replace('c35?', 'c<a?"":e(parseInt(c/a)))+((c=c%a)>35?', $js);
         $js = self::$LZS . $js;
         
-        $fileName = 'cache/tmp.js';
+        $fileName = 'cache/tmp_' . $bid . '_' . $cid . '.js';
         $tmpFile = fopen($fileName, 'w');
         fwrite($tmpFile, $js);
         fclose($tmpFile);
@@ -119,6 +119,9 @@ class SMHCrawer
         $decyptionJsonData = str_replace('SMH.imgData(', '', $decyptionJsonData);
         $decyptionJsonData = str_replace(').preInit();', '', $decyptionJsonData);
         $json = json_decode($decyptionJsonData, true);
+        
+        // 清理
+        unlink($fileName);
 
         $pics = [];
         $pics['bid'] = $bid;
@@ -139,10 +142,10 @@ class SMHCrawer
         $url = self::$site . '/update/';
         $html = QueryList::get($url);
 
-        $books = $html->rules(array(
-            "name" => array('a.cover', 'title'),
-            "bid" => array('a.cover', 'href')
-        ))->queryData();
+        $books = $html->rules([
+            "name" => ['a.cover', 'title'],
+            "bid" => ['a.cover', 'href']
+        ])->queryData();
 
         foreach ($books as &$book) {
             $book['bid'] = str_replace('comic', '', $book['bid']);
@@ -157,10 +160,10 @@ class SMHCrawer
         $url = self::$site . '/rank/month.html';
         $html = QueryList::get($url);
 
-        $books = $html->rules(array(
-            "name" => array('tr>td.rank-title>h5>a', 'text'),
-            "bid" => array('tr>td.rank-title>h5>a', 'href')
-        ))->queryData();
+        $books = $html->rules([
+            "name" => ['tr>td.rank-title>h5>a', 'text'],
+            "bid" => ['tr>td.rank-title>h5>a', 'href']
+        ])->queryData();
 
         foreach ($books as &$book) {
             $book['bid'] = str_replace('comic', '', $book['bid']);
