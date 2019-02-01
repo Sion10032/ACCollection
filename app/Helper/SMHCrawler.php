@@ -59,6 +59,12 @@ class SMHCrawer
         $book['intro'] = $html->rules(array(array("div#intro-cut", "text")))->queryData()[0][0];
         $book['dir'] = [];
 
+
+        // 解密限制级漫画目录
+        $vs = $html->rules(array(array("input#__VIEWSTATE", "text")))->queryData()[0][0];
+        if ($vs != '')
+            $html = QueryList::html(\LZCompressor\LZString::decompressFromBase64($vs));
+
         // 获取目录
         $menu = $html->rules(array(
             "cateName" => array("h4>span", "text"),
