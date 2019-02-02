@@ -128,14 +128,16 @@ export default {
             console.log('prev')
             if (this.curPage == 0) {
                 if (this.isCheck) {
-                    if (this.isJump)
+                    if (this.isJump) {
+                        this.isJump = false
                         this.$emit('goPrevChapter')
+                    }
                     else
                         this.isJump = true
                 }
                 else {
-                    this.$emit('goPrevChapter')
                     this.isJump = false
+                    this.$emit('goPrevChapter')
                 }
             }
             else
@@ -146,14 +148,16 @@ export default {
             console.log('next')
             if (this.curPage == this.chapterData.files.length - 1) {
                 if (this.isCheck) {
-                    if (this.isJump)
+                    if (this.isJump) {
+                        this.isJump = false
                         this.$emit('goNextChapter')
+                    }
                     else
                         this.isJump = true
                 }
                 else {
-                    this.$emit('goNextChapter')
                     this.isJump = false
+                    this.$emit('goNextChapter')
                 }
             }
             else
