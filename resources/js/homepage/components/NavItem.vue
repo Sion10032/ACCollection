@@ -45,12 +45,14 @@ div {
 .nav-item-icon {
     height: 60%;
     margin: 0.25rem;
-    object-fit: scale-down
+    flex-shrink: 0;
 }
 
 .nav-item-text {
     font-size: 0.8rem;
     color: white;
+    flex-shrink: 0;
+    margin-right: 0.3rem;
 }
 
 </style>

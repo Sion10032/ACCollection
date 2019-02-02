@@ -19,7 +19,7 @@ export default {
                     searchText: this.searchText 
                 }
             })
-            this.searchText = ''
+            // this.searchText = ''
         }
     }
     
@@ -29,9 +29,7 @@ export default {
 <style scoped>
 
 /* .search-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    
 } */
 
 .search-input {

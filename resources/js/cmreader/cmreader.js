@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import qs from 'qs';
+import VueLocalStorage from 'vue-localstorage'
 import CmReader from './CmReader.vue';
 import 'normalize.css'
 
 
 Vue.use(VueAxios, axios)
+Vue.use(VueLocalStorage)
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
 axios.defaults.baseURL = '/api/'

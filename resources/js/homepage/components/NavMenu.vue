@@ -79,7 +79,7 @@ export default {
         }
     },
     mounted: function() {
-        // this.isNavItemTextShow = window.innerHeight < window.innerWidth
+        this.isNavItemTextShow = window.innerHeight < window.innerWidth
     },
     methods: {
         setSelectedItem: function(selectedItem) {

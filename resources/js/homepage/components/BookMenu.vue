@@ -38,28 +38,12 @@ export default {
     },
     methods: {
         goChapter: function(cid) {
-            let _this = this
-            let url = '/users/' + _this.$auth.user().id + '/favorites'
-            if (_this.favoriteInfo.isFavorite) {
-                _this.$axios({
-                    method: "PUT",
-                    url: url + '/' + _this.favoriteInfo.fid,
-                    headers: {
-                        'Authorization': 'bearer ' + _this.$auth.token()
-                    },
-                    data: {
-                        lastChapter: cid
-                    }
-                }).then(function(res) {
-                    // console.log('update success.', res.data, _this)
-                    window.location.href = '/SMH/books/' + _this.bid + '/chapters/' + cid
-                }).catch(function() {
-                    window.location.href = '/SMH/books/' + _this.bid + '/chapters/' + cid
-                })
+            if (this.favoriteInfo.isFavorite) {
+                this.$localStorage.set('cur_uid', this.$auth.user().id)
+                this.$localStorage.set('cur_fid', this.favoriteInfo.fid)
+                this.$localStorage.set('cur_bid', this.bid)
             }
-            else {
-                window.location.href = '/SMH/books/' + _this.bid + '/chapters/' + cid
-            }
+            window.location.href = '/SMH/books/' + this.bid + '/chapters/' + cid
         }
     }
 };

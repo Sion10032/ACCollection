@@ -3,13 +3,14 @@
         <img 
             class="load-img"
             src="/image/ui/loading.gif"
-            v-if="!isGetData"
+            v-show="!isGetData"
         />
         <toolbar-top
             v-if="isGetData"
             v-bind:isToolbarShow="isToolbarShow"
             v-bind:chapter="chapterData.chapter"
             v-bind:title="chapterData.title"
+            v-bind:bid="chapterData.bid"
         >
         </toolbar-top>
         <div class="img-wrapper" v-if="isGetData">
@@ -37,7 +38,7 @@
             v-if="isGetData"
             v:bind:isReverse="isReverse"
             v-bind:isToolbarShow="isToolbarShow"
-            v-bind:totalPage="chapterData.file.length"
+            v-bind:totalPage="chapterData.files.length"
             v-bind:curPage="curPage"
             v-on:changePage="changePage"
         >
@@ -61,6 +62,8 @@ export default {
         return {
             isToolbarShow: true,
             isReverse: false,
+            isCheck: true,
+            isJump: false,
             isGetData: false,
             isPreLoad: true,
             cmImg: {},
@@ -71,7 +74,7 @@ export default {
     watch: {
         chapterData: function() {
             this.imgs = []
-            for (let i = 0; i < this.chapterData.file.length; ++i)
+            for (let i = 0; i < this.chapterData.files.length; ++i)
                 this.imgs.push({page: i,Loading: false, data: ''})
             this.curPage = 0
             this.isGetData = true
@@ -89,7 +92,7 @@ export default {
             )
                 this.getPic(this.curPage)
             if (this.isPreLoad) {
-                if (this.curPage == this.chapterData.file.length - 1)
+                if (this.curPage == this.chapterData.files.length - 1)
                     return
                 else {
                     if (
@@ -108,7 +111,7 @@ export default {
                 {
                     'bid': _this.chapterData.bid,
                     'cid': _this.chapterData.cid,
-                    'url': _this.chapterData.file[index]
+                    'url': _this.chapterData.files[index]
                 }
             ).then(function(res) {
                 _this.imgs[index].data = res.data
@@ -123,11 +126,39 @@ export default {
         },
         prevPage: function() {
             console.log('prev')
+            if (this.curPage == 0) {
+                if (this.isCheck) {
+                    if (this.isJump)
+                        this.$emit('goPrevChapter')
+                    else
+                        this.isJump = true
+                }
+                else {
+                    this.$emit('goPrevChapter')
+                    this.isJump = false
+                }
+            }
+            else
+                this.isJump = false
             this.curPage = Math.max(0, this.curPage - 1)
         },
         nextPage: function() {
             console.log('next')
-            this.curPage = Math.min(this.chapterData.file.length - 1, this.curPage + 1)
+            if (this.curPage == this.chapterData.files.length - 1) {
+                if (this.isCheck) {
+                    if (this.isJump)
+                        this.$emit('goNextChapter')
+                    else
+                        this.isJump = true
+                }
+                else {
+                    this.$emit('goNextChapter')
+                    this.isJump = false
+                }
+            }
+            else
+                this.isJump = false
+            this.curPage = Math.min(this.chapterData.files.length - 1, this.curPage + 1)
         }
     }
 }
@@ -187,10 +218,13 @@ span {
 .load-img {
     position: absolute;
     z-index: 10;
-    left: 50%;
-    top: 50%;
-    width: 64px;
-    height: 64px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 4rem;
+    height: 4rem;
 }
 
 .cm-img {

@@ -8,7 +8,7 @@
                 />
             </div>
             <p class="chapter text"> {{ chapter }} </p>
-            <p class="text">--</p>
+            <p class="text">-</p>
             <p class="title text" v-bind:title="title"> {{ title }} </p>
         </div>
     </transition>
@@ -19,11 +19,12 @@ export default {
     props: {
         isToolbarShow: Boolean,
         chapter: String,
-        title: String
+        title: String,
+        bid: String
     },
     methods: {
         goBack: function() {
-            window.history.go(-1)
+            window.location.href = '/#/SMH/books/' + this.bid
         }
     }
 }

@@ -49,8 +49,8 @@ export default {
         }
     },
     mounted: function() {
-        this.getBookDetail();
-        this.checkFavorite();        
+        this.getBookDetail()
+        this.checkFavorite()        
         this.setMenuPos()
     },
     methods: {

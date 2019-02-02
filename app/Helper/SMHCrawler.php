@@ -126,13 +126,15 @@ class SMHCrawer
         $pics = [];
         $pics['bid'] = $bid;
         $pics['cid'] = $cid;
+        $pics['prevCid'] = $json['prevId'];
+        $pics['nextCid'] = $json['nextId'];
         $pics['title'] = $info['title'];
         $pics['chapter'] = $info['chapter'];
-        $path = 'https://i.hamreus.com' . $json['path'];
-        $parm = "?cid=" . $json['cid'] . '&md5=' . $json['sl']['md5'];
-        $pics['file'] = [];
-        foreach($json['files'] as $file)
-            array_push($pics['file'], $path . $file . $parm);
+        $pics['path'] = 'https://i.hamreus.com' . $json['path'];
+        $pics['param'] = "?cid=" . $json['cid'] . '&md5=' . $json['sl']['md5'];
+        $pics['files'] = $json['files'];
+        // foreach($json['files'] as $file)
+        //     array_push($pics['files'], $path . $file . $parm);
 
         return str_replace("\\/", "/", json_encode($pics, JSON_UNESCAPED_UNICODE));
     }
