@@ -1,7 +1,11 @@
 <template>
     <transition name="slide-up">
         <div class="toolbar footer" v-show="isToolbarShow">
-            <div class="item-wrapper progress">
+            <div 
+                class="item-wrapper progress"
+                v-bind:class="{ 're-dir' : isReverse }"
+            >
+                <p class="text"> {{ totalPage }} </p>
                 <input
                     id="proline"
                     v-bind:class="{ reverse : !isReverse }"
@@ -11,7 +15,7 @@
                     v-bind:value="curPage + 1"
                     v-on:input="$emit('changePage', $event.target.value - 1)"
                 />
-                <p class="text"> {{ curPage + 1 + '/' +  totalPage }} </p>
+                <p class="text"> {{ curPage + 1 }} </p>
             </div>
             <div class="item-wrapper" v-on:click="settingsClick">
                 <img 
@@ -69,7 +73,7 @@ export default {
 
 .text {
     color: #FFF;
-    padding-left: 0.5rem;
+    margin: 0 1rem 0 1rem;
     flex-shrink: 0;
 }
 
@@ -88,12 +92,16 @@ export default {
     display: flex;
     align-items: center;
     height: 100%;
-    padding: 0 1rem 0 1rem;
+    padding: 0;
     box-sizing: border-box;
 }
 
 .item-wrapper:hover {
     background-color: rgba(0, 0, 0, 0.25);
+}
+
+.re-dir {
+    flex-direction: row-reverse;
 }
 
 .progress {
@@ -129,6 +137,7 @@ input[type="range"]::-webkit-slider-thumb {
 .settings-button-img {
     width: 2rem;
     height: 2rem;
+    margin: 1rem;
 }
 
 </style>

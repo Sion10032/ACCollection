@@ -36,7 +36,16 @@ export default {
         };
     },
     methods: {
+<<<<<<< HEAD
         goChapter: function(cid) {           
+=======
+        goChapter: function(cid) {
+            if (this.favoriteInfo.isFavorite) {
+                this.$localStorage.set('cur_uid', this.$auth.user().id)
+                this.$localStorage.set('cur_fid', this.favoriteInfo.fid)
+                this.$localStorage.set('cur_bid', this.bid)
+            }
+>>>>>>> b788473... 1. 修改后台数据返回格式，用前端处理数据拼接
             window.location.href = '/SMH/books/' + this.bid + '/chapters/' + cid
         }
     }
