@@ -48,13 +48,9 @@ export default {
         }
     },
     mounted: function() {
-<<<<<<< HEAD
-        this.getBookDetail();
-=======
         this.getBookDetail()
         this.checkFavorite()        
         this.setMenuPos()
->>>>>>> b788473... 1. 修改后台数据返回格式，用前端处理数据拼接
     },
     methods: {
         getBookDetail: function() {
