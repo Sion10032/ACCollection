@@ -43,7 +43,7 @@ export default {
     },
     methods: {
         settingsClick: function() {
-            console.log('Settings is clicked.')
+            this.$emit('showSettings')
         }
     }
 };
