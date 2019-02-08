@@ -3,7 +3,7 @@
         <img 
             class="load-img"
             src="/image/ui/loading.gif"
-            v-show="!isGetData"
+            v-if="!isGetData"
         />
         <toolbar-top
             v-if="isGetData"
@@ -14,6 +14,14 @@
         >
         </toolbar-top>
         <div class="img-wrapper" v-if="isGetData">
+            <transition name="pic-appear">
+                <settings
+                    v-show="isSettingsShow"
+                    v-on:updateSettings="updateSettings"
+                    v-on:showSettings="showSettings"
+                >
+                </settings>
+            </transition>
             <div class="mask">
                 <div class="left" v-on:click="isReverse ? prevPage() : nextPage()"></div>
                 <div class="center" v-on:click="isToolbarShow = !isToolbarShow"></div>
@@ -36,11 +44,12 @@
         </div>
         <toolbar-bottom
             v-if="isGetData"
-            v:bind:isReverse="isReverse"
+            v-bind:isReverse="isReverse"
             v-bind:isToolbarShow="isToolbarShow"
             v-bind:totalPage="chapterData.files.length"
             v-bind:curPage="curPage"
             v-on:changePage="changePage"
+            v-on:showSettings="showSettings"
         >
         </toolbar-bottom>
     </div>
@@ -49,11 +58,13 @@
 <script>
 import ToolbarTop from './ToolbarTop.vue'
 import ToolbarBottom from './ToolbarBottom.vue'
+import Settings from './Settings.vue'
 
 export default {
     components: {
         ToolbarTop,
-        ToolbarBottom
+        ToolbarBottom,
+        Settings
     },
     props: {
         chapterData: Object
@@ -61,10 +72,11 @@ export default {
     data: function() {
         return {
             isToolbarShow: true,
-            isReverse: false,
-            isCheck: true,
+            isSettingsShow: false,
             isJump: false,
             isGetData: false,
+            isReverse: false,
+            isCheck: true,
             isPreLoad: true,
             cmImg: {},
             curPage: -1,
@@ -159,6 +171,14 @@ export default {
             else
                 this.isJump = false
             this.curPage = Math.min(this.chapterData.files.length - 1, this.curPage + 1)
+        },
+        updateSettings: function(isReverse, isCheck, isPreLoad) {
+            this.isReverse = isReverse
+            this.isCheck = isCheck
+            this.isPreLoad = isPreLoad
+        },
+        showSettings: function() {
+            this.isSettingsShow = !this.isSettingsShow
         }
     }
 }
@@ -236,7 +256,7 @@ span {
 
 .pic-appear-enter-active, 
 .pic-appear-leave-active {
-    transition: all 0.5s;
+    transition: all 0.3s;
 }
 
 .pic-appear-enter, 

@@ -80,7 +80,6 @@ export default {
             this.curUid = this.$localStorage.get('cur_uid')
             this.curFid = this.$localStorage.get('cur_fid')
             this.curBid = this.$localStorage.get('cur_bid')
-            // console.log(this.$data)
         },
         goPrevChapter: function() {
             console.log('goPrevChapter')
