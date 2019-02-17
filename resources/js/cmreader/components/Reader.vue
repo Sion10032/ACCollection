@@ -192,7 +192,9 @@ export default {
 }
 
 span {
-    display: contents;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 .reader {

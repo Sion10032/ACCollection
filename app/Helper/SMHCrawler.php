@@ -184,7 +184,7 @@ class SMHCrawer
             
         $img = file_get_contents($url, false, stream_context_create($option));
 
-        $base64Image = 'data:image/jpg/png/gif;base64,' . chunk_split(base64_encode($img));
+        $base64Image = 'data:image/*;base64,' . chunk_split(base64_encode($img));
         
         return $base64Image;
     }
