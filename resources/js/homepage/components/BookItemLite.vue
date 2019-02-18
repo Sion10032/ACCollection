@@ -14,10 +14,7 @@
 <script>
 export default {
     props: {
-        book: {
-            name: String,
-            bid: String
-        }
+        book: Object
     },
     methods: {
         goBookDetailPage: function () {

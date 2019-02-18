@@ -1,29 +1,37 @@
 <template>
     <transition-group
         class="book-group"
+        v-bind:class="{'book-group-detailed': isDetailed}"
         name="book-group-load"
     >
-        <book-item
+        <book-item-lite
             v-for="book in bookGroup.books"
             v-bind:key="book.bid"
             v-bind:book="book"
             v-on:goBookDetailPage="goBookDetailPage"
         >
-        </book-item>
+        </book-item-lite>
     </transition-group>
 </template>
 
 <script>
-import BookItem from './BookItem.vue'
+import BookItemDetailed from './BookItemDetailed.vue'
+import BookItemLite from './BookItemLite.vue'
 
 export default {
     components: {
-        BookItem
+        BookItemDetailed,
+        BookItemLite
     },
     props: {
         bookGroup: {
             groupName: String,
             books: Array
+        }
+    },
+    data: function () {
+        return {
+            isDetailed: false
         }
     },
     methods: {
@@ -40,6 +48,10 @@ export default {
     justify-items: center;
     grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
     grid-gap: 1rem;
+}
+
+.book-group-detailed {
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
 }
 
 .book-group-load-enter-active,

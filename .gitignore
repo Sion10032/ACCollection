@@ -4,6 +4,7 @@
 /public/js
 /public/css
 /public/storage
+/public/.well-known
 /storage/*.key
 /vendor
 /.idea
