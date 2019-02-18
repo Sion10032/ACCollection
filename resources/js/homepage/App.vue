@@ -83,9 +83,16 @@ document.addEventListener('DOMContentLoaded', () => {
     background: rgba(0, 0, 0, 0.25);
     box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
 }
+
 .slide-down-enter-active,
 .slide-down-leave-active {
     transition: all 0.5s;
+}
+
+.slide-down-enter,
+.slide-down-leave-to {
+    transform: translateY(100%);
+    opacity: 0;
 }
 
 .router-trans-enter-active，
@@ -93,8 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
     transition: all 0.5s;
 }
 
-.slide-down-enter,
-.slide-down-leave-to,
 .router-trans-enter,
 .router-trans-leave-to {
     opacity: 0;
