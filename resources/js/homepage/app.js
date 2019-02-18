@@ -4,13 +4,11 @@ import VueAxios from 'vue-axios'
 import VueLocalStorage from 'vue-localstorage'
 import App from './App.vue';
 import router from './routers.js'
-import GeminiScrollbar from 'vue-gemini-scrollbar'
 import 'normalize.css'
 
 
 Vue.use(VueAxios, axios)
 Vue.use(VueLocalStorage)
-Vue.use(GeminiScrollbar)
 
 Vue.router = router
 Vue.use(require('@websanova/vue-auth'), {

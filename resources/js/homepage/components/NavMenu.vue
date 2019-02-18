@@ -95,13 +95,12 @@ export default {
 <style scoped>
 
 .navbar {
-    position:relative;
     height: 3rem;
     display: flex;
     justify-content: space-between;
     align-items: Center;
     background-color: rgba(84, 92, 100, 0.8);;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.25);
 }
 
 .nav-menu {

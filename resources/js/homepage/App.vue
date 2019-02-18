@@ -1,14 +1,22 @@
 <template>
     <div id="acc" v-if="$auth.ready()">
-        <nav-menu></nav-menu>
-        <GeminiScrollbar class="my-scroll-bar">
-            <main>
-                <transition name="router-trans">
-                    <router-view name="wrapper">
-                    </router-view>
-                </transition>
-            </main>
-        </GeminiScrollbar>
+        <div 
+            id="scroll-view" 
+            class="scrollbar"
+            v-on:scroll.passive="onScroll"
+        >
+            <transition name="router-trans">
+                <router-view name="wrapper" style="width: 100vw;">
+                </router-view>
+            </transition>
+        </div>
+        <transition name="slide-down">
+            <nav-menu 
+                id="nav"
+                v-show="this.isNavShow"
+            >
+            </nav-menu>
+        </transition>
     </div>
 </template>
 
@@ -18,6 +26,19 @@ import NavMenu from './components/NavMenu.vue'
 export default {
     components: {
         NavMenu
+    },
+    data: function() {
+        return {
+            lastPos: 0,
+            isNavShow: true
+        }
+    },
+    methods: {
+        onScroll: function($event) {
+            console.log('onScroll', this.lastPos)
+            this.isNavShow = (this.lastPos > $event.target.scrollTop)
+            this.lastPos = $event.target.scrollTop
+        }
     }
 }
 
@@ -30,22 +51,41 @@ document.addEventListener('DOMContentLoaded', () => {
 <style scoped>
 
 #acc {
+    /* display: flex;
+    flex-direction: column; */
+    position: relative;
     width: 100%;
     height: 100%;
     background-image: url(/image/background-yuki.jpg);
     background-repeat: repeat;
 }
 
-main {
+#nav {
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    height: 100%;
-    padding: 1rem;
-    box-sizing: border-box;
 }
 
-.my-scroll-bar {
-    border: 0rem;
-    height: 90%;
+#scroll-view {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    width: 6px;
+    background: rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+}
+.slide-down-enter-active,
+.slide-down-leave-active {
+    transition: all 0.5s;
 }
 
 .router-trans-enter-active，
@@ -53,9 +93,10 @@ main {
     transition: all 0.5s;
 }
 
+.slide-down-enter,
+.slide-down-leave-to,
 .router-trans-enter,
 .router-trans-leave-to {
-    /* transform: scaleY(0); */
     opacity: 0;
 }
 

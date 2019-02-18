@@ -1,5 +1,5 @@
 <template>
-    <div class="home-wrapper">
+    <div class="search-wrapper">
         <book-group v-bind:bookGroup="this.bookGroup">
         </book-group>
     </div>
@@ -46,5 +46,10 @@ export default {
 </script>
 
 <style scoped>
+
+.search-wrapper {
+    padding: 1rem;
+    box-sizing: border-box;
+}
 
 </style>

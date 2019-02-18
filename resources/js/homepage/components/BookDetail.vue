@@ -16,6 +16,8 @@
                 <p class="book-intro"> {{bookDetial.intro}} </p>
             </div>
         </div>
+        <div class="split-block">
+        </div>
         <div class="book-menu">
             <book-menu 
                 v-for="cateItem in bookDetial.dir"
@@ -137,6 +139,8 @@ export default {
     display: flex;
     width: 100%;
     height: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
 }
 
 .book-info {
@@ -220,8 +224,14 @@ export default {
     text-overflow: ellipsis;
 }
 
+.split-block {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+}
+
 .book-menu {
-    padding: 0 1rem;
+    padding: 0;
     box-sizing: border-box;
     height: 100%;
     width: 100%;
