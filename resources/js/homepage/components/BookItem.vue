@@ -1,11 +1,14 @@
 <template>
-    <div class="book-item" v-on:click="goBookDetailPage()">
+    <div
+        class="book-item"
+        v-on:click="goBookDetailPage()"
+    >
         <img
-            class="book-img" 
+            class="book-img"
             v-bind:src="'https://cf.hamreus.com/cpic/b/' + book.bid + '.jpg'"
         />
         <a class="book-title">{{ book.name }}</a>
-    </div>    
+    </div>
 </template>
 
 <script>
@@ -17,7 +20,7 @@ export default {
         }
     },
     methods: {
-        goBookDetailPage: function() {
+        goBookDetailPage: function () {
             this.$emit('goBookDetailPage', this.book.bid)
         }
     }
@@ -25,9 +28,8 @@ export default {
 </script>
 
 <style scoped>
-
 .book-item {
-    cursor:pointer;
+    cursor: pointer;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -59,5 +61,4 @@ export default {
     height: 1rem;
     font-size: 0.8rem;
 }
-
 </style>

@@ -20,32 +20,44 @@ class SMHCrawer
         $html = QueryList::get($url);
 
         // 获取结果总数
-        $CountRule = ['res' => ['div.result-count>strong', 'html']];
-        $resultCount = $html->rules($CountRule)->queryData()[1]['res'];
+        $CountRule = [['div.result-count>strong', 'html']];
+        $resultCount = $html->rules($CountRule)->queryData()[1][0];
 
         $books = [];
 
         // 循环获取所有结果
-        for($p = 1; count($books) < $resultCount; $p++){
+        for ($p = 1; count($books) < $resultCount; $p++) {
             $url = self::$site . '/s/' . urlencode($name) . '_p' . $p . '.html';
-            if($p != 1) $html = QueryList::get($url);
+            if ($p != 1) {
+                $html = QueryList::get($url);
+            }
 
             $booksLi = $html->rules(['html' => ['li.cf', 'html']])->query()->getData();
 
+            // print_r($booksLi);
+
             $BookInfoRule = [
                 'name' => ['a.bcover', 'title'],
-                'bid' => ['a.bcover', 'href']
+                'bid' => ['a.bcover', 'href'],
+                'author' => ['.tags:not(.status):nth-child(4)>span', 'text'],
+                'status' => ['dd.tags.status>span', 'html'],
             ];
 
-            foreach($booksLi as $book){
-                $tmp = QueryList::html($book["html"])->rules($BookInfoRule)->queryData()[0];
+            foreach ($booksLi as $book) {
+                $tmp = QueryList::html($book['html'])->rules($BookInfoRule)->queryData()[0];
                 $tmp['bid'] = str_replace('comic', '', $tmp['bid']);
                 $tmp['bid'] = str_replace('/', '', $tmp['bid']);
+
+                $tmp['author'] = explode(',', str_replace('作者：', '', $tmp['author']));
+
+                preg_match_all('~(?<="\>).*?(?=\</span\>)~', $tmp['status'], $matches);
+                $tmp['status'] = $matches[0];
+
                 array_push($books, $tmp);
             }
         }
-        
-        return json_encode($books, JSON_UNESCAPED_UNICODE);
+
+        return json_encode($books, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
     public static function book($bid)
@@ -55,35 +67,35 @@ class SMHCrawer
 
         $book = [];
         $book['bid'] = $bid;
-        $book['name'] = $html->rules([["div>h1", "text"]])->queryData()[0][0];
-        $book['intro'] = $html->rules([["div#intro-cut", "text"]])->queryData()[0][0];
+        $book['name'] = $html->rules([['div>h1', 'text']])->queryData()[0][0];
+        $book['intro'] = $html->rules([['div#intro-cut', 'text']])->queryData()[0][0];
         $book['dir'] = [];
 
         // 解密限制级漫画目录
-        $vs = $html->rules([["#__VIEWSTATE", "value"]])->queryData();
-        if (!empty($vs))
+        $vs = $html->rules([['#__VIEWSTATE', 'value']])->queryData();
+        if (!empty($vs)) {
             $html = QueryList::html(\LZCompressor\LZString::decompressFromBase64($vs[0][0]));
-
+        }
 
         // 获取目录
         $menu = $html->rules([
-            "cateName" => ["h4>span", "text"],
-            "cateMenu" => ["#chapter-list-0, #chapter-list-1", "html"]
+            'cateName' => ['h4>span', 'text'],
+            'cateMenu' => ['#chapter-list-0, #chapter-list-1', 'html'],
         ])->queryData();
 
-        foreach($menu as $menuItem){
+        foreach ($menu as $menuItem) {
             $menulist = [];
             $ul = array_reverse(QueryList::html($menuItem['cateMenu'])->rules([['ul', 'html']])->queryData());
-            foreach($ul as $ulItem){
+            foreach ($ul as $ulItem) {
                 $tmp = QueryList::html($ulItem[0])->rules([
                     'name' => ['li>a', 'title'],
                     'cid' => ['li>a', 'href'],
-                    'page' => ['li>a>span>i', 'text']
+                    'page' => ['li>a>span>i', 'text'],
                 ])->queryData();
                 $menulist = array_merge($menulist, $tmp);
             }
-            
-            for($i = 0; $i < count($menulist); $i++){
+
+            for ($i = 0; $i < count($menulist); $i++) {
                 preg_match('~(?<=/comic/).*?(?=.html)~', $menulist[$i]['cid'], $matches);
                 $menulist[$i]['cid'] = explode('/', $matches[0])[1];
                 $menulist[$i]['page'] = str_replace('p', '', $menulist[$i]['page']);
@@ -92,7 +104,7 @@ class SMHCrawer
             array_push($book['dir'], ['cateName' => $menuItem['cateName'], 'cateMenu' => $menulist]);
         }
 
-        return json_encode($book, JSON_UNESCAPED_UNICODE);
+        return json_encode($book, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
     public static function chapter($bid, $cid)
@@ -101,7 +113,7 @@ class SMHCrawer
         $html = QueryList::get($url);
         $info = $html->rules([
             'title' => ['.w980.title>div>h1>a', 'text'],
-            'chapter' => ['.w980.title>div>h2', 'text']
+            'chapter' => ['.w980.title>div>h2', 'text'],
         ])->queryData()[0];
         $data_json = $html->rules(['js' => ['body>script:not(:empty)', 'text']])->queryData()[0]['js'];
 
@@ -109,17 +121,17 @@ class SMHCrawer
         $js = str_replace('{}))', '{}); console.log(res);', $js);
         $js = str_replace('c35?', 'c<a?"":e(parseInt(c/a)))+((c=c%a)>35?', $js);
         $js = self::$LZS . $js;
-        
+
         $fileName = 'cache/tmp_' . $bid . '_' . $cid . '.js';
         $tmpFile = fopen($fileName, 'w');
         fwrite($tmpFile, $js);
         fclose($tmpFile);
-        
+
         $decyptionJsonData = exec('node ' . $fileName);
         $decyptionJsonData = str_replace('SMH.imgData(', '', $decyptionJsonData);
         $decyptionJsonData = str_replace(').preInit();', '', $decyptionJsonData);
         $json = json_decode($decyptionJsonData, true);
-        
+
         // 清理
         unlink($fileName);
 
@@ -136,7 +148,7 @@ class SMHCrawer
         // foreach($json['files'] as $file)
         //     array_push($pics['files'], $path . $file . $parm);
 
-        return str_replace("\\/", "/", json_encode($pics, JSON_UNESCAPED_UNICODE));
+        return str_replace("\\/", "/", json_encode($pics, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
     }
 
     public static function latest()
@@ -146,7 +158,7 @@ class SMHCrawer
 
         $books = $html->rules([
             "name" => ['a.cover', 'title'],
-            "bid" => ['a.cover', 'href']
+            "bid" => ['a.cover', 'href'],
         ])->queryData();
 
         foreach ($books as &$book) {
@@ -154,7 +166,7 @@ class SMHCrawer
             $book['bid'] = str_replace('/', '', $book['bid']);
         }
 
-        return json_encode($books, JSON_UNESCAPED_UNICODE);
+        return json_encode($books, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
     public static function hots()
@@ -164,7 +176,7 @@ class SMHCrawer
 
         $books = $html->rules([
             "name" => ['tr>td.rank-title>h5>a', 'text'],
-            "bid" => ['tr>td.rank-title>h5>a', 'href']
+            "bid" => ['tr>td.rank-title>h5>a', 'href'],
         ])->queryData();
 
         foreach ($books as &$book) {
@@ -172,20 +184,21 @@ class SMHCrawer
             $book['bid'] = str_replace('/', '', $book['bid']);
         }
 
-        return json_encode($books, JSON_UNESCAPED_UNICODE);
+        return json_encode($books, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
-    public static function getPic($bid, $cid, $url) {
+    public static function getPic($bid, $cid, $url)
+    {
         $option = array(
             'http' => array(
-                'header' => 'Referer: ' . 'https://www.manhuagui.com/comic/' . $bid . '/' . $cid . '.html'
-            )
+                'header' => 'Referer: ' . 'https://www.manhuagui.com/comic/' . $bid . '/' . $cid . '.html',
+            ),
         );
-            
+
         $img = file_get_contents($url, false, stream_context_create($option));
 
         $base64Image = 'data:image/*;base64,' . chunk_split(base64_encode($img));
-        
+
         return $base64Image;
     }
 

@@ -2,18 +2,23 @@
     <auth-wrapper v-bind:pageName="'register'">
         <form>
             <p class="text">Name:</p>
-            <radius-input v-model="name"/>
+            <radius-input v-model="name" />
             <p class="text">E-Mail:</p>
-            <radius-input v-model="email"/>
+            <radius-input v-model="email" />
             <p class="text">Password:</p>
-            <radius-input type="password" v-model="pwd"/>
+            <radius-input
+                type="password"
+                v-model="pwd"
+            />
             <p class="text">Confirm Password:</p>
-            <radius-input type="password" v-model="confirmPwd"/>
+            <radius-input
+                type="password"
+                v-model="confirmPwd"
+            />
         </form>
-        <div class="option-wrapper">
-        </div>
+        <div class="option-wrapper"></div>
         <div class="button-wrapper">
-            <radius-button 
+            <radius-button
                 v-bind:text="'Register'"
                 v-on:click.native="registerClick"
             />
@@ -32,7 +37,7 @@ export default {
         RadiusButton,
         RadiusInput
     },
-    data: function() {
+    data: function () {
         return {
             name: '',
             email: '',
@@ -40,29 +45,28 @@ export default {
             confirmPwd: ''
         }
     },
-    beforeCreate: function() {
-        if (this.$auth.check())
-            this.$router.push({name: 'home'})            
+    beforeCreate: function () {
+        if (this.$auth.check()) this.$router.push({ name: 'home' })
     },
     methods: {
-        registerClick: function() {
-            if (this.pwd != this.confirmPwd){
+        registerClick: function () {
+            if (this.pwd != this.confirmPwd) {
                 console.log('Pwd not equal.')
                 return
             }
             this.$auth.register({
                 data: {
-                    name : this.name,
-                    email : this.email,
-                    password : this.pwd
+                    name: this.name,
+                    email: this.email,
+                    password: this.pwd
                 },
-                success: function() {
+                success: function () {
                     console.log('Register success.')
                 },
-                error: function() {
+                error: function () {
                     console.log('Register fail.')
                 },
-                redirect: {name: 'login'}
+                redirect: { name: 'login' }
             })
         }
     }
@@ -70,7 +74,6 @@ export default {
 </script>
 
 <style scoped>
-
 .text {
     color: rgba(0, 0, 0, 0.75);
     font-size: 0.8rem;
@@ -97,5 +100,4 @@ export default {
     display: flex;
     justify-content: flex-end;
 }
-
 </style>

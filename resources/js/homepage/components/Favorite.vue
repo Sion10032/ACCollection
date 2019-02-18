@@ -1,6 +1,6 @@
 <template>
     <div class="favo-wrapper">
-        <book-group v-bind:bookGroup="this.bookGroup">
+        <book-group v-bind:bookGroup="bookGroup">
         </book-group>
     </div>
 </template>
@@ -15,7 +15,7 @@ export default {
     props: {
         userId: String
     },
-    data: function() {
+    data: function () {
         return {
             bookGroup: {
                 groupName: 'Favorites',
@@ -23,24 +23,24 @@ export default {
             }
         }
     },
-    created: function() {
+    created: function () {
         if (this.userId == '0')
             this.redircet()
     },
-    mounted: function() {
+    mounted: function () {
         this.getFavoritesBooks();
     },
     methods: {
-        redircet: function() {
+        redircet: function () {
             if (!this.$auth.check())
-                this.$router.push({name: 'login'})
+                this.$router.push({ name: 'login' })
             else
-                this.$router.push({name: 'favorites', params: { userId: this.$auth.user().id.toString() }})
+                this.$router.push({ name: 'favorites', params: { userId: this.$auth.user().id.toString() } })
         },
-        getFavoritesBooks: function() {
+        getFavoritesBooks: function () {
             let _this = this
             let url = '/users/' + _this.$auth.user().id + '/favorites'
-            this.$axios.get(url).then(function(result) {
+            this.$axios.get(url).then(function (result) {
                 _this.bookGroup.books = result.data
             })
         }
@@ -49,10 +49,8 @@ export default {
 </script>
 
 <style scoped>
-
 .favo-wrapper {
     padding: 1rem;
     box-sizing: border-box;
 }
-
 </style>

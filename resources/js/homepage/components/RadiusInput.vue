@@ -1,7 +1,7 @@
 <template>
-    <input 
-        class="input-el" 
-        v-bind:value="value" 
+    <input
+        class="input-el"
+        v-bind:value="value"
         v-on:input="$emit('input', $event.target.value)"
     />
 </template>
@@ -9,13 +9,12 @@
 <script>
 export default {
     props: {
-       value: String
+        value: String
     }
 }
 </script>
 
 <style scoped>
-
 .input-el {
     color: rgba(0, 0, 0, 0.75);
     background-color: rgba(235, 235, 235, 0.6);
@@ -29,6 +28,4 @@ export default {
     box-sizing: border-box;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
-
-
 </style>

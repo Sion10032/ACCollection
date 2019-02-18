@@ -1,9 +1,9 @@
 <template>
     <div class="wrapper">
-        <reader 
+        <reader
             v-bind:chapterData="chapterData"
             v-on:goPrevChapter="goPrevChapter"
-            v-on:goNextChapter="goNextChapter"            
+            v-on:goNextChapter="goNextChapter"
         >
         </reader>
     </div>
@@ -16,7 +16,7 @@ export default {
     components: {
         Reader
     },
-    data: function() {
+    data: function () {
         return {
             chapterData: {},
             token: '',
@@ -25,14 +25,14 @@ export default {
             curBid: 0
         }
     },
-    created: function() {
+    created: function () {
         this.getChapterData()
     },
-    methods:{
-        getChapterData: function() {
+    methods: {
+        getChapterData: function () {
             var url = window.location.pathname
             var _this = this
-            this.$axios.get(url).then(function(result) {
+            this.$axios.get(url).then(function (result) {
                 var tmp = {}
                 tmp['bid'] = result.data['bid']
                 tmp['cid'] = result.data['cid']
@@ -47,7 +47,7 @@ export default {
             })
             _this.updateFavorite()
         },
-        updateFavorite: function() {
+        updateFavorite: function () {
             this.getLocalCurInfo()
             let bid = window.location.pathname.split('/')[3]
             let cid = window.location.pathname.split('/')[5]
@@ -64,9 +64,9 @@ export default {
                         data: {
                             lastChapter: cid
                         }
-                    }).then(function(res) {
+                    }).then(function (res) {
                         console.log('update success.', res.data)
-                    }).catch(function() {
+                    }).catch(function () {
                         console.log('update fail.')
                     })
                 }
@@ -75,28 +75,28 @@ export default {
                 }
             }
         },
-        getLocalCurInfo: function() {
+        getLocalCurInfo: function () {
             this.token = this.$localStorage.get('default_auth_token')
             this.curUid = this.$localStorage.get('cur_uid')
             this.curFid = this.$localStorage.get('cur_fid')
             this.curBid = this.$localStorage.get('cur_bid')
         },
-        goPrevChapter: function() {
+        goPrevChapter: function () {
             console.log('goPrevChapter')
             if (this.chapterData.prevCid == 0)
                 alert('已经是第一章')
             else
-                window.location.href = 
-                    '/SMH/books/' + this.chapterData.bid + 
+                window.location.href =
+                    '/SMH/books/' + this.chapterData.bid +
                     '/chapters/' + this.chapterData.prevCid
         },
-        goNextChapter: function() {
+        goNextChapter: function () {
             console.log('goNextChapter')
             if (this.chapterData.nextCid == 0)
                 alert('已经是最后一章')
             else
-                window.location.href = 
-                    '/SMH/books/' + this.chapterData.bid + 
+                window.location.href =
+                    '/SMH/books/' + this.chapterData.bid +
                     '/chapters/' + this.chapterData.nextCid
         }
     }
@@ -108,12 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <style scoped>
-
 .wrapper {
     width: 100%;
     height: 100%;
     padding: 0;
     margin: 0;
 }
-
 </style>

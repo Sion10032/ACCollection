@@ -1,31 +1,37 @@
 <template>
-    <div class="settings-wrapper" v-on:click.self="applySettings(false)">
+    <div
+        class="settings-wrapper"
+        v-on:click.self="applySettings(false)"
+    >
         <div class="settings-form">
             <div class="settings-item">
                 <p class="text">向左开页</p>
-                <input 
-                    type="checkbox" 
+                <input
+                    type="checkbox"
                     class="switch switch-anim"
                     v-model="isReverse"
                 />
             </div>
             <div class="settings-item">
                 <p class="text">跳转确认</p>
-                <input 
-                    type="checkbox" 
+                <input
+                    type="checkbox"
                     class="switch switch-anim"
                     v-model="isCheck"
                 />
             </div>
             <div class="settings-item">
                 <p class="text">是否预载</p>
-                <input 
-                    type="checkbox" 
+                <input
+                    type="checkbox"
                     class="switch switch-anim"
                     v-model="isPreLoad"
                 />
             </div>
-            <div class="apply-button" v-on:click="applySettings(true)">
+            <div
+                class="apply-button"
+                v-on:click="applySettings(true)"
+            >
                 <p class="text">Apply</p>
             </div>
         </div>
@@ -34,19 +40,19 @@
 
 <script>
 export default {
-    data: function() {
+    data: function () {
         return {
             isReverse: false,
             isCheck: true,
             isPreLoad: true
         }
     },
-    created: function() {
+    created: function () {
         this.getLocalSettings()
         this.$emit('updateSettings', this.isReverse, this.isCheck, this.isPreLoad)
     },
     methods: {
-        applySettings: function(isSave) {
+        applySettings: function (isSave) {
             if (isSave) {
                 this.$localStorage.set('isReverse', this.isReverse)
                 this.$localStorage.set('isCheck', this.isCheck)
@@ -57,7 +63,7 @@ export default {
             this.$emit('updateSettings', this.isReverse, this.isCheck, this.isPreLoad)
             this.$emit('showSettings')
         },
-        getLocalSettings: function() {
+        getLocalSettings: function () {
             this.isReverse = this.$localStorage.get('isReverse', false) == 'true'
             this.isCheck = this.$localStorage.get('isCheck', true) == 'true'
             this.isPreLoad = this.$localStorage.get('isPreLoad', true) == 'true'
@@ -67,7 +73,6 @@ export default {
 </script>
 
 <style scoped>
-
 .settings-wrapper {
     position: absolute;
     display: flex;
@@ -122,7 +127,7 @@ select {
 
 .switch:before {
     position: absolute;
-    content: '';
+    content: "";
     width: 1.2rem;
     height: 1.2rem;
     left: 0;
@@ -147,7 +152,7 @@ select {
 
 .text {
     font-size: 1rem;
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 .apply-button {
@@ -164,5 +169,4 @@ select {
 .apply-button:hover {
     background-color: #666666;
 }
-
 </style>

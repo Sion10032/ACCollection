@@ -1,33 +1,36 @@
 <template>
     <div class="search-bar">
-        <input class="search-input" v-model="searchText" v-on:keyup.enter="search"/>
+        <input
+            class="search-input"
+            v-model="searchText"
+            v-on:keyup.enter="search"
+        />
     </div>
 </template>
 
 <script>
 export default {
-    data: function() {
+    data: function () {
         return {
             searchText: ''
         }
     },
     methods: {
-        search: function() {
+        search: function () {
             this.$router.push({
-                name: 'search', 
-                params: { 
-                    searchText: this.searchText 
+                name: 'search',
+                params: {
+                    searchText: this.searchText
                 }
             })
             // this.searchText = ''
         }
     }
-    
+
 }
 </script>
 
 <style scoped>
-
 /* .search-bar {
     
 } */
@@ -42,5 +45,4 @@ export default {
     border-radius: 0.75rem;
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); */
 }
-
 </style>

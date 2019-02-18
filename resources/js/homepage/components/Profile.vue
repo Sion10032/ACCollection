@@ -1,23 +1,25 @@
 <template>
     <div class="page-wrapper">
-        <div class="profile-wrapper" v-if="this.userId != 0">
-            <img 
+        <div
+            class="profile-wrapper"
+            v-if="userId != 0"
+        >
+            <img
                 class="avatar"
                 v-bind:src="
-                    this.$auth.user().id == this.userId ? 
-                    '/image/ui/avatar-karen.png' : 
-                    '/image/ui/avatar-saki.png'
+                    '/image/ui/avatar-' + 
+                    this.$auth.user().id == userId ? 'karen.png' : 'saki.png'
                 "
             />
             <p class="text tag"> User Name: </p>
-            <p class="text"> {{ this.userData.name }} </p>
+            <p class="text"> {{ userData.name }} </p>
             <p class="text tag"> User ID: </p>
-            <p class="text"> {{ this.userData.id }} </p>
+            <p class="text"> {{ userData.id }} </p>
             <p class="text tag"> Join Date: </p>
-            <p class="text"> {{ this.userData.created_at }} </p>
+            <p class="text"> {{ userData.created_at }} </p>
             <radius-button
                 class="logout-button"
-                v-if="this.$auth.user().id == this.userId"
+                v-if="this.$auth.user().id == userId"
                 v-bind:text="'Logout'"
                 v-on:click.native="logoutClick"
             />
@@ -35,42 +37,42 @@ export default {
     props: {
         userId: String
     },
-    data: function() {
+    data: function () {
         return {
             userData: Object
         }
     },
     watch: {
-        userId: function() {
+        userId: function () {
             if (this.userId == '0')
                 this.redircet()
             else
                 this.getUserInfo()
         }
     },
-    created: function() {
+    created: function () {
         if (this.userId == '0')
             this.redircet()
         else
             this.getUserInfo()
     },
     methods: {
-        redircet: function() {
+        redircet: function () {
             if (!this.$auth.check())
-                this.$router.push({name: 'login'})
+                this.$router.push({ name: 'login' })
             else
-                this.$router.push({name: 'user', params: { userId: this.$auth.user().id.toString() }})
+                this.$router.push({ name: 'user', params: { userId: this.$auth.user().id.toString() } })
         },
-        getUserInfo: function() {
+        getUserInfo: function () {
             console.log('getUserInfo')
             this.$axios({
                 methods: 'GET',
                 url: '/users/' + this.userId
             }).then(res => {
                 this.userData = res.data.data
-            }).catch(() => {})
+            }).catch(() => { })
         },
-        logoutClick: function() {
+        logoutClick: function () {
             this.$auth.logout({
                 method: 'GET',
                 makeRequest: true
@@ -81,7 +83,6 @@ export default {
 </script>
 
 <style scoped>
-
 * {
     margin: 0;
     padding: 0;
@@ -130,5 +131,4 @@ export default {
 .logout-button {
     margin-top: 1rem;
 }
-
 </style>

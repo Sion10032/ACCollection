@@ -1,6 +1,6 @@
 <template>
     <div class="reader">
-        <img 
+        <img
             class="load-img"
             src="/image/ui/loading.gif"
             v-if="!isGetData"
@@ -13,7 +13,10 @@
             v-bind:bid="chapterData.bid"
         >
         </toolbar-top>
-        <div class="img-wrapper" v-if="isGetData">
+        <div
+            class="img-wrapper"
+            v-if="isGetData"
+        >
             <transition name="pic-appear">
                 <settings
                     v-show="isSettingsShow"
@@ -23,11 +26,20 @@
                 </settings>
             </transition>
             <div class="mask">
-                <div class="left" v-on:click="isReverse ? prevPage() : nextPage()"></div>
-                <div class="center" v-on:click="isToolbarShow = !isToolbarShow"></div>
-                <div class="right" v-on:click="isReverse ? nextPage() : prevPage()"></div>
+                <div
+                    class="left"
+                    v-on:click="isReverse ? prevPage() : nextPage()"
+                ></div>
+                <div
+                    class="center"
+                    v-on:click="isToolbarShow = !isToolbarShow"
+                ></div>
+                <div
+                    class="right"
+                    v-on:click="isReverse ? nextPage() : prevPage()"
+                ></div>
             </div>
-            <img 
+            <img
                 class="load-img"
                 src="/image/ui/loading.gif"
                 v-show="this.imgs[this.curPage].Loading"
@@ -69,7 +81,7 @@ export default {
     props: {
         chapterData: Object
     },
-    data: function() {
+    data: function () {
         return {
             isToolbarShow: true,
             isSettingsShow: false,
@@ -84,22 +96,22 @@ export default {
         }
     },
     watch: {
-        chapterData: function() {
+        chapterData: function () {
             this.imgs = []
             for (let i = 0; i < this.chapterData.files.length; ++i)
-                this.imgs.push({page: i,Loading: false, data: ''})
+                this.imgs.push({ page: i, Loading: false, data: '' })
             this.curPage = 0
             this.isGetData = true
         },
-        curPage: function() {
+        curPage: function () {
             console.log('Page Change:', this.curPage)
             this.loadPic()
         }
     },
     methods: {
-        loadPic: function() {
+        loadPic: function () {
             if (
-                !this.imgs[this.curPage].data && 
+                !this.imgs[this.curPage].data &&
                 !this.imgs[this.curPage].Loading
             )
                 this.getPic(this.curPage)
@@ -108,14 +120,14 @@ export default {
                     return
                 else {
                     if (
-                        this.imgs[this.curPage + 1].data == '' && 
+                        this.imgs[this.curPage + 1].data == '' &&
                         this.imgs[this.curPage + 1].Loading == false
                     )
                         this.getPic(this.curPage + 1)
                 }
             }
         },
-        getPic: function(index) {
+        getPic: function (index) {
             console.log('Get Img', index, 'from network.')
             let _this = this
             _this.imgs[index].Loading = true
@@ -125,18 +137,18 @@ export default {
                     'cid': _this.chapterData.cid,
                     'url': _this.chapterData.files[index]
                 }
-            ).then(function(res) {
+            ).then(function (res) {
                 _this.imgs[index].data = res.data
                 _this.imgs[index].Loading = false
                 console.log('Get Img', index, 'from network success.')
-            }).catch(function(error) {
+            }).catch(function (error) {
                 _this.imgs[index].Loading = false
             });
         },
-        changePage: function(newPage) {
+        changePage: function (newPage) {
             this.curPage = newPage
         },
-        prevPage: function() {
+        prevPage: function () {
             console.log('prev')
             if (this.curPage == 0) {
                 if (this.isCheck) {
@@ -156,7 +168,7 @@ export default {
                 this.isJump = false
             this.curPage = Math.max(0, this.curPage - 1)
         },
-        nextPage: function() {
+        nextPage: function () {
             console.log('next')
             if (this.curPage == this.chapterData.files.length - 1) {
                 if (this.isCheck) {
@@ -176,12 +188,12 @@ export default {
                 this.isJump = false
             this.curPage = Math.min(this.chapterData.files.length - 1, this.curPage + 1)
         },
-        updateSettings: function(isReverse, isCheck, isPreLoad) {
+        updateSettings: function (isReverse, isCheck, isPreLoad) {
             this.isReverse = isReverse
             this.isCheck = isCheck
             this.isPreLoad = isPreLoad
         },
-        showSettings: function() {
+        showSettings: function () {
             this.isSettingsShow = !this.isSettingsShow
         }
     }
@@ -190,7 +202,6 @@ export default {
 </script>
 
 <style scoped>
-
 * {
     margin: 0;
 }
@@ -260,14 +271,13 @@ span {
     height: 100%;
 }
 
-.pic-appear-enter-active, 
+.pic-appear-enter-active,
 .pic-appear-leave-active {
     transition: all 0.3s;
 }
 
-.pic-appear-enter, 
+.pic-appear-enter,
 .pic-appear-leave-to {
     opacity: 0;
 }
-
 </style>

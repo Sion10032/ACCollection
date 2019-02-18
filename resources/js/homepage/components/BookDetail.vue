@@ -1,31 +1,42 @@
 <template>
-    <div class="book-wrapper">
-        <div class="book-info">
+    <div
+        class="book-wrapper"
+        v-bind:class="{'book-menu-portrait' : isPortrait}"
+    >
+        <div
+            class="book-info"
+            v-bind:class="{'book-info-portrait' : isPortrait}"
+        >
             <div class="book-func-wrapper">
-                <img 
+                <img
                     class="book-cover"
-                    v-bind:src="'https://cf.hamreus.com/cpic/b/' + this.bid + '.jpg'" 
-                />
-                <div class="fav-button" v-on:click="changeFavorite">
-                    <img class="fav-button-img" src="/image/navbar/favorite.png" />
-                    <p class="fav-button-text"> {{ this.favoriteInfo.isFavorite ? '取消收藏' : '添加收藏' }} </p>
+                    v-bind:src="'https://cf.hamreus.com/cpic/b/' + bid + '.jpg'"
+                >
+                <div
+                    class="fav-button"
+                    v-on:click="changeFavorite"
+                >
+                    <img
+                        class="fav-button-img"
+                        src="/image/navbar/favorite.png"
+                    >
+                    <p class="fav-button-text">{{ favoriteInfo.isFavorite ? '取消收藏' : '添加收藏' }}</p>
                 </div>
             </div>
             <div class="book-info-text">
-                <h2 class="book-title"> {{bookDetial.name}} </h2>
-                <p class="book-intro"> {{bookDetial.intro}} </p>
+                <h2 class="book-title">{{bookDetial.name}}</h2>
+                <p class="book-intro">{{bookDetial.intro}}</p>
             </div>
         </div>
-        <div class="split-block">
-        </div>
+        <div class="split-block"></div>
         <div class="book-menu">
-            <book-menu 
+            <book-menu
                 v-for="cateItem in bookDetial.dir"
                 v-bind:key="cateItem.cateName"
                 v-bind:bid="bookDetial.bid"
                 v-bind:favoriteInfo="favoriteInfo"
                 v-bind:menu="cateItem"
-            />
+            ></book-menu>
         </div>
     </div>
 </template>
@@ -40,107 +51,107 @@ export default {
     props: {
         bid: String
     },
-    data: function() {
+    data: function () {
         return {
+            isPortrait: false,
             bookDetial: {},
             favoriteInfo: {
                 isFavorite: false,
-                fid: String,
-                lastChapter: Number
+                fid: '',
+                lastChapter: 0
             }
         }
     },
-    mounted: function() {
+    mounted: function () {
         this.getBookDetail()
-        this.checkFavorite()        
+        this.checkFavorite()
         this.setMenuPos()
     },
     methods: {
-        getBookDetail: function() {
+        getBookDetail: function () {
             var url = '/SMH/books/' + this.bid
             var _this = this
-            this.$axios.get(url).then(function(result) {
+            this.$axios.get(url).then(function (result) {
                 _this.bookDetial = result.data
             })
         },
-        checkFavorite: function() {
+        checkFavorite: function () {
             let _this = this
-            if (!_this.$auth.check())
-                return
+            if (!_this.$auth.check()) return
             let url = '/users/' + _this.$auth.user().id + '/favorites'
             this.$axios({
                 url: url,
                 headers: {
-                    'Authorization': 'bearer ' + _this.$auth.token()
+                    Authorization: 'bearer ' + _this.$auth.token()
                 }
-            }).then(function(result) {
-                for(let i = 0, len = result.data.length; i < len; ++i) {
+            }).then(function (result) {
+                for (let i = 0, len = result.data.length; i < len; ++i) {
                     if (result.data[i].bid == _this.bid) {
-                        _this.favoriteInfo.isFavorite = true
-                        _this.favoriteInfo.fid = result.data[i].id
-                        _this.favoriteInfo.lastChapter =  result.data[i].lastChapter
+                        _this.favoriteInfo.isFavorite = true;
+                        _this.favoriteInfo.fid = result.data[i].id;
+                        _this.favoriteInfo.lastChapter =
+                            result.data[i].lastChapter
                     }
                 }
             })
         },
-        changeFavorite: function() {
+        changeFavorite: function () {
             let _this = this
-            if (!_this.$auth.check())
-                _this.$router.push({name: 'login'})
+            if (!_this.$auth.check()) _this.$router.push({ name: 'login' })
             let url = '/users/' + _this.$auth.user().id + '/favorites'
             if (_this.favoriteInfo.isFavorite) {
-                _this.$axios({
-                    method: "DELETE",
-                    url: url + '/' + _this.favoriteInfo.fid,
-                    headers: {
-                        'Authorization': 'bearer ' + _this.$auth.token()
-                    }
-                }).then(function(res) {
-                    _this.favoriteInfo.isFavorite = false
-                    _this.favoriteInfo.fid = undefined                    
-                });
-            }
-            else {
-                _this.$axios({
-                    method: "POST",
-                    url: url,
-                    headers: {
-                        'Authorization': 'bearer ' + _this.$auth.token()
-                    },
-                    data: {
-                        name: _this.bookDetial.name,
-                        bid: _this.bookDetial.bid,
-                        lastChapter: 0
-                    }
-                }).then(function(res) {
-                    _this.favoriteInfo.isFavorite = true
-                    _this.favoriteInfo.fid = res.data.data.id
-                });
+                _this
+                    .$axios({
+                        method: 'DELETE',
+                        url: url + '/' + _this.favoriteInfo.fid,
+                        headers: {
+                            Authorization: 'bearer ' + _this.$auth.token()
+                        }
+                    })
+                    .then(function (res) {
+                        _this.favoriteInfo.isFavorite = false;
+                        _this.favoriteInfo.fid = undefined;
+                    })
+            } else {
+                _this
+                    .$axios({
+                        method: 'POST',
+                        url: url,
+                        headers: {
+                            Authorization: 'bearer ' + _this.$auth.token()
+                        },
+                        data: {
+                            name: _this.bookDetial.name,
+                            bid: _this.bookDetial.bid,
+                            lastChapter: 0
+                        }
+                    })
+                    .then(function (res) {
+                        _this.favoriteInfo.isFavorite = true
+                        _this.favoriteInfo.fid = res.data.data.id
+                    })
             }
         },
-        setMenuPos: function() {
-            var bookInfo = document.getElementsByClassName('book-info')[0]
-            var bookMenu = document.getElementsByClassName('book-menu')[0]
-            var bookWrapper = document.getElementsByClassName('book-wrapper')[0]
-            if (bookInfo.offsetWidth < bookMenu.offsetWidth)
-                bookWrapper.style['flex-direction'] = 'row'
-            else{
-                bookWrapper.style['flex-direction'] = 'column'
-                bookWrapper.style['align-items'] = 'center'
-            }
+        setMenuPos: function () {
+            this.isPortrait = window.innerWidth < window.innerHeight
         }
     }
 }
 </script>
 
 <style scoped>
-
 .book-wrapper {
     display: flex;
     width: 100%;
     height: 100%;
     padding: 1rem;
     box-sizing: border-box;
+}
+
+.book-menu-portrait {
+    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
 }
 
 .book-info {
@@ -155,6 +166,10 @@ export default {
     border-radius: 0.5rem;
     box-sizing: border-box;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+}
+
+.book-info-portrait {
+    width: 100%;
 }
 
 .book-func-wrapper {
@@ -192,7 +207,7 @@ export default {
 .fav-button-text {
     margin: 0 0 0 0.6rem;
     color: white;
-} 
+}
 
 .book-cover {
     width: 8rem;
@@ -238,5 +253,4 @@ export default {
     display: flex;
     flex-direction: column;
 }
-
 </style>

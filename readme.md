@@ -23,11 +23,11 @@ PS2: master分支存在大量Bug，现将该分支作为主分支。
 - [x] 注册、登录页面
 - [x] 搜索页面
 - [x] 书籍详情页面
-- [ ] 漫画阅读器
+- [x] 漫画阅读器
     - [x] 顶部状态栏
     - [x] 底部状态栏
     - [x] 快捷跳转上/下一章
-    - [ ] 设置页面
+    - [x] 设置页面
 
 ## 使用方法
 
@@ -47,7 +47,7 @@ PS2: master分支存在大量Bug，现将该分支作为主分支。
     vi .env
     ```
 
-4. 生产 App key 与 jwt密钥
+4. 生成 App key 与 jwt密钥
     ```
     php artisan key:generate
     php artisan jwt:secret

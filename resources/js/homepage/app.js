@@ -1,11 +1,10 @@
-import Vue from 'vue';
+import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLocalStorage from 'vue-localstorage'
-import App from './App.vue';
+import App from './App.vue'
 import router from './routers.js'
 import 'normalize.css'
-
 
 Vue.use(VueAxios, axios)
 Vue.use(VueLocalStorage)

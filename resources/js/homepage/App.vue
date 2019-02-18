@@ -1,27 +1,18 @@
 <template>
     <div id="acc" v-if="$auth.ready()">
-        <div 
-            id="scroll-view" 
-            class="scrollbar"
-            v-on:scroll.passive="onScroll"
-        >
+        <div id="scroll-view" class="scrollbar" v-on:scroll.passive="onScroll">
             <transition name="router-trans">
-                <router-view name="wrapper" style="width: 100vw;">
-                </router-view>
+                <router-view name="wrapper" style="width: 100vw;"></router-view>
             </transition>
         </div>
         <transition name="slide-down">
-            <nav-menu 
-                id="nav"
-                v-show="this.isNavShow"
-            >
-            </nav-menu>
+            <nav-menu id="nav" v-show="this.isNavShow"></nav-menu>
         </transition>
     </div>
 </template>
 
 <script>
-import NavMenu from './components/NavMenu.vue'
+import NavMenu from "./components/NavMenu.vue";
 
 export default {
     components: {
@@ -31,25 +22,24 @@ export default {
         return {
             lastPos: 0,
             isNavShow: true
-        }
+        };
     },
     methods: {
         onScroll: function($event) {
-            console.log('onScroll', this.lastPos)
-            this.isNavShow = (this.lastPos > $event.target.scrollTop)
-            this.lastPos = $event.target.scrollTop
+            console.log("onScroll", this.lastPos);
+            this.isNavShow = this.lastPos > $event.target.scrollTop;
+            this.lastPos = $event.target.scrollTop;
         }
     }
-}
+};
 
-document.addEventListener('DOMContentLoaded', () => {
-    const html = document.querySelector('html')
-    html.style.fontSize = window.innerHeight / 50 + 'px'
-})
+document.addEventListener("DOMContentLoaded", () => {
+    const html = document.querySelector("html");
+    html.style.fontSize = window.innerHeight / 50 + "px";
+});
 </script>
 
 <style scoped>
-
 #acc {
     /* display: flex;
     flex-direction: column; */
@@ -81,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     border-radius: 6px;
     width: 6px;
     background: rgba(0, 0, 0, 0.25);
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .slide-down-enter-active,
@@ -95,8 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
     opacity: 0;
 }
 
-.router-trans-enter-active，
-.router-trans-leave-active {
+.router-trans-enter-active， .router-trans-leave-active {
     transition: all 0.5s;
 }
 
@@ -104,5 +93,4 @@ document.addEventListener('DOMContentLoaded', () => {
 .router-trans-leave-to {
     opacity: 0;
 }
-
 </style>

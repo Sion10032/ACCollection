@@ -1,8 +1,8 @@
 <template>
-    <div 
-        class="nav-item" 
-        v-bind:class="{ 'nav-item-selected' : this.name == this.selectedItem}"
-        v-on:click="this.navItemOnClick"
+    <div
+        class="nav-item"
+        v-bind:class="{ 'nav-item-selected' : name == selectedItem}"
+        v-on:click="navItemOnClick"
     >
         <slot></slot>
     </div>
@@ -15,7 +15,7 @@ export default {
         selectedItem: String
     },
     methods: {
-        navItemOnClick: function() {
+        navItemOnClick: function () {
             this.$emit('setSelectedItem', this.name)
         }
     }
@@ -23,7 +23,6 @@ export default {
 </script>
 
 <style scoped>
-
 .nav-item {
     cursor: pointer;
     height: 100%;
@@ -40,5 +39,4 @@ export default {
 .nav-item-selected {
     background-color: rgba(0, 0, 0, 0.25);
 }
-
 </style>

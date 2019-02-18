@@ -8,15 +8,21 @@
             <p class="cate-name-text">{{menu.cateName}}</p>
         </div>
         <transition name="slider">
-            <div class="cate-menu" v-show="isExpend">
-                <div 
-                    class="chapter-item shadow" 
-                    v-for="chapter in menu.cateMenu" 
+            <div
+                class="cate-menu"
+                v-show="isExpend"
+            >
+                <div
+                    class="chapter-item shadow"
+                    v-for="chapter in menu.cateMenu"
                     v-bind:key="chapter.cid"
                     v-on:click="goChapter(chapter.cid)"
                     v-bind:class="{ 'have-read' : favoriteInfo.lastChapter == chapter.cid }"
                 >
-                    <p class="chapter-name" v-bind:title="chapter.name"> {{chapter.name}} </p>
+                    <p
+                        class="chapter-name"
+                        v-bind:title="chapter.name"
+                    > {{chapter.name}} </p>
                     <p class="chapter-page"> {{chapter.page + 'p'}} </p>
                 </div>
             </div>
@@ -31,13 +37,13 @@ export default {
         favoriteInfo: Object,
         menu: Object
     },
-    data: function() {
+    data: function () {
         return {
             isExpend: true
         };
     },
     methods: {
-        goChapter: function(cid) {
+        goChapter: function (cid) {
             if (this.favoriteInfo.isFavorite) {
                 this.$localStorage.set('cur_uid', this.$auth.user().id)
                 this.$localStorage.set('cur_fid', this.favoriteInfo.fid)
@@ -61,7 +67,7 @@ p {
 .menu {
     width: 100%;
     border-radius: 0.5rem;
-    background-color: rgba(255, 255, 255, 0.6);    
+    background-color: rgba(255, 255, 255, 0.6);
     margin-bottom: 1rem;
 }
 
@@ -120,7 +126,8 @@ p {
     transition: all 0.3s;
 }
 
-.slider-enter, .slider-leave-to {
+.slider-enter,
+.slider-leave-to {
     transform-origin: center 0 0;
     transform: scaleY(0);
     opacity: 0;

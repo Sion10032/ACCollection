@@ -1,7 +1,10 @@
 <template>
-    <transition-group class="book-group" name="book-group-load">
+    <transition-group
+        class="book-group"
+        name="book-group-load"
+    >
         <book-item
-            v-for="book in this.bookGroup.books"
+            v-for="book in bookGroup.books"
             v-bind:key="book.bid"
             v-bind:book="book"
             v-on:goBookDetailPage="goBookDetailPage"
@@ -24,15 +27,14 @@ export default {
         }
     },
     methods: {
-        goBookDetailPage: function(bookID) {
-            this.$router.push({name: 'smhbooks', params: { bid: bookID }})
+        goBookDetailPage: function (bookID) {
+            this.$router.push({ name: 'smhbooks', params: { bid: bookID } })
         }
     }
 }
 </script>
 
 <style scoped>
-
 .book-group {
     display: grid;
     justify-items: center;
@@ -45,7 +47,7 @@ export default {
     transition: all 0.5s;
 }
 
-.book-group-load-enter, 
+.book-group-load-enter,
 .book-group-load-leave-to {
     transform: translateY(100%);
     opacity: 0;
@@ -54,5 +56,4 @@ export default {
 .book-group-load-move {
     transition: transform 0.5s;
 }
-
 </style>

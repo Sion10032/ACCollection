@@ -1,13 +1,13 @@
 <template>
     <div v-on:click="navItemOnClick">
-        <img 
-            class="nav-item-icon" 
-            v-bind:src="this.infos.icon"
+        <img
+            class="nav-item-icon"
+            v-bind:src="infos.icon"
         />
         <p
-            class="nav-item-text" 
+            class="nav-item-text"
             v-show="isNavItemTextShow"
-            v-text="this.infos.name"
+            v-text="infos.name"
         />
     </div>
 </template>
@@ -24,17 +24,16 @@ export default {
         isNavItemTextShow: Boolean
     },
     methods: {
-        navItemOnClick: function() {
+        navItemOnClick: function () {
             console.log(this.infos.name, 'is clicked.')
             if (this.infos.router != '')
-                this.$router.push({name: this.infos.router, params: this.infos.params})
+                this.$router.push({ name: this.infos.router, params: this.infos.params })
         }
     }
 }
 </script>
 
 <style scoped>
-
 div {
     height: 100%;
     display: flex;
@@ -54,5 +53,4 @@ div {
     flex-shrink: 0;
     margin-right: 0.3rem;
 }
-
 </style>

@@ -2,15 +2,15 @@
     <div class="auth-wrapper">
         <div class="auth-form-wrapper">
             <div class="auth-switch">
-                <div 
-                    class="login-wrapper" 
+                <div
+                    class="login-wrapper"
                     v-bind:class="{ active: pageName == 'login'}"
                     v-on:click="goPage('login')"
                 >
                     <p class="text">Login</p>
                 </div>
-                <div 
-                    class="register-wrapper" 
+                <div
+                    class="register-wrapper"
                     v-bind:class="{ active: pageName == 'register'}"
                     v-on:click="goPage('register')"
                 >
@@ -30,18 +30,15 @@ export default {
         pageName: String
     },
     methods: {
-        goPage: function(name) {
-            if (this.pageName == name)
-                console.log('Already in', name, 'page.')
-            else
-                this.$router.push({name: name})
+        goPage: function (name) {
+            if (this.pageName == name) console.log('Already in', name, 'page.')
+            else this.$router.push({ name: name })
         }
     }
 }
 </script>
 
 <style scoped>
-
 * {
     margin: 0;
     padding: 0;
@@ -84,7 +81,8 @@ export default {
     background-color: rgba(216, 216, 216, 0.6);
 }
 
-.login-wrapper, .register-wrapper {
+.login-wrapper,
+.register-wrapper {
     cursor: pointer;
     width: 50%;
     height: 100%;
@@ -99,11 +97,11 @@ export default {
 }
 
 .login-wrapper {
-    border-radius: 0.5rem 0 0 0;    
+    border-radius: 0.5rem 0 0 0;
 }
 
 .register-wrapper {
-    border-radius: 0 0.5rem 0 0;    
+    border-radius: 0 0.5rem 0 0;
 }
 
 .auth-form {
@@ -114,5 +112,4 @@ export default {
     box-sizing: border-box;
     border-radius: 0 0 0.5rem 0.5rem;
 }
-
 </style>

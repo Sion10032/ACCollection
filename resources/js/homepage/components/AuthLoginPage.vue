@@ -2,20 +2,23 @@
     <auth-wrapper v-bind:pageName="'login'">
         <form>
             <p class="text">E-Mail:</p>
-            <radius-input v-model="email"/>
+            <radius-input v-model="email" />
             <p class="text">Password:</p>
-            <radius-input type="password" v-model="pwd"/>
+            <radius-input
+                type="password"
+                v-model="pwd"
+            />
         </form>
         <div class="option-wrapper">
-            <input 
+            <input
                 type="checkbox"
                 class="rem-checkbox"
                 v-model="remb"
-            />
+            >
             <p class="ptext">Remember Me</p>
         </div>
         <div class="button-wrapper">
-            <radius-button 
+            <radius-button
                 v-bind:text="'Login'"
                 v-on:click.native="loginClick"
             />
@@ -34,32 +37,31 @@ export default {
         RadiusButton,
         RadiusInput
     },
-    data: function() {
+    data: function () {
         return {
             email: '',
             pwd: '',
             remb: true
         }
     },
-    beforeCreate: function() {
-        if (this.$auth.check())
-            this.$router.push({name: 'home'})            
+    beforeCreate: function () {
+        if (this.$auth.check()) this.$router.push({ name: 'home' })
     },
     methods: {
-        loginClick: function() {
+        loginClick: function () {
             console.log('login clicked.')
             this.$auth.login({
                 data: {
-                    email : this.email,
-                    password : this.pwd
+                    email: this.email,
+                    password: this.pwd
                 },
                 rememberMe: this.remb,
                 fetchUser: true,
-                redirect: {name: 'home'},
-                success: function() {
+                redirect: { name: 'home' },
+                success: function () {
                     console.log('login success.')
                 },
-                error: function() {
+                error: function () {
                     console.log('login fail.')
                 }
             })
@@ -69,7 +71,6 @@ export default {
 </script>
 
 <style scoped>
-
 .text {
     color: rgba(0, 0, 0, 0.75);
     font-size: 0.8rem;
@@ -96,5 +97,4 @@ export default {
     display: flex;
     justify-content: flex-end;
 }
-
 </style>

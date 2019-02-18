@@ -1,15 +1,15 @@
 <template>
     <div class="navbar">
         <ul class="nav-menu nav-menu-left">
-            <li 
+            <li
                 is="nav-item-slot"
-                v-for="(navItem, index) in this.navItems"
+                v-for="(navItem, index) in navItems"
                 v-bind:key="index"
                 v-bind:name="navItem.name"
                 v-bind:selectedItem="selectedItem"
                 v-on:setSelectedItem="setSelectedItem"
             >
-                <nav-item 
+                <nav-item
                     v-bind:infos="navItem"
                     v-bind:isNavItemTextShow="isNavItemTextShow"
                 >
@@ -17,7 +17,7 @@
             </li>
         </ul>
         <ul class="nav-menu nav-menu-right">
-            <li 
+            <li
                 is="nav-item-slot"
                 v-bind:name="'SearchBar'"
                 v-bind:selectedItem="selectedItem"
@@ -25,7 +25,7 @@
             >
                 <search-bar></search-bar>
             </li>
-            <li 
+            <li
                 is="nav-item-slot"
                 v-bind:name="'Avatar'"
                 v-bind:selectedItem="selectedItem"
@@ -78,14 +78,14 @@ export default {
             ]
         }
     },
-    mounted: function() {
+    mounted: function () {
         this.isNavItemTextShow = window.innerHeight < window.innerWidth
     },
     methods: {
-        setSelectedItem: function(selectedItem) {
+        setSelectedItem: function (selectedItem) {
             this.selectedItem = selectedItem
         },
-        preventSearchBarSelected: function(selectedItem) {
+        preventSearchBarSelected: function (selectedItem) {
             console.log('This is search bar.', selectedItem)
         }
     }
@@ -93,13 +93,12 @@ export default {
 </script>
 
 <style scoped>
-
 .navbar {
     height: 3rem;
     display: flex;
     justify-content: space-between;
     align-items: Center;
-    background-color: #607D8B;
+    background-color: #607d8b;
     box-shadow: 0 -0.2rem 0.2rem rgba(0, 0, 0, 0.5);
 }
 
@@ -119,5 +118,4 @@ export default {
 .nav-menu-right {
     margin-right: 0.5rem;
 }
-
 </style>

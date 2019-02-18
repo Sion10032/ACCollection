@@ -1,7 +1,10 @@
 <template>
     <transition name="slide-up">
-        <div class="toolbar footer" v-show="isToolbarShow">
-            <div 
+        <div
+            class="toolbar footer"
+            v-show="isToolbarShow"
+        >
+            <div
                 class="item-wrapper progress"
                 v-bind:class="{ 're-dir' : isReverse }"
             >
@@ -17,9 +20,12 @@
                 />
                 <p class="text"> {{ curPage + 1 }} </p>
             </div>
-            <div class="item-wrapper" v-on:click="settingsClick">
-                <img 
-                    class="settings-button-img" 
+            <div
+                class="item-wrapper"
+                v-on:click="settingsClick"
+            >
+                <img
+                    class="settings-button-img"
                     src="/image/ui/settings.png"
                 />
             </div>
@@ -36,13 +42,13 @@ export default {
         curPage: Number
     },
     watch: {
-        curPage: function() {
+        curPage: function () {
             let pl = document.getElementById('proline')
             pl.style['background-size'] = this.curPage / (this.totalPage - 1) * 100 + "% 100%"
         }
     },
     methods: {
-        settingsClick: function() {
+        settingsClick: function () {
             this.$emit('showSettings')
         }
     }
@@ -50,7 +56,6 @@ export default {
 </script>
 
 <style scoped>
-
 * {
     margin: 0;
 }
@@ -72,7 +77,7 @@ export default {
 }
 
 .text {
-    color: #FFF;
+    color: #fff;
     margin: 0 1rem 0 1rem;
     flex-shrink: 0;
 }
@@ -139,5 +144,4 @@ input[type="range"]::-webkit-slider-thumb {
     height: 2rem;
     margin: 1rem;
 }
-
 </style>

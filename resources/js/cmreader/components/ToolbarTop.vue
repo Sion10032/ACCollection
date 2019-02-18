@@ -1,15 +1,24 @@
 <template>
     <transition name="slide-down">
-        <div class="toolbar header" v-show="isToolbarShow">
-            <div class="back-button" v-on:click="goBack">
-                <img 
-                    class="back-button-img" 
+        <div
+            class="toolbar header"
+            v-show="isToolbarShow"
+        >
+            <div
+                class="back-button"
+                v-on:click="goBack"
+            >
+                <img
+                    class="back-button-img"
                     src="/image/ui/back.png"
                 />
             </div>
             <p class="chapter text"> {{ chapter }} </p>
             <p class="text">-</p>
-            <p class="title text" v-bind:title="title"> {{ title }} </p>
+            <p
+                class="title text"
+                v-bind:title="title"
+            > {{ title }} </p>
         </div>
     </transition>
 </template>
@@ -23,7 +32,7 @@ export default {
         bid: String
     },
     methods: {
-        goBack: function() {
+        goBack: function () {
             window.location.href = '/#/SMH/books/' + this.bid
         }
     }
@@ -31,7 +40,6 @@ export default {
 </script>
 
 <style scoped>
-
 .toolbar {
     position: absolute;
     z-index: 30;
@@ -65,7 +73,7 @@ export default {
 }
 
 .text {
-    color: #FFF;
+    color: #fff;
     padding-right: 0.5rem;
 }
 
@@ -82,14 +90,13 @@ export default {
 }
 
 .slide-down-enter-active,
-.slide-down-leave-active{
+.slide-down-leave-active {
     transition: all 0.5s;
 }
 
-.slide-down-enter, 
+.slide-down-enter,
 .slide-down-leave-to {
     transform: translateY(-100%);
     opacity: 0;
 }
-
 </style>

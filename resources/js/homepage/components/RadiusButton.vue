@@ -1,5 +1,5 @@
 <template>
-    <button> {{ this.text }} </button>
+    <button> {{ text }} </button>
 </template>
 
 <script>
@@ -11,7 +11,6 @@ export default {
 </script>
 
 <style scoped>
-
 button {
     cursor: pointer;
     color: rgba(88, 178, 220, 0.8);
@@ -28,5 +27,4 @@ button {
 button:hover {
     background-color: rgba(192, 192, 192, 0.25);
 }
-
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="home-wrapper">
-        <book-group v-bind:bookGroup="this.bookGroup">
+        <book-group v-bind:bookGroup="bookGroup">
         </book-group>
     </div>
 </template>
@@ -12,7 +12,7 @@ export default {
     components: {
         BookGroup
     },
-    data: function() {
+    data: function () {
         return {
             bookGroup: {
                 groupName: 'Hots',
@@ -20,13 +20,13 @@ export default {
             }
         }
     },
-    mounted: function() {
+    mounted: function () {
         this.getHotsBooks();
     },
     methods: {
-        getHotsBooks: function() {
+        getHotsBooks: function () {
             var _this = this
-            this.$axios.get('/SMH/hots').then(function(result) {
+            this.$axios.get('/SMH/hots').then(function (result) {
                 _this.bookGroup.books = result.data
             })
         }
@@ -35,10 +35,8 @@ export default {
 </script>
 
 <style scoped>
-
 .home-wrapper {
     padding: 1rem;
     box-sizing: border-box;
 }
-
 </style>

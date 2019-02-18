@@ -1,6 +1,6 @@
 <template>
     <div class="search-wrapper">
-        <book-group v-bind:bookGroup="this.bookGroup">
+        <book-group v-bind:bookGroup="bookGroup">
         </book-group>
     </div>
 </template>
@@ -15,7 +15,7 @@ export default {
     props: {
         searchText: String
     },
-    data: function() {
+    data: function () {
         return {
             bookGroup: {
                 groupName: 'SearchResult',
@@ -24,15 +24,15 @@ export default {
         }
     },
     watch: {
-        searchText: function() {
+        searchText: function () {
             this.getSearchResult()
         }
     },
-    mounted: function() {
+    mounted: function () {
         this.getSearchResult()
     },
     methods: {
-        getSearchResult: function() {
+        getSearchResult: function () {
             this.bookGroup.books = []
             let url = '/SMH/search/' + this.searchText
             this.$axios.get(url).then(
@@ -46,10 +46,8 @@ export default {
 </script>
 
 <style scoped>
-
 .search-wrapper {
     padding: 1rem;
     box-sizing: border-box;
 }
-
 </style>
