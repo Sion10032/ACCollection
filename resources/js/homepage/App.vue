@@ -44,7 +44,7 @@ export default {
 
 document.addEventListener('DOMContentLoaded', () => {
     const html = document.querySelector('html')
-    html.style.fontSize = window.innerHeight / 40 + 'px'
+    html.style.fontSize = window.innerHeight / 50 + 'px'
 })
 </script>
 

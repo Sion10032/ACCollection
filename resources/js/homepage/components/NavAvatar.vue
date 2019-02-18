@@ -27,7 +27,7 @@ export default {
     height: 2rem;
     background-color: white;
     border-radius: 100%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); */
 }
 
 </style>

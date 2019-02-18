@@ -37,10 +37,10 @@ export default {
     width: 30vw;
     max-width: 12rem;
     padding-left: 0.5rem;
-    border: 0rem;
+    border: 0;
     outline: none;
     border-radius: 0.75rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); */
 }
 
 </style>

@@ -36,7 +36,7 @@ export default {
 .book-group {
     display: grid;
     justify-items: center;
-    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
     grid-gap: 1rem;
 }
 

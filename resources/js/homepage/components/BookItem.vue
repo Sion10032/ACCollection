@@ -31,15 +31,15 @@ export default {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 9rem;
-    height: 12rem;
+    width: 8rem;
+    height: 11rem;
     border-radius: 0.2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .book-img {
-    width: 9rem;
-    height: 11rem;
+    width: 8rem;
+    height: 10rem;
     object-fit: cover;
     border-top-left-radius: 0.2rem;
     border-top-right-radius: 0.2rem;
@@ -55,7 +55,7 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 0rem 0.5rem 0rem 0.5rem;
-    width: 9rem;
+    width: 8rem;
     height: 1rem;
     font-size: 0.8rem;
 }

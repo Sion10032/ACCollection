@@ -34,11 +34,11 @@ export default {
 }
 
 .nav-item:hover {
-    background-color: rgba(72, 72, 72, 0.6);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .nav-item-selected {
-    background-color: rgba(64, 64, 64, 0.8);
+    background-color: rgba(0, 0, 0, 0.25);
 }
 
 </style>

@@ -99,8 +99,8 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: Center;
-    background-color: rgba(84, 92, 100, 0.8);;
-    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.25);
+    background-color: #607D8B;
+    box-shadow: 0 -0.2rem 0.2rem rgba(0, 0, 0, 0.5);
 }
 
 .nav-menu {
