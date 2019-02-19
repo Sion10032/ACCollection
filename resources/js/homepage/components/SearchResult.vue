@@ -47,7 +47,6 @@ export default {
 
 <style scoped>
 .search-wrapper {
-    padding: 1rem;
-    box-sizing: border-box;
+    padding: 0;
 }
 </style>

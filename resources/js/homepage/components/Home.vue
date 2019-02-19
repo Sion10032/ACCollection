@@ -36,7 +36,7 @@ export default {
 
 <style scoped>
 .home-wrapper {
-    padding: 1rem;
+    padding: 0;
     box-sizing: border-box;
 }
 </style>

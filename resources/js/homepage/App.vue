@@ -26,7 +26,7 @@ export default {
     },
     methods: {
         onScroll: function($event) {
-            console.log("onScroll", this.lastPos);
+            // console.log("onScroll", this.lastPos);
             this.isNavShow = this.lastPos > $event.target.scrollTop;
             this.lastPos = $event.target.scrollTop;
         }
@@ -46,8 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url(/image/background-yuki.jpg);
-    background-repeat: repeat;
+    background-image: url(/image/background-tolove-00.jpg);
+    background-size: cover;
+    /* background-repeat: repeat; */
 }
 
 #nav {
@@ -60,10 +61,11 @@ document.addEventListener("DOMContentLoaded", () => {
     width: 100%;
     height: 100%;
     overflow-y: scroll;
-    overflow-x: hidden;
+    overflow-x: visible;
 }
 
 .scrollbar::-webkit-scrollbar {
+    display: none;
     width: 6px;
 }
 

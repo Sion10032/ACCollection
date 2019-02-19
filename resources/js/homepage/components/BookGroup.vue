@@ -1,27 +1,45 @@
 <template>
-    <transition-group
-        class="book-group"
-        v-bind:class="{'book-group-detailed': isDetailed}"
-        name="book-group-load"
-    >
-        <book-item-lite
-            v-for="book in bookGroup.books"
-            v-bind:key="book.bid"
-            v-bind:book="book"
-            v-on:goBookDetailPage="goBookDetailPage"
+    <div class="book-group-wrapper">
+        <div
+            class="book-group-header"
+            v-on:click.self="isExpend = !isExpend"
         >
-        </book-item-lite>
-    </transition-group>
+            <p class="text">{{ bookGroup.groupName }}</p>
+            <button
+                class="mode-switch"
+                v-on:click="isDetailed = !isDetailed"
+            >
+                <img
+                    class="button-img"
+                    v-bind:src="'/image/ui/button-mode-' + (isDetailed ? 'detailed.png' : 'lite.png')"
+                />
+            </button>
+        </div>
+        <transition-group
+            tag="div"
+            v-show="isExpend"
+            class="book-group"
+            v-bind:class="isDetailed ? 'book-group-detailed': 'book-group-lite'"
+            name="book-group-load"
+        >
+            <book-item
+                v-for="book in bookGroup.books"
+                v-bind:key="book.bid"
+                v-bind:book="book"
+                v-bind:isDetailed="isDetailed"
+                v-on:goBookDetailPage="goBookDetailPage"
+            >
+            </book-item>
+        </transition-group>
+    </div>
 </template>
 
 <script>
-import BookItemDetailed from './BookItemDetailed.vue'
-import BookItemLite from './BookItemLite.vue'
+import BookItem from './BookItem.vue'
 
 export default {
     components: {
-        BookItemDetailed,
-        BookItemLite
+        BookItem
     },
     props: {
         bookGroup: {
@@ -31,6 +49,7 @@ export default {
     },
     data: function () {
         return {
+            isExpend: true,
             isDetailed: false
         }
     },
@@ -43,29 +62,71 @@ export default {
 </script>
 
 <style scoped>
+.book-group-wrapper {
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.book-group-header {
+    cursor: pointer;
+    background-color: #5a7a8f;
+    height: 2rem;
+    padding: 0 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text {
+    margin: 0;
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+.mode-switch {
+    cursor: pointer;
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+}
+
+.button-img {
+    width: 1rem;
+    height: 1rem;
+}
+
 .book-group {
     display: grid;
     justify-items: center;
-    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
     grid-gap: 1rem;
+    background-color: rgba(255, 255, 255, 0.6);
+    box-sizing: border-box;
+}
+
+.book-group-lite {
+    padding: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
 }
 
 .book-group-detailed {
+    padding: 0.5rem;
     grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
 }
 
 .book-group-load-enter-active,
 .book-group-load-leave-active {
-    transition: all 0.5s;
+    transition: opacity 1s;
 }
 
 .book-group-load-enter,
 .book-group-load-leave-to {
-    transform: translateY(100%);
     opacity: 0;
 }
 
 .book-group-load-move {
-    transition: transform 0.5s;
+    transition: all 1s;
 }
 </style>
