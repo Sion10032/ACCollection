@@ -118,11 +118,12 @@ export default {
 
 .book-group-load-enter-active,
 .book-group-load-leave-active {
-    transition: opacity 1s;
+    transition: all 1s;
 }
 
 .book-group-load-enter,
 .book-group-load-leave-to {
+    transform: translateY(100%);
     opacity: 0;
 }
 
