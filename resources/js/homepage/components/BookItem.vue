@@ -54,7 +54,7 @@ export default {
     border-radius: 0.2rem;
     background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.4);
-    transition: all 1s;
+    transition: all 0.5s;
 }
 
 .book-item-lite {
@@ -74,7 +74,7 @@ export default {
     flex-shrink: 0;
     border-top-left-radius: 0.2rem;
     border-top-right-radius: 0.2rem;
-    transition: all 1s;
+    transition: all 0.5s;
 }
 
 .book-img-lite {
@@ -95,7 +95,7 @@ export default {
     flex-grow: 1;
     justify-content: space-between;
     box-sizing: border-box;
-    transition: all 1s;
+    transition: all 0.5s;
 }
 
 .book-info-lite {

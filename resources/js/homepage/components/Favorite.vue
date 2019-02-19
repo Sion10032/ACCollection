@@ -50,7 +50,7 @@ export default {
 
 <style scoped>
 .favo-wrapper {
-    padding: 1rem;
+    padding: 0;
     box-sizing: border-box;
 }
 </style>
