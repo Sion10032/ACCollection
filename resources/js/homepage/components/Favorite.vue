@@ -43,6 +43,11 @@ export default {
             this.$axios.get(url).then(function (result) {
                 _this.bookGroup.books = result.data
             })
+        },
+        updateFav: function () {
+            for (let i = 0; i < this.bookGroup.books.length; ++i) {
+                
+            }
         }
     }
 }

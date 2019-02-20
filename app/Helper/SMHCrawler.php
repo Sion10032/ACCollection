@@ -51,7 +51,8 @@ class SMHCrawer
                 $tmp['author'] = explode(',', str_replace('作者：', '', $tmp['author']));
 
                 preg_match_all('~(?<="\>).*?(?=\</span\>)~', $tmp['status'], $matches);
-                $tmp['status'] = $matches[0];
+                $tmp['status'] = $matches[0][0];
+                $tmp['update'] = $matches[0][1];
 
                 array_push($books, $tmp);
             }
@@ -175,13 +176,17 @@ class SMHCrawer
         $html = QueryList::get($url);
 
         $books = $html->rules([
-            "name" => ['tr>td.rank-title>h5>a', 'text'],
-            "bid" => ['tr>td.rank-title>h5>a', 'href'],
+            'name' => ['tr>td.rank-title>h5>a', 'text'],
+            'bid' => ['tr>td.rank-title>h5>a', 'href'],
+            'author' => ['tr>td>div.rank-author', 'text'],
+            'status' => ['tr>td.rank-title>span', 'text'],
+            'update' => ['tr>td.rank-time', 'text']            
         ])->queryData();
 
         foreach ($books as &$book) {
             $book['bid'] = str_replace('comic', '', $book['bid']);
             $book['bid'] = str_replace('/', '', $book['bid']);
+            $book['author'] = explode(',', $book['author']);
         }
 
         return json_encode($books, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);

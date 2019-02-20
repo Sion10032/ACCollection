@@ -1,5 +1,5 @@
 <template>
-    <div class="menu shadow">
+    <div class="menu shadow" v-bind:class="{'menu-portrait': isPortrait}">
         <div
             class="cate-name"
             v-bind:class="{ 'bottom-radius-item' : !isExpend }"
@@ -7,26 +7,24 @@
         >
             <p class="cate-name-text">{{menu.cateName}}</p>
         </div>
-        <transition name="slider">
+        <div
+            class="cate-menu"
+            v-show="isExpend"
+        >
             <div
-                class="cate-menu"
-                v-show="isExpend"
+                class="chapter-item shadow"
+                v-for="chapter in menu.cateMenu"
+                v-bind:key="chapter.cid"
+                v-on:click="goChapter(chapter.cid)"
+                v-bind:class="{ 'have-read' : favoriteInfo.lastChapter == chapter.cid }"
             >
-                <div
-                    class="chapter-item shadow"
-                    v-for="chapter in menu.cateMenu"
-                    v-bind:key="chapter.cid"
-                    v-on:click="goChapter(chapter.cid)"
-                    v-bind:class="{ 'have-read' : favoriteInfo.lastChapter == chapter.cid }"
-                >
-                    <p
-                        class="chapter-name"
-                        v-bind:title="chapter.name"
-                    > {{chapter.name}} </p>
-                    <p class="chapter-page"> {{chapter.page + 'p'}} </p>
-                </div>
+                <p
+                    class="chapter-name"
+                    v-bind:title="chapter.name"
+                > {{chapter.name}} </p>
+                <p class="chapter-page"> {{chapter.page + 'p'}} </p>
             </div>
-        </transition>
+        </div>
     </div>
 </template>
 
@@ -35,7 +33,8 @@ export default {
     props: {
         bid: String,
         favoriteInfo: Object,
-        menu: Object
+        menu: Object,
+        isPortrait: Boolean
     },
     data: function () {
         return {
@@ -67,8 +66,11 @@ p {
 .menu {
     width: 100%;
     border-radius: 0.5rem;
-    background-color: rgba(255, 255, 255, 0.6);
-    margin-bottom: 1rem;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.menu-portrait {
+    border-radius: 0;
 }
 
 .cate-menu {
@@ -85,7 +87,7 @@ p {
     align-items: center;
     height: 2rem;
     padding: 0 1rem 0 1rem;
-    background-color: rgba(236, 236, 236, 0.6);
+    background-color: rgba(236, 236, 236, 0.8);
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     box-sizing: border-box;
@@ -104,32 +106,17 @@ p {
     height: 1.5rem;
     padding: 0 0.5rem 0 0.5rem;
     border-radius: 0.2rem;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.8);
     cursor: pointer;
 }
 
 .have-read {
-    background-color: rgba(255, 228, 196, 0.6);
+    background-color: rgba(255, 228, 196, 0.8);
 }
 
 .chapter-name {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.slider-enter-active {
-    transition: all 0.3s;
-}
-
-.slider-leave-active {
-    transition: all 0.3s;
-}
-
-.slider-enter,
-.slider-leave-to {
-    transform-origin: center 0 0;
-    transform: scaleY(0);
-    opacity: 0;
 }
 </style>

@@ -24,11 +24,11 @@
             <p
                 v-show="isDetailed"
                 class="book-status text"
-            >{{ book.status == undefined ? '' :book.status[0] }}</p>
+            >{{ book.status == undefined ? '' :book.status }}</p>
             <p
                 v-show="isDetailed"
                 class="book-time text"
-            >{{ book.status == undefined ? '' :book.status[1] }}</p>
+            >{{ book.update == undefined ? '' :book.update }}</p>
         </div>
     </div>
 </template>
@@ -60,12 +60,14 @@ export default {
     flex-direction: column;
     width: 8rem;
     height: 11rem;
+    margin: 0.5rem;
 }
 
 .book-item-detailed {
     flex-direction: row;
     height: 6rem;
     width: 100%;
+    margin: 0.25rem;
 }
 
 .book-img {

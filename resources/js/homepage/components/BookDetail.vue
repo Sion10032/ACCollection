@@ -1,42 +1,48 @@
 <template>
-    <div
-        class="book-wrapper"
-        v-bind:class="{'book-menu-portrait' : isPortrait}"
-    >
+    <div class="book-detail-wrapper">
+        <div class="book-title-wrapper">
+            <h2 class="book-title">{{ bookDetial.name }}</h2>
+        </div>
         <div
-            class="book-info"
-            v-bind:class="{'book-info-portrait' : isPortrait}"
+            class="book-wrapper"
+            v-bind:class="{'book-menu-portrait' : isPortrait}"
         >
-            <div class="book-func-wrapper">
-                <img
-                    class="book-cover"
-                    v-bind:src="'https://cf.hamreus.com/cpic/b/' + bid + '.jpg'"
-                >
-                <div
-                    class="fav-button"
-                    v-on:click="changeFavorite"
-                >
+            <div
+                class="book-info"
+                v-bind:class="{'book-info-portrait' : isPortrait}"
+            >
+                <div class="book-func-wrapper">
                     <img
-                        class="fav-button-img"
-                        src="/image/navbar/favorite.png"
+                        class="book-cover"
+                        v-bind:src="'https://cf.hamreus.com/cpic/b/' + bid + '.jpg'"
                     >
-                    <p class="fav-button-text">{{ favoriteInfo.isFavorite ? '取消收藏' : '添加收藏' }}</p>
+                    <div
+                        class="fav-button"
+                        v-on:click="changeFavorite"
+                    >
+                        <img
+                            class="fav-button-img"
+                            src="/image/navbar/favorite.png"
+                        >
+                        <p class="fav-button-text">{{ favoriteInfo.isFavorite ? '取消收藏' : '添加收藏' }}</p>
+                    </div>
+                </div>
+                <div class="book-info-text">
+                    <p class="book-intro">{{ bookDetial.intro }}</p>
                 </div>
             </div>
-            <div class="book-info-text">
-                <h2 class="book-title">{{bookDetial.name}}</h2>
-                <p class="book-intro">{{bookDetial.intro}}</p>
+            <div class="split-block"></div>
+            <div class="book-menu-group">
+                <book-menu
+                    class="book-menu"
+                    v-for="cateItem in bookDetial.dir"
+                    v-bind:key="cateItem.cateName"
+                    v-bind:bid="bookDetial.bid"
+                    v-bind:favoriteInfo="favoriteInfo"
+                    v-bind:menu="cateItem"
+                    v-bind:isPortrait="isPortrait"
+                ></book-menu>
             </div>
-        </div>
-        <div class="split-block"></div>
-        <div class="book-menu">
-            <book-menu
-                v-for="cateItem in bookDetial.dir"
-                v-bind:key="cateItem.cateName"
-                v-bind:bid="bookDetial.bid"
-                v-bind:favoriteInfo="favoriteInfo"
-                v-bind:menu="cateItem"
-            ></book-menu>
         </div>
     </div>
 </template>
@@ -140,6 +146,26 @@ export default {
 </script>
 
 <style scoped>
+.book-detail-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.book-title {
+    margin: 0;
+    font-size: 1rem;
+    margin-left: 1rem;
+}
+
+.book-title-wrapper {
+    width: 100%;
+    height: 2rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+}
+
 .book-wrapper {
     display: flex;
     width: 100%;
@@ -152,6 +178,7 @@ export default {
     flex-direction: row;
     flex-direction: column;
     align-items: center;
+    padding: 1rem 0;
 }
 
 .book-info {
@@ -161,8 +188,7 @@ export default {
     width: 24rem;
     height: 17rem;
     padding: 1rem;
-    margin-bottom: 1rem;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 0.5rem;
     box-sizing: border-box;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
@@ -170,6 +196,7 @@ export default {
 
 .book-info-portrait {
     width: 100%;
+    border-radius: 0;
 }
 
 .book-func-wrapper {
@@ -226,14 +253,9 @@ export default {
     padding: 0rem 1rem 0rem 1rem;
 }
 
-.book-title {
-    margin: 0;
-    font-size: 1rem;
-}
-
 .book-intro {
     font-size: 1rem;
-    margin: 1rem 0 0 0;
+    margin: 0;
     height: 11.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -245,12 +267,16 @@ export default {
     flex-shrink: 0;
 }
 
-.book-menu {
+.book-menu-group {
     padding: 0;
     box-sizing: border-box;
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.book-menu {
+    margin-bottom: 0.5rem;
 }
 </style>

@@ -8,7 +8,7 @@
                 class="avatar"
                 v-bind:src="
                     '/image/ui/avatar-' + 
-                    this.$auth.user().id == userId ? 'karen.png' : 'saki.png'
+                    (this.$auth.user().id == userId ? 'karen.png' : 'saki.png')
                 "
             />
             <p class="text tag"> User Name: </p>

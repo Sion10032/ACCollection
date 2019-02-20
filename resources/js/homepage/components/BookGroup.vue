@@ -126,8 +126,4 @@ export default {
     transform: translateY(100%);
     opacity: 0;
 }
-
-.book-group-load-move {
-    transition: all 1s;
-}
 </style>
