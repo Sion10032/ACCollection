@@ -41,6 +41,12 @@ class UpdateResources extends Command
      */
     public function handle()
     {
+        
+        if (rand(0, 100) < 80) {
+            echo "Skip.\n";
+            return;
+        }
+
         $resources = Resource::all();
 
         foreach ($resources as &$res) {

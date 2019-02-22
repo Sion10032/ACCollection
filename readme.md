@@ -14,7 +14,7 @@ PS2: master分支存在大量Bug，现将该分支作为主分支。
 - [x] 收藏功能
 - [x] 站点资源爬取
     - [x] [看漫画](https://www.manhuagui.com/)
-- [ ] 邮件提醒功能
+- [x] 邮件提醒功能
 
 ### 前端
 
@@ -46,6 +46,7 @@ PS2: master分支存在大量Bug，现将该分支作为主分支。
     cp .env.example .env
     vi .env
     ```
+    需要修改的配置有 **数据库信息** 与 **邮件信息**。
 
 4. 生成 App key 与 jwt密钥
     ```
