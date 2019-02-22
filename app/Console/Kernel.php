@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\UpdateResources::class
+        Commands\UpdateResources::class,
+        Commands\ClearResources::class
     ];
 
     /**
@@ -32,6 +33,10 @@ class Kernel extends ConsoleKernel
 
         // 每天发送更新提醒邮件
         $schedule->command('update-resources')->dailyAt('00:30');
+
+        // 每小时清理，减少更新数据量
+        $schedule->command('clear-resources')->hourlyAt(1);
+
     }
 
     /**
