@@ -22,7 +22,7 @@ class UpdateResources extends Command
      *
      * @var string
      */
-    protected $description = 'Update Resources information.';
+    protected $description = 'Update Resources information';
 
     /**
      * Create a new command instance.

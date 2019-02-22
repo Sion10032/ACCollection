@@ -29,6 +29,9 @@ class Kernel extends ConsoleKernel
         
         // 每小时更新漫画信息
         $schedule->command('update-resources')->hourlyAt(5);
+
+        // 每天发送更新提醒邮件
+        $schedule->command('update-resources')->dailyAt('00:30');
     }
 
     /**
