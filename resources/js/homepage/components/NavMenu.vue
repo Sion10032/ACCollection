@@ -15,6 +15,15 @@
                 >
                 </nav-item>
             </li>
+            <li
+                class="fresh-button"
+                v-on:click="freshClick"
+            >
+                <img
+                    class="fresh-button-icon"
+                    src="/image/navbar/fresh.png"
+                />
+            </li>
         </ul>
         <ul class="nav-menu nav-menu-right">
             <li
@@ -87,6 +96,11 @@ export default {
         },
         preventSearchBarSelected: function (selectedItem) {
             console.log('This is search bar.', selectedItem)
+        },
+        freshClick: function () {
+            this.$axios.get('/resources/fresh').then(
+                () => alert('后台更新资源成功')
+            );
         }
     }
 };
@@ -117,5 +131,24 @@ export default {
 
 .nav-menu-right {
     margin-right: 0.5rem;
+}
+
+.fresh-button {
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    padding: 0 0.5rem 0 0.5rem;
+}
+
+.fresh-button:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.fresh-button-icon {
+    height: 60%;
+    margin: 0.25rem;
+    flex-shrink: 0;
 }
 </style>

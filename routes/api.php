@@ -40,6 +40,7 @@ Route::group(['middleware' => 'jwt.auth'], function() {
 
 Route::group([], function() {
     Route::get('resources', 'Api\ResourceController@index');
+    Route::get('resources/fresh', 'Api\ResourceController@fresh');
     Route::get('resources/{id}', 'Api\ResourceController@show');
     Route::post('resources', 'Api\ResourceController@store');
     Route::put('resources/{id}', 'Api\ResourceController@update');

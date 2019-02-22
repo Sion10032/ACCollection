@@ -7,6 +7,8 @@ use App\Model\Resource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Helper\SMHCrawer;
+
 class ResourceController extends Controller
 {
     public function index()
@@ -64,5 +66,20 @@ class ResourceController extends Controller
         }
 
         
+    }
+
+    public function fresh(Request $request) {
+        $resources = Resource::all();
+
+        foreach ($resources as &$res) {
+            $newInfo = json_decode(SMHCrawer::book($res['bid']), true);
+            $res->update([
+                'name' => $newInfo['name'],
+                'author' => join(',', $newInfo['author']),
+                'status' => $newInfo['status'],
+                'update' => $newInfo['update']
+            ]);
+            echo $newInfo['name'] . ' ' . $newInfo['bid'] . ' update success.<br>';
+        }
     }
 }

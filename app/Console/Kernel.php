@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         
         // 每小时更新漫画信息
-        $schedule->command('update-resources')->hourly();
+        // $schedule->command('update-resources')->hourly();
 
         // 每天发送更新提醒邮件
         $schedule->command('update-resources')->dailyAt('00:30');
@@ -39,7 +39,7 @@ class Kernel extends ConsoleKernel
      *
      * @return void
      */
-    protected function commands()
+    protected function cmmands()
     {
         $this->load(__DIR__.'/Commands');
 
