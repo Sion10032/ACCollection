@@ -8,7 +8,7 @@ class Resource extends Model
 {
     public $timestamps = false;
     
-    protected $fillable = ['name', 'bid', 'lastChapter'];
+    protected $fillable = ['name', 'bid', 'lastChapter', 'author', 'status', 'update'];
 
     public function favorite()
     {

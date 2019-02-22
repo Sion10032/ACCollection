@@ -39,8 +39,9 @@ class SMHCrawer
             $BookInfoRule = [
                 'name' => ['a.bcover', 'title'],
                 'bid' => ['a.bcover', 'href'],
-                'author' => ['.tags:not(.status):nth-child(4)>span', 'text'],
-                'status' => ['dd.tags.status>span', 'html'],
+                'author' => ['dl dd:nth-child(4)', 'text'],
+                'status' => ['.tags.status span:nth-child(2)', 'text'],
+                'update' => ['.tags.status span:nth-child(3)', 'text']
             ];
 
             foreach ($booksLi as $book) {
@@ -49,10 +50,7 @@ class SMHCrawer
                 $tmp['bid'] = str_replace('/', '', $tmp['bid']);
 
                 $tmp['author'] = explode(',', str_replace('作者：', '', $tmp['author']));
-
-                preg_match_all('~(?<="\>).*?(?=\</span\>)~', $tmp['status'], $matches);
-                $tmp['status'] = $matches[0][0];
-                $tmp['update'] = $matches[0][1];
+                $tmp['update'] = explode(' ', $tmp['update'])[0];
 
                 array_push($books, $tmp);
             }
@@ -66,10 +64,15 @@ class SMHCrawer
         $url = self::$site . '/comic/' . $bid . '/';
         $html = QueryList::get($url);
 
-        $book = [];
+        $book = $html->rules([
+            'name' => ['div>h1', 'text'],
+            'author' => ['.detail-list li:nth-child(2) span:nth-child(2)', 'text'],
+            'status' => ['.status span:nth-child(2)', 'text'],
+            'update' => ['.status span:nth-child(3)', 'text'],
+            'intro' => ['div#intro-cut', 'text']
+        ])->queryData()[0];
+        $book['author'] = explode(',', str_replace('漫画作者：', '', $book['author']));
         $book['bid'] = $bid;
-        $book['name'] = $html->rules([['div>h1', 'text']])->queryData()[0][0];
-        $book['intro'] = $html->rules([['div#intro-cut', 'text']])->queryData()[0][0];
         $book['dir'] = [];
 
         // 解密限制级漫画目录

@@ -27,8 +27,23 @@
                         <p class="fav-button-text">{{ favoriteInfo.isFavorite ? '取消收藏' : '添加收藏' }}</p>
                     </div>
                 </div>
-                <div class="book-info-text">
-                    <p class="book-intro">{{ bookDetial.intro }}</p>
+                <div class="book-info-text-wrapper">
+                    <p class="book-info-text">
+                        <span>作者：</span>
+                        <span class="book-author">{{ bookDetial.author.join(',') }}</span>
+                    </p>
+                    <p class="book-info-text">
+                        <span>连载状态：</span>
+                        <span class="book-status">{{ bookDetial.status }}</span>
+                    </p>
+                    <p class="book-info-text">
+                        <span>更新时间：</span>
+                        <span class="book-update">{{ bookDetial.update }}</span>
+                    </p>
+                    <p class="book-info-text book-intro">
+                        <span>简介：</span>
+                        <span>{{ bookDetial.intro }}</span>
+                    </p>
                 </div>
             </div>
             <div class="split-block"></div>
@@ -129,6 +144,9 @@ export default {
                         data: {
                             name: _this.bookDetial.name,
                             bid: _this.bookDetial.bid,
+                            author: _this.bookDetial.author,
+                            status: _this.bookDetial.status,
+                            update: _this.bookDetial.update,
                             lastChapter: 0
                         }
                     })
@@ -153,7 +171,7 @@ export default {
 
 .book-title-wrapper {
     width: 100%;
-    height: 2rem;
+    height: 2.5rem;
     background-color: rgba(255, 255, 255, 0.8);
     display: flex;
     align-items: center;
@@ -164,7 +182,7 @@ export default {
 
 .book-title {
     margin: 0;
-    font-size: 1rem;
+    font-size: 1.25rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -182,15 +200,15 @@ export default {
     flex-direction: row;
     flex-direction: column;
     align-items: center;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
 }
 
 .book-info {
     display: flex;
     flex-shrink: 0;
     max-width: 100%;
-    width: 24rem;
-    height: 17rem;
+    width: 30rem;
+    height: fit-content;
     padding: 1rem;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 0.5rem;
@@ -209,7 +227,6 @@ export default {
     flex-shrink: 0;
     width: 8rem;
     height: 100%;
-    flex-shrink: 0;
 }
 
 .fav-button {
@@ -248,26 +265,45 @@ export default {
     border-radius: 0.2rem;
 }
 
-.book-info-text {
-    flex-grow: 1;
+.book-info-text-wrapper {
+    /* flex-grow: 1; */
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     padding: 0rem 1rem 0rem 1rem;
 }
 
-.book-intro {
-    font-size: 1rem;
+.book-info-text {
+    padding: 0;
     margin: 0;
-    height: 11.5rem;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.book-author {
+    color: dimgrey;
+}
+
+.book-status {
+    color: red;
+}
+
+.book-update {
+    color: orange;
+}
+
+.book-intro {
     overflow: hidden;
     text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
 }
 
 .split-block {
     width: 1rem;
-    height: 1rem;
+    height: 0.5rem;
     flex-shrink: 0;
 }
 

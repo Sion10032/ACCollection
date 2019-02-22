@@ -139,7 +139,7 @@ export default {
 
 .book-status {
     font-size: 0.8rem;
-    color: #f44336;
+    color: red;
     margin: 0;
 }
 

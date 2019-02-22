@@ -106,7 +106,7 @@ export default {
 }
 
 .book-group-lite {
-    padding: 1rem;
+    padding: 0.5rem;
     grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
     grid-gap: 0.5rem;
 }
@@ -114,6 +114,7 @@ export default {
 .book-group-detailed {
     padding: 0.25rem;
     grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    grid-gap: 0.25rem;
 }
 
 .book-group-load-enter-active,

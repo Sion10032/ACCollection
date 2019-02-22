@@ -22,6 +22,9 @@ class FavoriteController extends Controller
                 'id' => $fav['id'],
                 'bid' => $res['bid'],
                 'name' => $res['name'],
+                'author' => explode(',', $res['author']),
+                'status' => $res['status'],
+                'update' => $res['update'],
                 'lastChapter' => $fav['lastChapter'],
             ]);
         }
@@ -49,17 +52,20 @@ class FavoriteController extends Controller
             ], 403);
 
         $bid = $request->all()['bid'];
-        $res = Resource::firstOrCreate(
+        $res = Resource::updateOrCreate(
             ['bid' => $bid],
             [
                 'name' => $request->all()['name'],
-                'lastChapter' => $request->all()['lastChapter']
+                'lastChapter' => $request->all()['lastChapter'],
+                'author' => join(',', $request->all()['author']),
+                'status' => $request->all()['status'],
+                'update' => $request->all()['update']
             ]
         );
         
         $fav = Favorite::create([
-            'lastChapter' => $res->lastChapter,
-            'userId' => Auth::user()->id,
+            'lastChapter' => 0,
+            'userId' => $uid,
             'resId' => $res->id,
         ]);
 
