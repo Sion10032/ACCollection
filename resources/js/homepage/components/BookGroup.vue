@@ -101,7 +101,6 @@ export default {
 .book-group {
     display: grid;
     justify-items: center;
-    grid-gap: 1rem;
     background-color: rgba(255, 255, 255, 0.6);
     box-sizing: border-box;
 }
@@ -109,10 +108,11 @@ export default {
 .book-group-lite {
     padding: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+    grid-gap: 0.5rem;
 }
 
 .book-group-detailed {
-    padding: 0.5rem;
+    padding: 0.25rem;
     grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
 }
 

@@ -46,9 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url(/image/background-tolove-00.jpg);
-    background-size: cover;
-    /* background-repeat: repeat; */
+    background-image: url(/image/background-yuki.jpg);
+    /* background-size: cover; */
+    background-repeat: repeat;
 }
 
 #nav {

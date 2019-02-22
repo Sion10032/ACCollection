@@ -151,12 +151,6 @@ export default {
     height: 100%;
 }
 
-.book-title {
-    margin: 0;
-    font-size: 1rem;
-    margin-left: 1rem;
-}
-
 .book-title-wrapper {
     width: 100%;
     height: 2rem;
@@ -164,6 +158,16 @@ export default {
     display: flex;
     align-items: center;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.book-title {
+    margin: 0;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .book-wrapper {

@@ -98,7 +98,7 @@ export default {
 }
 
 .book-info-lite {
-    padding: 0rem 0.5rem;
+    padding: 0rem 0.25rem;
 }
 
 .book-info-detailed {
