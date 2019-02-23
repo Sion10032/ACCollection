@@ -61,6 +61,7 @@ export default {
     },
     data() {
         return {
+            freshClickTimes: 0,
             isNavItemTextShow: false,
             selectedItem: 'Home',
             navItems: [
@@ -98,9 +99,17 @@ export default {
             console.log('This is search bar.', selectedItem)
         },
         freshClick: function () {
-            this.$axios.get('/resources/fresh').then(
-                () => alert('后台更新资源成功')
-            );
+            if (++this.freshClickTimes > 2) {
+                this.freshClickTimes = 0
+                this.$axios.get('/resources/fresh').then(
+                    () => alert('后台更新资源成功')
+                );
+            }
+            else {
+                let s = '再点击' + (3 - this.freshClickTimes) + '次则更新后台资源。'
+                alert(s)
+            }
+            
         }
     }
 };

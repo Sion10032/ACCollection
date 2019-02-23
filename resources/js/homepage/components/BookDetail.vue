@@ -130,8 +130,9 @@ export default {
                         }
                     })
                     .then(function (res) {
-                        _this.favoriteInfo.isFavorite = false;
-                        _this.favoriteInfo.fid = undefined;
+                        _this.favoriteInfo.isFavorite = false
+                        _this.favoriteInfo.fid = undefined
+                        alert('取消收藏成功')
                     })
             } else {
                 _this
@@ -153,6 +154,7 @@ export default {
                     .then(function (res) {
                         _this.favoriteInfo.isFavorite = true
                         _this.favoriteInfo.fid = res.data.data.id
+                        alert('收藏成功')
                     })
             }
         },

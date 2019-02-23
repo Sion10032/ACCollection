@@ -2,7 +2,7 @@
     <div class="menu shadow" v-bind:class="{'menu-portrait': isPortrait}">
         <div
             class="cate-name"
-            v-bind:class="{ 'bottom-radius-item' : !isExpend }"
+            v-bind:class="{'cate-name-portrait': isPortrait}"
             v-on:click="isExpend = !isExpend"
         >
             <p class="cate-name-text">{{menu.cateName}}</p>
@@ -88,15 +88,13 @@ p {
     height: 2rem;
     padding: 0 1rem 0 1rem;
     background-color: rgba(236, 236, 236, 0.8);
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+    border-radius: 0.5rem;
     box-sizing: border-box;
     cursor: pointer;
 }
 
-.bottom-radius-item {
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
+.cate-name-portrait {
+    border-radius: 0;
 }
 
 .chapter-item {
