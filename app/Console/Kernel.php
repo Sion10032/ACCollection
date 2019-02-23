@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\UpdateResources::class,
-        Commands\ClearResources::class
+        Commands\ClearResources::class,
+        Commands\SendUpdate::class
     ];
 
     /**
@@ -29,10 +30,10 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         
         // 每小时更新漫画信息
-        // $schedule->command('update-resources')->hourly();
+        $schedule->command('update-resources')->hourly(5);
 
         // 每天发送更新提醒邮件
-        $schedule->command('update-resources')->dailyAt('23:30');
+        $schedule->command('send-update')->dailyAt('23:30');
 
         // 每小时清理，减少更新数据量
         $schedule->command('clear-resources')->hourlyAt(1);
