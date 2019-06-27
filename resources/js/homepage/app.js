@@ -2,6 +2,10 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLocalStorage from 'vue-localstorage'
+import VueAuth from '@websanova/vue-auth'
+import VueAuthAuth from '@websanova/vue-auth/drivers/auth/bearer.js'
+import VueAuthHttp from '@websanova/vue-auth/drivers/http/axios.1.x.js'
+import VueAuthRouter from '@websanova/vue-auth/drivers/router/vue-router.2.x.js'
 import App from './App.vue'
 import router from './routers.js'
 import 'normalize.css'
@@ -10,10 +14,10 @@ Vue.use(VueAxios, axios)
 Vue.use(VueLocalStorage)
 
 Vue.router = router
-Vue.use(require('@websanova/vue-auth'), {
-    auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
-    http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
-    router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js')
+Vue.use(VueAuth, {
+    auth: VueAuthAuth,
+    http: VueAuthHttp,
+    router: VueAuthRouter
 })
 
 axios.defaults.baseURL = '/api/'

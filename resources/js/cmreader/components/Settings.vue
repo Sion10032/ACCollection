@@ -5,7 +5,7 @@
     >
         <div class="settings-form">
             <div class="settings-item">
-                <p class="text">向左开页</p>
+                <p class="text">向右开页</p>
                 <input
                     type="checkbox"
                     class="switch switch-anim"

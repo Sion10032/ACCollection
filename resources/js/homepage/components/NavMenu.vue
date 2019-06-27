@@ -15,7 +15,7 @@
                 >
                 </nav-item>
             </li>
-            <li
+            <!-- <li
                 class="fresh-button"
                 v-on:click="freshClick"
             >
@@ -23,7 +23,7 @@
                     class="fresh-button-icon"
                     src="/image/navbar/fresh.png"
                 />
-            </li>
+            </li> -->
         </ul>
         <ul class="nav-menu nav-menu-right">
             <li
@@ -98,19 +98,18 @@ export default {
         preventSearchBarSelected: function (selectedItem) {
             console.log('This is search bar.', selectedItem)
         },
-        freshClick: function () {
-            if (++this.freshClickTimes > 2) {
-                this.freshClickTimes = 0
-                this.$axios.get('/resources/fresh').then(
-                    () => alert('后台更新资源成功')
-                );
-            }
-            else {
-                let s = '再点击' + (3 - this.freshClickTimes) + '次则更新后台资源。'
-                alert(s)
-            }
-            
-        }
+        // freshClick: function () {
+        //     if (++this.freshClickTimes > 2) {
+        //         this.freshClickTimes = 0
+        //         this.$axios.get('/resources/fresh').then(
+        //             () => alert('后台更新资源成功')
+        //         );
+        //     }
+        //     else {
+        //         let s = '再点击' + (3 - this.freshClickTimes) + '次则更新后台资源。'
+        //         alert(s)
+        //     }
+        // }
     }
 };
 </script>

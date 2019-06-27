@@ -1,5 +1,5 @@
 /node_modules
-/public/cache
+/public/cache/*
 /public/hot
 /public/js
 /public/css
@@ -17,3 +17,4 @@ yarn-error.log
 .env
 .phpunit.result.cache
 composer.lock
+package-lock.json

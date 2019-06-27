@@ -30,7 +30,7 @@
                 <div class="book-info-text-wrapper">
                     <p class="book-info-text">
                         <span>作者：</span>
-                        <span class="book-author">{{ bookDetial.author.join(',') }}</span>
+                        <span class="book-author">{{ bookDetial.author && bookDetial.author.join(',') }}</span>
                     </p>
                     <p class="book-info-text">
                         <span>连载状态：</span>
@@ -210,7 +210,7 @@ export default {
     flex-shrink: 0;
     max-width: 100%;
     width: 30rem;
-    height: fit-content;
+    height: 17rem;
     padding: 1rem;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 0.5rem;
