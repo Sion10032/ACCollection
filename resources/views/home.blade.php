@@ -6,8 +6,8 @@
         <title>ACCollection</title>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="full-screen" content="true">
-        <link rel="bookmark" type="image/png" href="/image/ui/avatar-karen.png">
-        <link rel="apple-touch-icon" href="/image/ui/avatar-karen.png">
+        <link rel="bookmark" type="image/png" href="/image/application-icon.png">
+        <link rel="apple-touch-icon" href="/image/application-icon.png">
         <link rel="shortcut icon" href="/favicon.ico">
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     </head>
