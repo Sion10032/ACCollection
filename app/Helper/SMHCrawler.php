@@ -370,6 +370,19 @@ class SMHCrawer
         return $base64Image;
     }
 
+    public static function pic($bid, $cid, $url)
+    {
+        $option = array(
+            'http' => array(
+                'header' => 'Referer: ' . 'https://www.manhuagui.com/comic/' . $bid . '/' . $cid . '.html',
+            ),
+        );
+
+        $img = file_get_contents($url, false, stream_context_create($option));
+
+        return $img;
+    }
+
     private static function getHtml($url)
     {
         $curl = curl_init();
