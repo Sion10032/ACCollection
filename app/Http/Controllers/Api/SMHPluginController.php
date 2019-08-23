@@ -38,7 +38,10 @@ class SMHPluginController extends Controller
     {
         $req = $request->all();
         return response(
-            SMHCrawer::pic($req['bid'], $req['cid'], $req['path'] . '&md5=' .$req['md5'])
+            SMHCrawer::pic(
+                $req['bid'], $req['cid'], 
+                $req['path'] . '?cid=' . $req['cid'] . '&md5=' .$req['md5']
+            )
         )->header('content-type', 'image/webp;charset=UTF-8');
     }
     
