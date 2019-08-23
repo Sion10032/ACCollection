@@ -378,9 +378,16 @@ class SMHCrawer
             ),
         );
 
-        $img = file_get_contents($url, false, stream_context_create($option));
+        $img = imagecreatefromstring(file_get_contents($url, false, stream_context_create($option)));
 
-        return $img;
+        ob_start();
+        imagejpeg($img, null, 100);
+        $jpeg = ob_get_contents();
+        ob_end_clean();
+
+        imagedestroy($img);
+
+        return $jpeg;
     }
 
     private static function getHtml($url)

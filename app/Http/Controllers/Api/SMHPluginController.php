@@ -42,7 +42,7 @@ class SMHPluginController extends Controller
                 $req['bid'], $req['cid'], 
                 $req['path'] . '?cid=' . $req['cid'] . '&md5=' .$req['md5']
             )
-        )->header('content-type', 'image/webp;charset=UTF-8');
+        )->header('content-type', 'image/jpeg;charset=UTF-8');
     }
     
     public function getPic(Request $request)
