@@ -42,7 +42,9 @@ export default {
                 tmp['chapter'] = result.data['chapter']
                 tmp['files'] = new Array(result.data['files'].length)
                 for (let i = 0; i < result.data['files'].length; ++i)
-                    tmp['files'][i] = result.data['path'] + result.data['files'][i] + result.data['param']
+                    tmp['files'][i] = 
+                        '/SMH/pic?path=' + result.data['path'] + result.data['files'][i]
+                        + result.data['param'].replace('?', '&')
                 _this.chapterData = tmp
             })
             _this.updateFavorite()

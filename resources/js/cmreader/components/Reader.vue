@@ -7,10 +7,10 @@
         />
         <toolbar-top
             v-if="isGetData"
-            v-bind:isToolbarShow="isToolbarShow"
-            v-bind:chapter="chapterData.chapter"
-            v-bind:title="chapterData.title"
-            v-bind:bid="chapterData.bid"
+            :isToolbarShow="isToolbarShow"
+            :chapter="chapterData.chapter"
+            :title="chapterData.title"
+            :bid="chapterData.bid"
         >
         </toolbar-top>
         <div
@@ -20,48 +20,43 @@
             <transition name="pic-appear">
                 <settings
                     v-show="isSettingsShow"
-                    v-on:updateSettings="updateSettings"
-                    v-on:showSettings="showSettings"
+                    @updateSettings="updateSettings"
+                    @showSettings="showSettings"
                 >
                 </settings>
             </transition>
             <div class="mask">
                 <div
                     class="left"
-                    v-on:click="isReverse ? prevPage() : nextPage()"
+                    @click="isReverse ? prevPage() : nextPage()"
                 ></div>
                 <div
                     class="center"
-                    v-on:click="isToolbarShow = !isToolbarShow"
+                    @click="isToolbarShow = !isToolbarShow"
                 ></div>
                 <div
                     class="right"
-                    v-on:click="isReverse ? nextPage() : prevPage()"
+                    @click="isReverse ? nextPage() : prevPage()"
                 ></div>
             </div>
-            <img
-                class="load-img"
-                src="/image/ui/loading.gif"
-                v-show="this.imgs[this.curPage].Loading"
-            />
             <transition-group name="pic-appear">
                 <img
                     class="cm-img"
-                    v-for="img in this.imgs"
-                    v-bind:key="img.page"
-                    v-show="!img.Loading && (img.page == curPage)"
-                    v-bind:src="img.data"
+                    v-for="(img, index) in this.chapterData.files"
+                    :key="index"
+                    v-show="index == curPage"
+                    :src="img"
                 />
             </transition-group>
         </div>
         <toolbar-bottom
             v-if="isGetData"
-            v-bind:isReverse="isReverse"
-            v-bind:isToolbarShow="isToolbarShow"
-            v-bind:totalPage="chapterData.files.length"
-            v-bind:curPage="curPage"
-            v-on:changePage="changePage"
-            v-on:showSettings="showSettings"
+            :isReverse="isReverse"
+            :isToolbarShow="isToolbarShow"
+            :totalPage="chapterData.files.length"
+            :curPage="curPage"
+            @changePage="changePage"
+            @showSettings="showSettings"
         >
         </toolbar-bottom>
     </div>
@@ -90,61 +85,19 @@ export default {
             isReverse: false,
             isCheck: true,
             isPreLoad: true,
-            cmImg: {},
-            curPage: -1,
-            imgs: []
+            curPage: -1
         }
     },
     watch: {
         chapterData: function () {
-            this.imgs = []
-            for (let i = 0; i < this.chapterData.files.length; ++i)
-                this.imgs.push({ page: i, Loading: false, data: '' })
             this.curPage = 0
             this.isGetData = true
         },
         curPage: function () {
             console.log('Page Change:', this.curPage)
-            this.loadPic()
         }
     },
     methods: {
-        loadPic: function () {
-            if (
-                !this.imgs[this.curPage].data &&
-                !this.imgs[this.curPage].Loading
-            )
-                this.getPic(this.curPage)
-            if (this.isPreLoad) {
-                if (this.curPage == this.chapterData.files.length - 1)
-                    return
-                else {
-                    if (
-                        this.imgs[this.curPage + 1].data == '' &&
-                        this.imgs[this.curPage + 1].Loading == false
-                    )
-                        this.getPic(this.curPage + 1)
-                }
-            }
-        },
-        getPic: function (index) {
-            console.log('Get Img', index, 'from network.')
-            let _this = this
-            _this.imgs[index].Loading = true
-            _this.$axios.post('/SMH/getpic',
-                {
-                    'bid': _this.chapterData.bid,
-                    'cid': _this.chapterData.cid,
-                    'url': _this.chapterData.files[index]
-                }
-            ).then(function (res) {
-                _this.imgs[index].data = res.data
-                _this.imgs[index].Loading = false
-                console.log('Get Img', index, 'from network success.')
-            }).catch(function (error) {
-                _this.imgs[index].Loading = false
-            });
-        },
         changePage: function (newPage) {
             this.curPage = newPage
         },
