@@ -43,7 +43,7 @@
                 <img
                     class="cm-img"
                     v-for="(img, index) in this.chapterData.files"
-                    :key="index"
+                    :key="'img' + index"
                     v-show="index == curPage"
                     :src="img"
                 />
