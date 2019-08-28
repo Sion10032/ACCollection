@@ -308,9 +308,9 @@ class SMHCrawer
         $pics['chapter'] = $info['chapter'];
         $pics['path'] = 'https://i.hamreus.com' . $json['path'];
         $pics['param'] = "?cid=" . $json['cid'] . '&md5=' . $json['sl']['md5'];
-        $pics['files'] = $json['files'];
-        // foreach($json['files'] as $file)
-        //     array_push($pics['files'], $path . $file . $parm);
+        $pics['files'] = [];
+        foreach($json['files'] as $file)
+            array_push($pics['files'], str_replace('.jpg.webp', '.jpg', $file));
 
         return str_replace("\\/", "/", json_encode($pics, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
     }
@@ -378,16 +378,7 @@ class SMHCrawer
             ),
         );
 
-        $img = imagecreatefromstring(file_get_contents($url, false, stream_context_create($option)));
-
-        ob_start();
-        imagejpeg($img, null, 100);
-        $jpeg = ob_get_contents();
-        ob_end_clean();
-
-        imagedestroy($img);
-
-        return $jpeg;
+        return file_get_contents($url, false, stream_context_create($option));
     }
 
     private static function getHtml($url)
