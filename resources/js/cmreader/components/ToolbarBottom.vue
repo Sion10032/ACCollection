@@ -6,26 +6,26 @@
         >
             <div
                 class="item-wrapper progress"
-                v-bind:class="{ 're-dir' : isReverse }"
+                :class="{ 're-dir' : isReverse }"
             >
                 <p class="text"> {{ totalPage }} </p>
                 <input
                     id="proline"
-                    v-bind:class="{ reverse : !isReverse }"
+                    :class="{ reverse : !isReverse }"
                     type="range"
                     min="1"
-                    v-bind:max="totalPage"
-                    v-bind:value="curPage + 1"
-                    v-on:input="$emit('changePage', $event.target.value - 1)"
+                    :max="totalPage"
+                    :value="curPage + 1"
+                    @input="$emit('changePage', $event.target.value - 1)"
                 />
                 <p class="text"> {{ curPage + 1 }} </p>
             </div>
             <div
                 class="item-wrapper"
-                v-on:click="settingsClick"
+                @click="settingsClick"
             >
                 <img
-                    class="settings-button-img"
+                    class="button-img"
                     src="/image/ui/settings.png"
                 />
             </div>
@@ -139,7 +139,7 @@ input[type="range"]::-webkit-slider-thumb {
     border: solid 1px #ddd;
 }
 
-.settings-button-img {
+.button-img {
     width: 2rem;
     height: 2rem;
     margin: 1rem;

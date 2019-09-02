@@ -5,20 +5,30 @@
             v-show="isToolbarShow"
         >
             <div
-                class="back-button"
-                v-on:click="goBack"
+                class="button-wrapper"
+                @click="goBack"
             >
                 <img
-                    class="back-button-img"
+                    class="button-img"
                     src="/image/ui/back.png"
                 />
             </div>
-            <p class="chapter text"> {{ chapter }} </p>
-            <p class="text">-</p>
-            <p
-                class="title text"
-                v-bind:title="title"
-            > {{ title }} </p>
+            <span class="title-wrapper">
+                <p class="chapter text"> {{ chapter }}</p>
+                <p
+                    class="title text"
+                    :title="title"
+                >{{ title }} </p>
+            </span>
+            <div
+                class="button-wrapper"
+                @click="$emit('reload')"
+            >
+                <img
+                    class="button-img"
+                    src="/image/ui/refresh.png"
+                />
+            </div>
         </div>
     </transition>
 </template>
@@ -56,25 +66,29 @@ export default {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
-.back-button {
+.button-wrapper {
     cursor: pointer;
     height: 100%;
-    padding: 1rem 1rem 1rem 0.5rem;
+    padding: 1rem 1rem 1rem 1rem;
     box-sizing: border-box;
 }
 
-.back-button:hover {
+.button-wrapper:hover {
     background-color: rgba(0, 0, 0, 0.25);
 }
 
-.back-button-img {
+.button-img {
     width: 2rem;
     height: 2rem;
 }
 
+.title-wrapper {
+    width: calc(100% - 8rem);
+}
+
 .text {
+    margin: 0;
     color: #fff;
-    padding-right: 0.5rem;
 }
 
 .chapter {
@@ -83,7 +97,7 @@ export default {
 
 .title {
     font-size: 1rem;
-    max-width: 8rem;
+    width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
