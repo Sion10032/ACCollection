@@ -1,7 +1,7 @@
 <template>
     <div
         class="settings-wrapper"
-        v-on:click.self="applySettings(false)"
+        @click.self="applySettings(false)"
     >
         <div class="settings-form">
             <div class="settings-item">
@@ -30,7 +30,7 @@
             </div>
             <div
                 class="apply-button"
-                v-on:click="applySettings(true)"
+                @click="applySettings(true)"
             >
                 <p class="text">Apply</p>
             </div>

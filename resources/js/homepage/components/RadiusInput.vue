@@ -1,8 +1,8 @@
 <template>
     <input
         class="input-el"
-        v-bind:value="value"
-        v-on:input="$emit('input', $event.target.value)"
+        :value="value"
+        @input="$emit('input', $event.target.value)"
     />
 </template>
 

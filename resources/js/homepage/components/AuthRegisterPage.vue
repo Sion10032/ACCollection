@@ -1,5 +1,5 @@
 <template>
-    <auth-wrapper v-bind:pageName="'register'">
+    <auth-wrapper :pageName="'register'">
         <form>
             <p class="text">Name:</p>
             <radius-input v-model="name" />
@@ -19,8 +19,8 @@
         <div class="option-wrapper"></div>
         <div class="button-wrapper">
             <radius-button
-                v-bind:text="'Register'"
-                v-on:click.native="registerClick"
+                :text="'Register'"
+                @click.native="registerClick"
             />
         </div>
     </auth-wrapper>

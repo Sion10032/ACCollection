@@ -1,8 +1,8 @@
 <template>
     <div
         class="nav-item"
-        v-bind:class="{ 'nav-item-selected' : name == selectedItem}"
-        v-on:click="navItemOnClick"
+        :class="{ 'nav-item-selected' : name == selectedItem}"
+        @click="navItemOnClick"
     >
         <slot></slot>
     </div>

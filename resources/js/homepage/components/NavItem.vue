@@ -1,8 +1,8 @@
 <template>
-    <div v-on:click="navItemOnClick">
+    <div @click="navItemOnClick">
         <img
             class="nav-item-icon"
-            v-bind:src="infos.icon"
+            :src="infos.icon"
         />
         <p
             class="nav-item-text"
