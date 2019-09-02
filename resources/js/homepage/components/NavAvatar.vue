@@ -1,11 +1,11 @@
 <template>
     <div
         class="avatar-wrapper"
-        v-on:click="avatarClick"
+        @click="avatarClick"
     >
         <img
             class="avatar"
-            v-bind:src="this.$auth.check() ? '/image/ui/avatar-karen.png' : '/image/ui/avatar-saki.png'"
+            :src="this.$auth.check() ? '/image/ui/avatar-karen.png' : '/image/ui/avatar-saki.png'"
         >
     </div>
 </template>

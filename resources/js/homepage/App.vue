@@ -1,6 +1,6 @@
 <template>
     <div id="acc" v-if="$auth.ready()">
-        <div id="scroll-view" class="scrollbar" v-on:scroll.passive="onScroll">
+        <div id="scroll-view" class="scrollbar" @scroll.passive="onScroll">
             <transition name="router-trans">
                 <router-view name="wrapper" style="width: 100vw;"></router-view>
             </transition>

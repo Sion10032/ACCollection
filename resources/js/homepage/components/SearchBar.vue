@@ -3,7 +3,7 @@
         <input
             class="search-input"
             v-model="searchText"
-            v-on:keyup.enter="search"
+            @keyup.enter="search"
         />
     </div>
 </template>

@@ -4,15 +4,15 @@
             <div class="auth-switch">
                 <div
                     class="login-wrapper"
-                    v-bind:class="{ active: pageName == 'login'}"
-                    v-on:click="goPage('login')"
+                    :class="{ active: pageName == 'login'}"
+                    @click="goPage('login')"
                 >
                     <p class="text">Login</p>
                 </div>
                 <div
                     class="register-wrapper"
-                    v-bind:class="{ active: pageName == 'register'}"
-                    v-on:click="goPage('register')"
+                    :class="{ active: pageName == 'register'}"
+                    @click="goPage('register')"
                 >
                     <p class="text">Register</p>
                 </div>

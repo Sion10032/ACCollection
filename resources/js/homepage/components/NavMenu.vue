@@ -4,20 +4,20 @@
             <li
                 is="nav-item-slot"
                 v-for="(navItem, index) in navItems"
-                v-bind:key="index"
-                v-bind:name="navItem.name"
-                v-bind:selectedItem="selectedItem"
-                v-on:setSelectedItem="setSelectedItem"
+                :key="index"
+                :name="navItem.name"
+                :selectedItem="selectedItem"
+                @setSelectedItem="setSelectedItem"
             >
                 <nav-item
-                    v-bind:infos="navItem"
-                    v-bind:isNavItemTextShow="isNavItemTextShow"
+                    :infos="navItem"
+                    :isNavItemTextShow="isNavItemTextShow"
                 >
                 </nav-item>
             </li>
             <!-- <li
                 class="fresh-button"
-                v-on:click="freshClick"
+                @click="freshClick"
             >
                 <img
                     class="fresh-button-icon"
@@ -28,17 +28,17 @@
         <ul class="nav-menu nav-menu-right">
             <li
                 is="nav-item-slot"
-                v-bind:name="'SearchBar'"
-                v-bind:selectedItem="selectedItem"
-                v-on:setSelectedItem="preventSearchBarSelected"
+                :name="'SearchBar'"
+                :selectedItem="selectedItem"
+                @setSelectedItem="preventSearchBarSelected"
             >
                 <search-bar></search-bar>
             </li>
             <li
                 is="nav-item-slot"
-                v-bind:name="'Avatar'"
-                v-bind:selectedItem="selectedItem"
-                v-on:setSelectedItem="setSelectedItem"
+                :name="'Avatar'"
+                :selectedItem="selectedItem"
+                @setSelectedItem="setSelectedItem"
             >
                 <nav-avatar></nav-avatar>
             </li>

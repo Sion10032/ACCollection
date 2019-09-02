@@ -1,9 +1,9 @@
 <template>
-    <div class="menu shadow" v-bind:class="{'menu-portrait': isPortrait}">
+    <div class="menu shadow" :class="{'menu-portrait': isPortrait}">
         <div
             class="cate-name"
-            v-bind:class="{'cate-name-portrait': isPortrait}"
-            v-on:click="isExpend = !isExpend"
+            :class="{'cate-name-portrait': isPortrait}"
+            @click="isExpend = !isExpend"
         >
             <p class="cate-name-text">{{menu.cateName}}</p>
         </div>
@@ -14,13 +14,13 @@
             <div
                 class="chapter-item shadow"
                 v-for="chapter in menu.cateMenu"
-                v-bind:key="chapter.cid"
-                v-on:click="goChapter(chapter.cid)"
-                v-bind:class="{ 'have-read' : favoriteInfo.lastChapter == chapter.cid }"
+                :key="chapter.cid"
+                @click="goChapter(chapter.cid)"
+                :class="{ 'have-read' : favoriteInfo.lastChapter == chapter.cid }"
             >
                 <p
                     class="chapter-name"
-                    v-bind:title="chapter.name"
+                    :title="chapter.name"
                 > {{chapter.name}} </p>
                 <p class="chapter-page"> {{chapter.page + 'p'}} </p>
             </div>

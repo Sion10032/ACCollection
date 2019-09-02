@@ -1,6 +1,6 @@
 <template>
     <div class="favo-wrapper">
-        <book-group v-bind:bookGroup="bookGroup">
+        <book-group :bookGroup="bookGroup">
         </book-group>
     </div>
 </template>

@@ -1,21 +1,21 @@
 <template>
     <div
         class="book-item"
-        v-bind:class="isDetailed ? 'book-item-detailed': 'book-item-lite'"
-        v-on:click="goBookDetailPage()"
+        :class="isDetailed ? 'book-item-detailed': 'book-item-lite'"
+        @click="goBookDetailPage()"
     >
         <img
             class="book-img"
-            v-bind:class="isDetailed ? 'book-img-detailed': 'book-img-lite'"
-            v-bind:src="'https://cf.hamreus.com/cpic/b/' + book.bid + '.jpg'"
+            :class="isDetailed ? 'book-img-detailed': 'book-img-lite'"
+            :src="'https://cf.hamreus.com/cpic/b/' + book.bid + '.jpg'"
         />
         <div
             class="book-info"
-            v-bind:class="isDetailed ? 'book-info-detailed': 'book-info-lite'"
+            :class="isDetailed ? 'book-info-detailed': 'book-info-lite'"
         >
             <p
                 class="book-title text"
-                v-bind:class="isDetailed ? 'book-title-detailed': 'book-title-lite'"
+                :class="isDetailed ? 'book-title-detailed': 'book-title-lite'"
             >{{ book.name }}</p>
             <p
                 v-show="isDetailed"

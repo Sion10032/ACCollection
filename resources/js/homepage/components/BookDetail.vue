@@ -5,20 +5,20 @@
         </div>
         <div
             class="book-wrapper"
-            v-bind:class="{'book-menu-portrait' : isPortrait}"
+            :class="{'book-menu-portrait' : isPortrait}"
         >
             <div
                 class="book-info"
-                v-bind:class="{'book-info-portrait' : isPortrait}"
+                :class="{'book-info-portrait' : isPortrait}"
             >
                 <div class="book-func-wrapper">
                     <img
                         class="book-cover"
-                        v-bind:src="'https://cf.hamreus.com/cpic/b/' + bid + '.jpg'"
+                        :src="'https://cf.hamreus.com/cpic/b/' + bid + '.jpg'"
                     >
                     <div
                         class="fav-button"
-                        v-on:click="changeFavorite"
+                        @click="changeFavorite"
                     >
                         <img
                             class="fav-button-img"
@@ -51,11 +51,11 @@
                 <book-menu
                     class="book-menu"
                     v-for="cateItem in bookDetial.dir"
-                    v-bind:key="cateItem.cateName"
-                    v-bind:bid="bookDetial.bid"
-                    v-bind:favoriteInfo="favoriteInfo"
-                    v-bind:menu="cateItem"
-                    v-bind:isPortrait="isPortrait"
+                    :key="cateItem.cateName"
+                    :bid="bookDetial.bid"
+                    :favoriteInfo="favoriteInfo"
+                    :menu="cateItem"
+                    :isPortrait="isPortrait"
                 ></book-menu>
             </div>
         </div>

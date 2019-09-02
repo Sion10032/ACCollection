@@ -7,6 +7,7 @@
         />
         <toolbar-top
             v-if="isGetData"
+            @reload="reload(curPage)"
             :isToolbarShow="isToolbarShow"
             :chapter="chapterData.chapter"
             :title="chapterData.title"
@@ -42,10 +43,10 @@
             <transition-group name="pic-appear">
                 <img
                     class="cm-img"
-                    v-for="(img, index) in this.chapterData.files"
+                    v-for="(img, index) in imgs"
                     :key="'img' + index"
                     v-show="index == curPage"
-                    :src="img"
+                    :src="img.isLoad && img.url"
                 />
             </transition-group>
         </div>
@@ -53,7 +54,7 @@
             v-if="isGetData"
             :isReverse="isReverse"
             :isToolbarShow="isToolbarShow"
-            :totalPage="chapterData.files.length"
+            :totalPage="imgs.length"
             :curPage="curPage"
             @changePage="changePage"
             @showSettings="showSettings"
@@ -85,6 +86,7 @@ export default {
             isReverse: false,
             isCheck: true,
             isPreLoad: true,
+            imgs: [],
             curPage: -1
         }
     },
@@ -92,9 +94,14 @@ export default {
         chapterData: function () {
             this.curPage = 0
             this.isGetData = true
+            for (let i = 0; i < this.chapterData.files.length; ++i)
+                this.imgs.push({url: this.chapterData.files[i], isLoad: false})
         },
         curPage: function () {
             console.log('Page Change:', this.curPage)
+            this.imgs[this.curPage].isLoad = true
+            if (this.isPreLoad && this.curPage != this.imgs.length)
+                this.imgs[this.curPage + 1].isLoad = true
         }
     },
     methods: {
@@ -140,6 +147,9 @@ export default {
             else
                 this.isJump = false
             this.curPage = Math.min(this.chapterData.files.length - 1, this.curPage + 1)
+        },
+        reload: function (pageNum) {
+            this.imgs[pageNum].url = this.chapterData.files[pageNum] + '&t=' + new Date().getTime()
         },
         updateSettings: function (isReverse, isCheck, isPreLoad) {
             this.isReverse = isReverse

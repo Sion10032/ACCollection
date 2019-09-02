@@ -1,9 +1,9 @@
 <template>
     <div class="wrapper">
         <reader
-            v-bind:chapterData="chapterData"
-            v-on:goPrevChapter="goPrevChapter"
-            v-on:goNextChapter="goNextChapter"
+            :chapterData="chapterData"
+            @goPrevChapter="goPrevChapter"
+            @goNextChapter="goNextChapter"
         >
         </reader>
     </div>

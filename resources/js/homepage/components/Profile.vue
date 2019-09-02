@@ -6,7 +6,7 @@
         >
             <img
                 class="avatar"
-                v-bind:src="
+                :src="
                     '/image/ui/avatar-' + 
                     (this.$auth.user().id == userId ? 'karen.png' : 'saki.png')
                 "
@@ -20,8 +20,8 @@
             <radius-button
                 class="logout-button"
                 v-if="this.$auth.user().id == userId"
-                v-bind:text="'Logout'"
-                v-on:click.native="logoutClick"
+                :text="'Logout'"
+                @click.native="logoutClick"
             />
         </div>
     </div>

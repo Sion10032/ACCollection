@@ -2,16 +2,16 @@
     <div class="book-group-wrapper">
         <div
             class="book-group-header"
-            v-on:click.self="isExpend = !isExpend"
+            @click.self="isExpend = !isExpend"
         >
             <p class="text">{{ bookGroup.groupName }}</p>
             <button
                 class="mode-switch"
-                v-on:click="isDetailed = !isDetailed"
+                @click="isDetailed = !isDetailed"
             >
                 <img
                     class="button-img"
-                    v-bind:src="'/image/ui/button-mode-' + (isDetailed ? 'detailed.png' : 'lite.png')"
+                    :src="'/image/ui/button-mode-' + (isDetailed ? 'detailed.png' : 'lite.png')"
                 />
             </button>
         </div>
@@ -19,15 +19,15 @@
             tag="div"
             v-show="isExpend"
             class="book-group"
-            v-bind:class="isDetailed ? 'book-group-detailed': 'book-group-lite'"
+            :class="isDetailed ? 'book-group-detailed': 'book-group-lite'"
             name="book-group-load"
         >
             <book-item
                 v-for="book in bookGroup.books"
-                v-bind:key="book.bid"
-                v-bind:book="book"
-                v-bind:isDetailed="isDetailed"
-                v-on:goBookDetailPage="goBookDetailPage"
+                :key="book.bid"
+                :book="book"
+                :isDetailed="isDetailed"
+                @goBookDetailPage="goBookDetailPage"
             >
             </book-item>
         </transition-group>
