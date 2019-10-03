@@ -36,6 +36,7 @@
     "what-input": "^5.2.3"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "vant": "^2.2.5"
   }
 }
