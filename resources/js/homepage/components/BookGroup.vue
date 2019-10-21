@@ -50,7 +50,7 @@ export default {
     data: function () {
         return {
             isExpend: true,
-            isDetailed: false
+            isDetailed: true
         }
     },
     methods: {
