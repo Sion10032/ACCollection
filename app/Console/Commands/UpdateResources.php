@@ -47,6 +47,8 @@ class UpdateResources extends Command
 
         foreach ($resources as &$res) {
             $book = UpdateResources::findBook($res['bid'], $newInfos);
+            if (!isset($book))
+                continue;
             $res->update([
                 'status' => $book['status'],
                 'update' => $book['update']
