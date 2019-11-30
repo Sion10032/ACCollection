@@ -41,24 +41,38 @@ class UpdateResources extends Command
      */
     public function handle()
     {
-        
-        if (rand(0, 100) < 80) {
-            echo "Skip.\n";
-            return;
-        }
-
         $resources = Resource::all();
+        $newInfos = json_decode(SMHCrawer::latest(), true);
+        // print_r($newInfos);
 
         foreach ($resources as &$res) {
-            $newInfo = json_decode(SMHCrawer::book($res['bid']), true);
-            // print_r($newInfo);
+            $book = UpdateResources::findBook($res['bid'], $newInfos);
             $res->update([
-                'name' => $newInfo['name'],
-                'author' => join(',', $newInfo['author']),
-                'status' => $newInfo['status'],
-                'update' => $newInfo['update']
+                'status' => $book['status'],
+                'update' => $book['update']
             ]);
-            echo $newInfo['name'] . ' ' . $newInfo['bid'] . ' update success.', "\n";
+            echo $book['name'] . ' ' . $book['bid'] . ' update success.', "\n";
         }
+
+        // foreach ($resources as &$res) {
+        //     // $newInfo = json_decode(SMHCrawer::book($res['bid']), true);
+        //     // print_r($newInfo);
+        //     $res->update([
+        //         'name' => $newInfo['name'],
+        //         'author' => join(',', $newInfo['author']),
+        //         'status' => $newInfo['status'],
+        //         'update' => $newInfo['update']
+        //     ]);
+        //     echo $newInfo['name'] . ' ' . $newInfo['bid'] . ' update success.', "\n";
+        // }
+    }
+
+    private function findBook($bid, $books)
+    {
+        $res = NULL;
+        foreach ($books as $book)
+            if ($book['bid'] == $bid)
+                return $book;
+        return NULL;
     }
 }

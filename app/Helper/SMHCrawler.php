@@ -323,11 +323,14 @@ class SMHCrawer
         $books = $html->rules([
             "name" => ['a.cover', 'title'],
             "bid" => ['a.cover', 'href'],
+            "status" => ['a.cover span:last-child', 'class'],
+            "update" => ['span.dt', 'text']
         ])->queryData();
 
         foreach ($books as &$book) {
             $book['bid'] = str_replace('comic', '', $book['bid']);
             $book['bid'] = str_replace('/', '', $book['bid']);
+            $book['status'] = $book['status'] == 'sl' ? '连载' : '完结';
         }
 
         return json_encode($books, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
