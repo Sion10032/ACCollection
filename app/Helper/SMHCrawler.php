@@ -310,7 +310,7 @@ class SMHCrawer
         $pics['param'] = "?cid=" . $json['cid'] . '&md5=' . $json['sl']['md5'];
         $pics['files'] = [];
         foreach($json['files'] as $file)
-            array_push($pics['files'], str_replace('.jpg.webp', '.jpg', $file));
+            array_push($pics['files'], str_replace('.webp', '', $file));
 
         return str_replace("\\/", "/", json_encode($pics, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
     }

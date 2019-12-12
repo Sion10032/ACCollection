@@ -30,42 +30,35 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
-<style scoped>
+<style>
 #acc {
     display: flex;
     flex-direction: column;
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url(/image/background-yuki.jpg);
-    /* background-size: cover; */
-    background-repeat: repeat;
+    background: #f7f8fa;
 }
-
 #nav {
     flex-shrink: 0;
     width: 100%;
 }
-
 #scroll-view {
     width: 100%;
     flex-grow: 1;
     overflow-y: scroll;
     overflow-x: hidden;
 }
-
 .scrollbar::-webkit-scrollbar {
     display: none;
     width: 6px;
 }
-
 .scrollbar::-webkit-scrollbar-thumb {
     border-radius: 6px;
     width: 6px;
     background: rgba(0, 0, 0, 0.25);
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
 }
-
 .router-trans-enter-active， .router-trans-leave-active {
     transition: all 0.5s;
 }
@@ -73,15 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
 .router-trans-leave-to {
     opacity: 0;
 }
-
-
-/* .slide-down-enter-active,
-.slide-down-leave-active {
-    transition: all 0.5s;
+.divider {
+  height: 0.5rem;
+  width: 0.5rem;
 }
-.slide-down-enter,
-.slide-down-leave-to {
-    transform: translateY(100%);
-    opacity: 0;
-} */
 </style>
