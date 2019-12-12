@@ -23,6 +23,7 @@
     "mem": ">=4.0.0",
     "node-sass": "^4.11.0",
     "popper.js": "^1.12",
+    "px2rem-loader": "^0.1.9",
     "qs": "^6.6.0",
     "resolve-url-loader": "^2.3.1",
     "sass-loader": "^7.1.0",
@@ -36,6 +37,7 @@
     "what-input": "^5.2.3"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "vant": "^2.2.5"
   }
 }

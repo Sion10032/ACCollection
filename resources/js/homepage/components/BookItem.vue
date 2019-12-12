@@ -51,42 +51,47 @@ export default {
 .book-item {
     cursor: pointer;
     display: flex;
-    border-radius: 0.2rem;
-    background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.4);
 }
 
 .book-item-lite {
     flex-direction: column;
     width: 8rem;
-    height: 11rem;
+    height: 12rem;
     margin: 0.5rem;
 }
 
 .book-item-detailed {
+    position: relative;
     flex-direction: row;
     height: 6rem;
     width: 100%;
     margin: 0.25rem;
 }
 
+.book-item-detailed::after {
+    content: " ";
+    width: 100%;
+    height: 0.025rem;
+    position: absolute;
+    bottom: -0.4rem;
+    background-color: #a8a9ac;
+    border-width: 0;
+}
+
 .book-img {
     object-fit: cover;
     flex-shrink: 0;
-    border-top-left-radius: 0.2rem;
-    border-top-right-radius: 0.2rem;
+    border-radius: 0.25rem;
 }
 
 .book-img-lite {
     width: 8rem;
     height: 10rem;
-    border-radius: 0.2rem 0.2rem 0 0;
 }
 
 .book-img-detailed {
     width: 4rem;
     height: 6rem;
-    border-radius: 0.2rem 0 0 0.2rem;
 }
 
 .book-info {
@@ -98,6 +103,7 @@ export default {
 }
 
 .book-info-lite {
+    margin-top: 0.5rem;
     padding: 0rem 0.25rem;
 }
 

@@ -49,6 +49,7 @@ export default {
     },
     data: function () {
         return {
+            activeName: '1',
             isExpend: true,
             isDetailed: true
         }
@@ -101,7 +102,7 @@ export default {
 .book-group {
     display: grid;
     justify-items: center;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: white;
     box-sizing: border-box;
 }
 
