@@ -1,6 +1,6 @@
 <template>
     <div class="book-group-wrapper">
-        <div
+        <!-- <div
             class="book-group-header"
             v-on:click.self="isExpend = !isExpend"
         >
@@ -14,7 +14,7 @@
                     v-bind:src="'/image/ui/button-mode-' + (isDetailed ? 'detailed.png' : 'lite.png')"
                 />
             </button>
-        </div>
+        </div> -->
         <transition-group
             tag="div"
             v-show="isExpend"
