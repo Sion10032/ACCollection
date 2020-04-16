@@ -45,7 +45,7 @@ export default {
                     tmp['files'][i] = 
                         '/api/SMH/pic?path=' + result.data['path'] + result.data['files'][i]
                         + result.data['param'].replace('?', '&') +
-                        '&bid=' + result.data['bid']
+                        '&bid=' + result.data['bid'] + '&cid=' + result.data['cid']
                 _this.chapterData = tmp
             })
             _this.updateFavorite()
