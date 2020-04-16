@@ -307,7 +307,7 @@ class SMHCrawer
         $pics['title'] = $info['title'];
         $pics['chapter'] = $info['chapter'];
         $pics['path'] = 'https://i.hamreus.com' . $json['path'];
-        $pics['param'] = "?cid=" . $json['cid'] . '&md5=' . $json['sl']['md5'];
+        $pics['param'] = "?e=" . $json['sl']['e'] . '&m=' . $json['sl']['m'];
         $pics['files'] = [];
         foreach($json['files'] as $file)
             array_push($pics['files'], str_replace('.webp', '', $file));

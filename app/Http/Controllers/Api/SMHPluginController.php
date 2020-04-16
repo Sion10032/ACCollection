@@ -40,7 +40,7 @@ class SMHPluginController extends Controller
         return response(
             SMHCrawer::pic(
                 $req['bid'], $req['cid'], 
-                $req['path'] . '?cid=' . $req['cid'] . '&md5=' .$req['md5']
+                $req['path'] . '?e=' . $req['e'] . '&m=' .$req['m']
             )
         )->header('content-type', 'image/jpeg;charset=UTF-8');
     }
